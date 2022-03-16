@@ -6,6 +6,7 @@ import { ProgressComponent } from './progress/progress.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -22,6 +23,7 @@ import { CommonModule } from '@angular/common';
     Grafica1Component,
     PagesComponent],
   imports: [
+    FormsModule,
     CommonModule,
     SharedModule,
     RouterModule
