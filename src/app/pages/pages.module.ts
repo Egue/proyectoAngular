@@ -1,3 +1,4 @@
+import { ComponetsModule } from './../components/componets.module';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from './../shared/shared.module';
 import { PagesComponent } from './pages.component';
@@ -26,7 +27,8 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     CommonModule,
     SharedModule,
-    RouterModule
+    RouterModule,
+    ComponetsModule
 
   ]
 })
