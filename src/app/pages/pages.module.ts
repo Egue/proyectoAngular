@@ -4,15 +4,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-
-import { NgChartsModule } from 'ng2-charts';
-
+ 
 
 import { SharedModule } from './../shared/shared.module';
 import { PagesComponent } from './pages.component';
 import { Grafica1Component } from './grafica1/grafica1.component';
 import { ProgressComponent } from './progress/progress.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DonaComponent } from '../components/dona/dona.component';
+import { AccountSetthingsComponent } from './account-setthings/account-setthings.component';
 
 
 
@@ -24,21 +24,22 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     DashboardComponent,
     ProgressComponent,
     Grafica1Component,
-    PagesComponent
+    PagesComponent,
+    AccountSetthingsComponent
   ],
   exports:[
     DashboardComponent,
     ProgressComponent,
     Grafica1Component,
-    PagesComponent],
+    PagesComponent,
+    AccountSetthingsComponent
+  ],
   imports: [
     FormsModule,
     CommonModule,
     SharedModule,
     RouterModule,
-    ComponetsModule,
-    NgChartsModule
-
+    ComponetsModule
   ]
 })
 export class PagesModule { }
