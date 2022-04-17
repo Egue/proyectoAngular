@@ -13,6 +13,8 @@ import { ProgressComponent } from './progress/progress.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DonaComponent } from '../components/dona/dona.component';
 import { AccountSetthingsComponent } from './account-setthings/account-setthings.component';
+import { PromesasComponent } from './promesas/promesas.component';
+import { RxjsComponent } from './rxjs/rxjs.component';
 
 
 
@@ -25,14 +27,18 @@ import { AccountSetthingsComponent } from './account-setthings/account-setthings
     ProgressComponent,
     Grafica1Component,
     PagesComponent,
-    AccountSetthingsComponent
+    AccountSetthingsComponent,
+    PromesasComponent,
+    RxjsComponent
   ],
   exports:[
     DashboardComponent,
     ProgressComponent,
     Grafica1Component,
     PagesComponent,
-    AccountSetthingsComponent
+    AccountSetthingsComponent,
+    ProgressComponent,
+    RxjsComponent
   ],
   imports: [
     FormsModule,
