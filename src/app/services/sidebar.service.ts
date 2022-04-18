@@ -17,6 +17,22 @@ export class SidebarService {
         {title:'Rxjs' , url:'rxjs'},
       ]
 
+    },
+    {
+      title:'Sistema Gestión',
+      icono:'mdi mdi-bullseye',
+      submenu:[
+        {title:'Permiso Trabajo' , url:'permisoTrabajo'},
+        {title:'Registro Personal' , url:'registroPersona'},
+      ]
+    },
+    {
+      title:'Supergiros',
+      icono:'mdi mdi-bullseye',
+      submenu:[
+        {title:'Permiso Trabajo' , url:'permisoTrabajo'},
+        {title:'aprobar' , url:'aprobarPermisos'},
+      ]
     }
   ];
 

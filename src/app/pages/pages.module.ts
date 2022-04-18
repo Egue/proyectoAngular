@@ -15,6 +15,8 @@ import { DonaComponent } from '../components/dona/dona.component';
 import { AccountSetthingsComponent } from './account-setthings/account-setthings.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { PermisosComponent } from './sistemagestion/permisos/permisos.component';
+import { RegistroEmpleadosComponent } from './sistemagestion/registro-empleados/registro-empleados.component';
 
 
 
@@ -29,7 +31,9 @@ import { RxjsComponent } from './rxjs/rxjs.component';
     PagesComponent,
     AccountSetthingsComponent,
     PromesasComponent,
-    RxjsComponent
+    RxjsComponent,
+    PermisosComponent,
+    RegistroEmpleadosComponent
   ],
   exports:[
     DashboardComponent,
@@ -38,7 +42,8 @@ import { RxjsComponent } from './rxjs/rxjs.component';
     PagesComponent,
     AccountSetthingsComponent,
     ProgressComponent,
-    RxjsComponent
+    RxjsComponent,
+    PermisosComponent
   ],
   imports: [
     FormsModule,

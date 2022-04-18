@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
 
 import { AuthService } from './../auth.service';
@@ -25,7 +26,8 @@ export class RegisterComponent {
 
   constructor(
     private fb:FormBuilder,
-    private authService:AuthService    
+    private authService:AuthService ,
+    private router : Router 
     ) { }
 
   register(){
@@ -40,6 +42,11 @@ export class RegisterComponent {
     .subscribe( (response) => {
       //Swal.fire('Creado con Éxito' , response.response , 'success');
       //if(response?.success)
+      if(response)
+      {
+        Swal.fire('Creado con Éxito' , 'Creado con éxito' , 'success');
+        this.router.navigateByUrl('/login');
+      }
 
     },  (err) => {
       Swal.fire('Error' , err.error.response , 'error');

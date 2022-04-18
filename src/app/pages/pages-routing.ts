@@ -7,6 +7,8 @@ import { PagesComponent } from './pages.component';
 import { NgModule } from '@angular/core';
 import { Routes , RouterModule } from '@angular/router';
 import { Grafica1Component } from './grafica1/grafica1.component';
+import { PermisosComponent } from './sistemagestion/permisos/permisos.component';
+import { RegistroEmpleadosComponent } from './sistemagestion/registro-empleados/registro-empleados.component';
 
 
 const routes:Routes = [
@@ -19,6 +21,9 @@ const routes:Routes = [
     {path:'settings' , component: AccountSetthingsComponent, data:{titulo:'Ajustes de cuenta'}},
     {path:'promesa' , component:  PromesasComponent , data:{titulo:'Promesas'}},
     {path:'rxjs'    , component: RxjsComponent , data:{titulo:'Rxjs'}},
+    {path:'permisoTrabajo'    , component: PermisosComponent , data:{titulo:'Permisos de Trabaja'}},
+    {path:'registroPersona'    , component: RegistroEmpleadosComponent , data:{titulo:'Registro Personal'}},
+
 
     ]
   
