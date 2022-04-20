@@ -2,7 +2,7 @@ import { ComponetsModule } from './../components/componets.module';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
  
 
@@ -17,6 +17,7 @@ import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { PermisosComponent } from './sistemagestion/permisos/permisos.component';
 import { RegistroEmpleadosComponent } from './sistemagestion/registro-empleados/registro-empleados.component';
+import { EmpleadosComponent } from './sistemagestion/empleados/empleados.component';
 
 
 
@@ -33,7 +34,7 @@ import { RegistroEmpleadosComponent } from './sistemagestion/registro-empleados/
     PromesasComponent,
     RxjsComponent,
     PermisosComponent,
-    RegistroEmpleadosComponent
+    RegistroEmpleadosComponent,
   ],
   exports:[
     DashboardComponent,
@@ -43,14 +44,16 @@ import { RegistroEmpleadosComponent } from './sistemagestion/registro-empleados/
     AccountSetthingsComponent,
     ProgressComponent,
     RxjsComponent,
-    PermisosComponent
+    PermisosComponent,
+    RegistroEmpleadosComponent
   ],
   imports: [
     FormsModule,
     CommonModule,
     SharedModule,
     RouterModule,
-    ComponetsModule
+    ComponetsModule,
+    ReactiveFormsModule,
   ]
 })
 export class PagesModule { }

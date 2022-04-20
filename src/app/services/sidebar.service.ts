@@ -24,6 +24,7 @@ export class SidebarService {
       submenu:[
         {title:'Permiso Trabajo' , url:'permisoTrabajo'},
         {title:'Registro Personal' , url:'registroPersona'},
+        
       ]
     },
     {
