@@ -3,11 +3,15 @@ export class Usuario {
     constructor(
         public user:string,
         public email:string,
-        public password:string
-        //public obsional:?string
-    )
-    {
-        
+        public password:string,
+        public id:number,
+        public marca:string,
+        public active:number,
+        public url_img:string,
+        public role:string,
+        public created_at:string,
+        public updated_at:string
 
-    }
+        //public obsional:?string
+    )  {}
 }

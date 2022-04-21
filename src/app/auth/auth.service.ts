@@ -6,12 +6,15 @@ import { Injectable } from '@angular/core';
 import { tap  ,map , catchError} from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
+import { Usuario } from '../models/usuario.model';
 
 const base_url = environment.base_url;
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+  public usuario:Usuario | undefined | null;
 
   constructor(private http:HttpClient,
               private router:Router) { }
@@ -39,6 +42,8 @@ export class AuthService {
     return this.http.post(`${base_url}/auth/login` , formData)
                     .pipe(
                       tap( (resp:any) => {
+                        const { id, user, marca, active, email, url_img, role,created_at,updated_at} = resp.usuario;
+                        this.usuario = new Usuario(user, email,'',id,marca,active,url_img,role,created_at,updated_at)
                         localStorage.setItem('jwt' , resp.response);
                       })
                     );
