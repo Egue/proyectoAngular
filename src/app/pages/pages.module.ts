@@ -18,6 +18,7 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 import { PermisosComponent } from './sistemagestion/permisos/permisos.component';
 import { RegistroEmpleadosComponent } from './sistemagestion/registro-empleados/registro-empleados.component';
 import { EmpleadosComponent } from './sistemagestion/empleados/empleados.component';
+import { UsuariosComponent } from './usuarios/usuarios/usuarios.component';
 
 
 
@@ -35,6 +36,7 @@ import { EmpleadosComponent } from './sistemagestion/empleados/empleados.compone
     RxjsComponent,
     PermisosComponent,
     RegistroEmpleadosComponent,
+    UsuariosComponent,
   ],
   exports:[
     DashboardComponent,
@@ -45,7 +47,8 @@ import { EmpleadosComponent } from './sistemagestion/empleados/empleados.compone
     ProgressComponent,
     RxjsComponent,
     PermisosComponent,
-    RegistroEmpleadosComponent
+    RegistroEmpleadosComponent,
+    UsuariosComponent
   ],
   imports: [
     FormsModule,

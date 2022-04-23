@@ -34,6 +34,13 @@ export class SidebarService {
         {title:'Permiso Trabajo' , url:'permisoTrabajo'},
         {title:'aprobar' , url:'aprobarPermisos'},
       ]
+    },
+    {
+      title:'Configuracion',
+      icono:'icon-wrench',
+      submenu:[
+        {title:'Usuarios' , url: 'usuarios'}
+      ]
     }
   ];
 

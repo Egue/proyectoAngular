@@ -10,6 +10,7 @@ import { Routes , RouterModule } from '@angular/router';
 import { Grafica1Component } from './grafica1/grafica1.component';
 import { PermisosComponent } from './sistemagestion/permisos/permisos.component';
 import { RegistroEmpleadosComponent } from './sistemagestion/registro-empleados/registro-empleados.component';
+import { UsuariosComponent } from './usuarios/usuarios/usuarios.component';
 
 
 const routes:Routes = [
@@ -24,6 +25,7 @@ const routes:Routes = [
     {path:'rxjs'    , component: RxjsComponent , data:{titulo:'Rxjs'}},
     {path:'permisoTrabajo'    , component: PermisosComponent , data:{titulo:'Permisos de Trabaja'}},
     {path:'registroPersona'    , component: RegistroEmpleadosComponent , data:{titulo:'Registro Personal'}},
+    {path:'usuarios'    , component: UsuariosComponent , data:{titulo:'Usuarios'}},
 
 
     ]
