@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators  } from '@angular/forms';
 import Swal from 'sweetalert2';
@@ -20,9 +21,14 @@ export class UsuariosComponent   {
 
   constructor(
     private fb: FormBuilder,
-    private usuarioService:UsuariosService
+    private usuarioService:UsuariosService,
+    private router:Router
     ) {
-      this.listUsuario = this.usuarioService.List().subscribe(); 
+      this.usuarioService.List().subscribe(
+        (response) => {
+          this.listUsuario = response.response;
+        }
+      ); 
      }
  
     /**Funcion registar usuario */
@@ -35,7 +41,8 @@ export class UsuariosComponent   {
 
     this.usuarioService.register(this.formRegister.value)
     .subscribe( (response) => {
-
+      Swal.fire('Creado con Éxito' , 'Creado con éxito' , 'success');
+        this.router.navigateByUrl('usuarios');
     } , 
     (err) => {
       
@@ -54,6 +61,15 @@ export class UsuariosComponent   {
     }
 
     return estado;
+  }
+
+  estatusUser(value:any):boolean
+  {
+    let returnValue:boolean = false;
+    if(value === 1){
+      returnValue= true;
+    }
+    return returnValue;
   }
 
 }
