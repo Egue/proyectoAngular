@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators  } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { UsuariosService } from '../../../services/usuarios.service';
+import { Usuario } from 'src/app/models/usuario.model';
+
+
 
 @Component({
   selector: 'app-usuarios',
@@ -10,8 +13,11 @@ import { UsuariosService } from '../../../services/usuarios.service';
   styles: [
   ]
 })
-export class UsuariosComponent   {
-  public listUsuario:any;
+export class UsuariosComponent  implements OnInit  {
+  public listUsuario:Usuario[] = [];
+  public total:number = 0;
+  public desde:number = 0;
+
   public formSubmitted:boolean = false;
   public formRegister = this.fb.group({
       user: ['',[Validators.required , Validators.minLength(4)]],
@@ -23,13 +29,23 @@ export class UsuariosComponent   {
     private fb: FormBuilder,
     private usuarioService:UsuariosService,
     private router:Router
-    ) {
-      this.usuarioService.List().subscribe(
-        (response) => {
-          this.listUsuario = response.response;
-        }
-      ); 
-     }
+    ) {}
+  ngOnInit(): void {
+    this.cargarListUser();
+  }
+
+  cargarListUser()
+  {
+    this.usuarioService.List(this.desde).subscribe(
+      (response) => {
+        
+        this.total = response.response.total;
+        this.listUsuario = response.response.usuarios
+      }
+    )
+  }
+
+   /**Cargar Lista de usuarios */
  
     /**Funcion registar usuario */
   crearUsuario():void{
@@ -70,6 +86,19 @@ export class UsuariosComponent   {
       returnValue= true;
     }
     return returnValue;
+  }
+
+  
+  cambiarPagina(valor:number){
+    this.desde += valor;
+    if(this.desde < 0 ){
+      this.desde = 0;
+    }else if(this.desde > this.total){
+      this.desde -= valor;
+    }
+
+    this.cargarListUser();
+
   }
 
 }
