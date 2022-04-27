@@ -15,8 +15,10 @@ import { Usuario } from 'src/app/models/usuario.model';
 })
 export class UsuariosComponent  implements OnInit  {
   public listUsuario:Usuario[] = [];
+  public listUsuarioTemp:Usuario[] = [];
   public total:number = 0;
   public desde:number = 0;
+  public cargando:boolean = true;
 
   public formSubmitted:boolean = false;
   public formRegister = this.fb.group({
@@ -31,17 +33,20 @@ export class UsuariosComponent  implements OnInit  {
     private router:Router
     ) {}
   ngOnInit(): void {
-    this.cargarListUser();
+    this.cargarListUser(); 
   }
 
   cargarListUser()
   {
+    this.cargando = true;
     this.usuarioService.List(this.desde).subscribe(
       ({total, usuarios}) => {
         
         this.total = total;
-        this.listUsuario = usuarios
-      }
+        this.listUsuario = usuarios;
+        this.listUsuarioTemp = usuarios;
+        this.cargando = false;
+      } 
     )
   }
 
@@ -99,6 +104,18 @@ export class UsuariosComponent  implements OnInit  {
 
     this.cargarListUser();
 
+  }
+
+  findByName(letras:any){
+    if(letras.length === 0)
+    {
+      this.listUsuario = this.listUsuarioTemp;
+    }else{
+    this.usuarioService.findByName(letras)
+    .subscribe(
+      (resp) => this.listUsuario = resp
+    );
+    }
   }
 
 }

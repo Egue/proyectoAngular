@@ -15,20 +15,41 @@ export class UsuariosService {
 
   constructor(private http:HttpClient) { }
 
+  get token():string
+  {
+    return localStorage.getItem('jwt') || '';
+  }
+
   register(user:RegisterForm){
     
     return this.http.post(`${base_url}/auth/register` , user);
 
   }
 
+  get headers()
+  {
+    return { 
+      headers: {'Authorization' : 'Bearer ' + this.token}
+    }
+  }
+  private transformarUsuarios(resultado: any[]):Usuario[]
+  {
+    return resultado.map(
+      user => new Usuario(user.user, user.email, '',user.id,user.marca,user.active,user.url_img,
+      user.role,user.created_at,user.updated_at )
+    )
+    /*return resultado.map(
+      /*user => new Usuario(
+        user.user, user.email, '',user.id,user.marca,user.active,user.url_img,
+        user.role,user.created_at,user.updated_at
+      )*/
+      //console.log(user)
+    //)
+  }
+
   List(desde:number = 0){
-    const token = localStorage.getItem('jwt') || '';
     const url = `${base_url}/usuarios/list/${desde}`;
-     return this.http.get<CargarUsuarios>( url , {
-       headers:{
-         'Authorization' : 'Bearer '+ token
-       }       
-     })
+     return this.http.get<CargarUsuarios>( url , this.headers)
      .pipe(
        map( resp => {
          const usuarios = resp.response.usuarios.map( 
@@ -43,5 +64,16 @@ export class UsuariosService {
        }
         )
      );
+  }
+  findByName(letras:string = '')
+  {
+    const url = `${base_url}/usuarios/findByName/${letras}`;
+    return this.http.get<any[]>(url , this.headers)
+    .pipe(
+        map( (resp:any) => {
+          //console.log(resp.response)
+          return this.transformarUsuarios(resp.response)
+        })
+    );
   }
 }
