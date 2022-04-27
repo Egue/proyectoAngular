@@ -37,10 +37,10 @@ export class UsuariosComponent  implements OnInit  {
   cargarListUser()
   {
     this.usuarioService.List(this.desde).subscribe(
-      (response) => {
+      ({total, usuarios}) => {
         
-        this.total = response.response.total;
-        this.listUsuario = response.response.usuarios
+        this.total = total;
+        this.listUsuario = usuarios
       }
     )
   }

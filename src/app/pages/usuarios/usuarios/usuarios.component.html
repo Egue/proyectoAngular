@@ -173,17 +173,17 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>Avatar</th>
+                                <th class="w100">Avatar</th>
                                 <th>Correo</th>
                                 <th>Nombre</th>
                                 <th>Role</th>
                                 <th>Estado</th>
-                                <th class="text-nowrap">Action</th>
+                                <th class="text-nowrap w100">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor ="let usuario of listUsuario">
-                                <td>xxxxxx</td>
+                                <td class="text-center"><img [src]="usuario.imagenUrl" alt="" class="w100 avatar" /> </td>
                                 <td>{{usuario.email}}</td>
                                 <td>{{usuario.user}}</td>
                                 <td>{{usuario.role}}</td>

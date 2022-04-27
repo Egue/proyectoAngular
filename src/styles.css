@@ -11,3 +11,12 @@
 #themecolors .selector .cursorp{
     cursor: pointer;
 }
+
+.w100{
+    width: 100px;
+}
+
+.avatar{
+    width: 50px;
+    border-radius: 100%;
+}

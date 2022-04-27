@@ -7,11 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
+  public imgUrl:string = '';
+  public nameUser:string = '';
+  public emailUser:string = '';
 
-  constructor(private authService:AuthService) { }
-
-  ngOnInit(): void {
+  constructor(private authService:AuthService) { 
+    this.imgUrl = authService.usuario?.imagenUrl;
+    this.nameUser = authService.usuario?.user;
+    this.emailUser = authService.usuario?.email;
   }
 
   logout()

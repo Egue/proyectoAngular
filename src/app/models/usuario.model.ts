@@ -14,4 +14,10 @@ export class Usuario {
 
         //public obsional:?string
     )  {}
+
+    get imagenUrl()
+    {
+        const base = 'https://apps.internetinalambrico.com.co/Files/usuarios';
+        return `${base}/${this.url_img}`;
+    }
 }
