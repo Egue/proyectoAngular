@@ -39,7 +39,8 @@ export class SidebarService {
       title:'Configuracion',
       icono:'icon-wrench',
       submenu:[
-        {title:'Usuarios' , url: 'usuarios'}
+        {title:'Usuarios' , url: 'usuarios'},
+        {title:'Crear Usuario'  , url: 'crearuser'}
       ]
     }
   ];

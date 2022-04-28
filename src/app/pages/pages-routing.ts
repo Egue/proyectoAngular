@@ -11,6 +11,7 @@ import { Grafica1Component } from './grafica1/grafica1.component';
 import { PermisosComponent } from './sistemagestion/permisos/permisos.component';
 import { RegistroEmpleadosComponent } from './sistemagestion/registro-empleados/registro-empleados.component';
 import { UsuariosComponent } from './usuarios/usuarios/usuarios.component';
+import { CrearUsuariosComponent } from './usuarios/crear-usuarios/crear-usuarios.component';
 
 
 const routes:Routes = [
@@ -26,6 +27,9 @@ const routes:Routes = [
     {path:'permisoTrabajo'    , component: PermisosComponent , data:{titulo:'Permisos de Trabaja'}},
     {path:'registroPersona'    , component: RegistroEmpleadosComponent , data:{titulo:'Registro Personal'}},
     {path:'usuarios'    , component: UsuariosComponent , data:{titulo:'Usuarios'}},
+    {path:'crearuser'    , component: CrearUsuariosComponent , data:{titulo:'Registro de Usuarios'}},
+
+    
 
 
     ]
