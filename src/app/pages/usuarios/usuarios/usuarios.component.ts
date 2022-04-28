@@ -118,4 +118,38 @@ export class UsuariosComponent  implements OnInit  {
     }
   }
 
+  deleteUsuario(usuario:Usuario)
+  {
+    console.log(usuario.id);
+    Swal.fire({
+      title: 'Eliminar Usuario?',
+      text: `Quieres eliminar a ${usuario.user}`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, Eliminar'
+    }).then((result) => {
+    if(result.isConfirmed)
+    {
+    this.usuarioService.deleteById(usuario)
+                        .subscribe((respon) => {
+                          this.cargarListUser();
+                          Swal.fire(
+                            'Eliminado!',
+                            `El usuario ${usuario.user} fue eliminado`,
+                            'success'
+                          )
+                        }, (err) => {
+                          Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'No puedes Eliminar el usuario. Error'
+                          })
+                        })
+        }
+    })
+  
+  }
+
 }

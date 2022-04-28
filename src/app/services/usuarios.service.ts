@@ -76,4 +76,11 @@ export class UsuariosService {
         })
     );
   }
+
+  deleteById(usuario:Usuario)
+  {
+    const url = `${base_url}/usuarios/delete/${usuario.id}`;
+
+    return this.http.delete(url , this.headers);
+  }
 }
