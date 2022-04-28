@@ -28,12 +28,14 @@ export class CrearUsuariosComponent     {
                           if(response)
                           {
                             Swal.fire('Creado con Éxito' , 'Creado con éxito' , 'success'); 
+                            this.registerFormUsuario.reset();
                           }
                     
                         },  (err) => {
                           Swal.fire('Error' , err.error.response , 'error');
                         });
   }
+
 
    
 
