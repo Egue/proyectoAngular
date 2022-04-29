@@ -12,13 +12,15 @@ const base_url = environment.base_url;
   providedIn: 'root'
 })
 export class UsuariosService {
+ 
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient ) { }
 
   get token():string
   {
     return localStorage.getItem('jwt') || '';
   }
+ 
 
   register(user:RegisterForm){
     

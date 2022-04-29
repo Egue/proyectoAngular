@@ -1,3 +1,4 @@
+import { AuthService } from './../../../auth/auth.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators  } from '@angular/forms';
@@ -20,17 +21,11 @@ export class UsuariosComponent  implements OnInit  {
   public desde:number = 0;
   public cargando:boolean = true;
 
-  public formSubmitted:boolean = false;
-  public formRegister = this.fb.group({
-      user: ['',[Validators.required , Validators.minLength(4)]],
-      email:['',[Validators.required , Validators.email]],
-      password:'123?'
-  });
+ 
 
   constructor(
-    private fb: FormBuilder,
     private usuarioService:UsuariosService,
-    private router:Router
+    private authService: AuthService
     ) {}
   ngOnInit(): void {
     this.cargarListUser(); 
@@ -50,48 +45,7 @@ export class UsuariosComponent  implements OnInit  {
     )
   }
 
-   /**Cargar Lista de usuarios */
- 
-    /**Funcion registar usuario */
-  crearUsuario():void{
-    this.formSubmitted = true;
 
-    if(this.formRegister.invalid){
-      return;
-    }
-
-    this.usuarioService.register(this.formRegister.value)
-    .subscribe( (response) => {
-      Swal.fire('Creado con Éxito' , 'Creado con éxito' , 'success');
-        this.router.navigateByUrl('usuarios');
-    } , 
-    (err) => {
-      
-      Swal.fire('Error' , err.error.response , 'error');
-    });
-  }
-
-  /**Funcion validación de cada campo para mostrar en el formulario */
-  validateCampo(input:string):boolean{
-    let estado:boolean = false;
-
-    if(this.formRegister.get(input)?.invalid && this.formSubmitted){
-      estado = true;
-    }else{
-      estado = false;
-    }
-
-    return estado;
-  }
-
-  estatusUser(value:any):boolean
-  {
-    let returnValue:boolean = false;
-    if(value === 1){
-      returnValue= true;
-    }
-    return returnValue;
-  }
 
   
   cambiarPagina(valor:number){
@@ -120,8 +74,11 @@ export class UsuariosComponent  implements OnInit  {
 
   deleteUsuario(usuario:Usuario)
   {
-    console.log(usuario.id);
-    Swal.fire({
+    if(usuario.id === this.authService.usuario.id)
+    {
+      return Swal.fire('Error' , 'No se puede borrar a si mismo' , 'error');
+    }
+    return Swal.fire({
       title: 'Eliminar Usuario?',
       text: `Quieres eliminar a ${usuario.user}`,
       icon: 'warning',

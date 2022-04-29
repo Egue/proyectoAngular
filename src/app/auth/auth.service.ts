@@ -45,6 +45,9 @@ export class AuthService {
                         const { id, user, marca, active, email, url_img, role,created_at,updated_at} = resp.usuario[0];
                         this.usuario = new Usuario(user, email,'',id,marca,active,url_img,role,created_at,updated_at)
                         localStorage.setItem('jwt' , resp.response);
+                        sessionStorage.setItem('user' , user);
+                        sessionStorage.setItem('img' , url_img);
+                        sessionStorage.setItem('mail' , email);
                       })
                     );
   }

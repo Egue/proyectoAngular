@@ -10,14 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  public imgUser:string = '';
-  public nameUser:string = '';
+  public imgUser:string | null;
+  public nameUser:string | null;
   menuItems: any[];
 
   constructor(private sidebarService: SidebarService,
               private authService: AuthService) {
-    this.imgUser = authService.usuario?.imagenUrl;
-    this.nameUser = authService.usuario?.user;
+    this.imgUser = authService.usuario?.imagenUrl || `https://apps.internetinalambrico.com.co/Files/usuarios/${sessionStorage.getItem('img')}`;
+    this.nameUser = authService.usuario?.user || sessionStorage.getItem('user');
     this.menuItems = sidebarService.menu; 
    }
 

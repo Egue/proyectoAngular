@@ -8,14 +8,14 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class HeaderComponent {
-  public imgUrl:string = '';
-  public nameUser:string = '';
-  public emailUser:string = '';
+  public imgUrl:string | null;
+  public nameUser:string | null;
+  public emailUser:string | null;
 
   constructor(private authService:AuthService) { 
-    this.imgUrl = authService.usuario?.imagenUrl;
-    this.nameUser = authService.usuario?.user;
-    this.emailUser = authService.usuario?.email;
+    this.imgUrl = authService.usuario?.imagenUrl  || `https://apps.internetinalambrico.com.co/Files/usuarios/${sessionStorage.getItem('img')}`;
+    this.nameUser = authService.usuario?.user     || sessionStorage.getItem('user');
+    this.emailUser = authService.usuario?.email   || sessionStorage.getItem('mail');
   }
 
   logout()
