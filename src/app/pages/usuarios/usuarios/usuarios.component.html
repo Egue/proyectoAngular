@@ -190,7 +190,12 @@
                                 <td class="text-center"><img [src]="usuario.imagenUrl" alt="" class="w100 avatar" /> </td>
                                 <td>{{usuario.email}}</td>
                                 <td>{{usuario.user}}</td>
-                                <td>{{usuario.role}}</td>
+                                <td>
+                                    <select class="form-control"
+                                    >
+
+                                    </select>
+                                </td>
                                 <td>
                                     <div *ngIf="usuario.active; else Desactivado">
                                         <span class="label label-success">Activado</span>

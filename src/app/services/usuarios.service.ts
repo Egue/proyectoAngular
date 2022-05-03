@@ -86,5 +86,11 @@ export class UsuariosService {
     return this.http.delete(url , this.headers);
   }
 
+  findByRole()
+  {
+    const url = `${base_url}/roles/findByRole`;
+    return this.http.get<any>(url, this.headers);
+  }
+
   
 }
