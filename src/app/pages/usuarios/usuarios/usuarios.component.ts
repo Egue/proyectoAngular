@@ -20,17 +20,27 @@ export class UsuariosComponent  implements OnInit  {
   public total:number = 0;
   public desde:number = 0;
   public cargando:boolean = true;
-
+  public optionsRole:string[] | undefined;
  
 
   constructor(
     private usuarioService:UsuariosService,
     private authService: AuthService
-    ) {}
+    ) {
+      
+    this.cargarRoles();
+    }
   ngOnInit(): void {
     this.cargarListUser(); 
   }
 
+  cargarRoles()
+  {
+    this.usuarioService.findByRole()
+    .subscribe((response) => {
+      this.cargarRoles = response.response;
+    })
+  }
   cargarListUser()
   {
     this.cargando = true;

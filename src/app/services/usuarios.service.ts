@@ -86,11 +86,12 @@ export class UsuariosService {
     return this.http.delete(url , this.headers);
   }
 
-  findByRole()
+  findByRole():Observable<any>
   {
-    const url = `${base_url}/roles/findByRole`;
+    const url = `${base_url}/roles/list`;
     return this.http.get<any>(url, this.headers);
   }
+
 
   
 }
