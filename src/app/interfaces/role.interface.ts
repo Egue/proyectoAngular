@@ -1,5 +1,7 @@
+import { Rol } from "../models/role.model"
+
 export interface IRole {
    response:{
-       role?:[] | null;
+       roles:Rol[];
    }
 }

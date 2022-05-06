@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { UsuariosService } from '../../../services/usuarios.service';
 import { Usuario } from 'src/app/models/usuario.model';
 import { IRole } from 'src/app/interfaces/role.interface';
+import { Rol } from 'src/app/models/role.model';
 
 
 
@@ -21,7 +22,7 @@ export class UsuariosComponent  implements OnInit  {
   public total:number = 0;
   public desde:number = 0;
   public cargando:boolean = true;
-  public optionsRole:IRole[] | undefined;
+  public optionsRole: Rol[] | undefined;
  
 
   constructor(
@@ -38,9 +39,8 @@ export class UsuariosComponent  implements OnInit  {
   cargarRoles()
   {
     this.usuarioService.findByRole()
-    .subscribe((response:IRole) => {
-      //this.cargarRoles = response.response;
-      console.log(response.response);
+    .subscribe((roles) => {
+       this.optionsRole = roles; 
     })
   }
   cargarListUser()
@@ -119,6 +119,14 @@ export class UsuariosComponent  implements OnInit  {
         }
     })
   
+  }
+
+  cambiarRole(user:Usuario)
+  {
+    this.usuarioService.updateUser(user)
+    .subscribe( resp => {
+      console.log(resp);
+    })
   }
 
 }

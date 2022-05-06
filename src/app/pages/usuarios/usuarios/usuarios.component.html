@@ -191,9 +191,10 @@
                                 <td>{{usuario.email}}</td>
                                 <td>{{usuario.user}}</td>
                                 <td>
-                                    <select class="form-control"
+                                    <select class="form-control" [(ngModel)]="usuario.role"
+                                    (change) ="cambiarRole(usuario)"
                                     >
-                                    <option [value]="" *ngFor="let item of optionsRole">{{item}}</option>
+                                    <option  *ngFor="let item of optionsRole" value="{{item.role}}">{{item.role}}</option>
                                     </select>
                                 </td>
                                 <td>

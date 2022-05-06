@@ -6,6 +6,8 @@ import { HttpClient } from '@angular/common/http';
 import { map , catchError , tap} from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
 import { Usuario } from '../models/usuario.model';
+import { IRole } from '../interfaces/role.interface';
+import { Rol } from '../models/role.model';
 const base_url = environment.base_url;
 
 @Injectable({
@@ -86,10 +88,23 @@ export class UsuariosService {
     return this.http.delete(url , this.headers);
   }
 
-  findByRole():Observable<any>
+  findByRole()
   {
     const url = `${base_url}/roles/list`;
-    return this.http.get<any>(url, this.headers);
+    return this.http.get<IRole>(url, this.headers)
+    .pipe(
+      map( resp => {
+        const roles = resp.response.roles.map(
+          rol => new Rol(rol.role)
+        );
+        return roles
+      })
+    );
+  }
+
+  updateUser(user:Usuario)
+  {
+    return this.http.put(`${base_url}/usuario/updated/${user.id}` , user , this.headers);
   }
 
 
