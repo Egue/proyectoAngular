@@ -5,6 +5,7 @@ import { FormBuilder, Validators  } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { UsuariosService } from '../../../services/usuarios.service';
 import { Usuario } from 'src/app/models/usuario.model';
+import { IRole } from 'src/app/interfaces/role.interface';
 
 
 
@@ -20,7 +21,7 @@ export class UsuariosComponent  implements OnInit  {
   public total:number = 0;
   public desde:number = 0;
   public cargando:boolean = true;
-  public optionsRole:string[] | undefined;
+  public optionsRole:IRole[] | undefined;
  
 
   constructor(
@@ -37,8 +38,9 @@ export class UsuariosComponent  implements OnInit  {
   cargarRoles()
   {
     this.usuarioService.findByRole()
-    .subscribe((response) => {
-      this.cargarRoles = response.response;
+    .subscribe((response:IRole) => {
+      //this.cargarRoles = response.response;
+      console.log(response.response);
     })
   }
   cargarListUser()
