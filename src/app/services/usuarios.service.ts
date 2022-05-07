@@ -104,7 +104,8 @@ export class UsuariosService {
 
   updateUser(user:Usuario)
   {
-    return this.http.put(`${base_url}/usuario/updated/${user.id}` , user , this.headers);
+    
+    return this.http.patch(`${base_url}/usuarios/edit/${user.id}` , user , this.headers);
   }
 
 

@@ -199,10 +199,10 @@
                                 </td>
                                 <td>
                                     <div *ngIf="usuario.active; else Desactivado">
-                                        <span class="label label-success">Activado</span>
+                                        <span class="label label-success" (click) ="changeActive(usuario)">Activado</span>
                                     </div>
                                     <ng-template #Desactivado>
-                                        <span class="label label-danger">Desactivado</span>
+                                        <span class="label label-danger" (click) ="changeActive(usuario)">Desactivado</span>
                                     </ng-template>
                                 </td>
                                 <td class="text-nowrap text-center">

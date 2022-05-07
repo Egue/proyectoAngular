@@ -124,9 +124,21 @@ export class UsuariosComponent  implements OnInit  {
   cambiarRole(user:Usuario)
   {
     this.usuarioService.updateUser(user)
-    .subscribe( resp => {
-      console.log(resp);
-    })
+    .subscribe();
+  }
+
+  changeActive(user:Usuario)
+  {
+    if(user.active === 1 )
+    {
+      user.active = 0;
+    }else{
+      user.active = 1
+    } 
+   this.usuarioService.updateUser(user)
+   .subscribe();
+
+    
   }
 
 }
