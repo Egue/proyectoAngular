@@ -2,6 +2,7 @@ import { AuthService } from './../../auth/auth.service';
 import { SidebarService } from './../../services/sidebar.service';
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from 'src/app/models/usuario.model';
+import { ISidebar } from '../../interfaces/sidebar.interface';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,23 +10,19 @@ import { Usuario } from 'src/app/models/usuario.model';
   styles: [
   ]
 })
-export class SidebarComponent implements OnInit {
-
-  //public imgUser:string | null;
-  //public nameUser:string | null;
+export class SidebarComponent implements OnInit  {
   public usuario:Usuario;
-  menuItems: any[];
 
-  constructor(private sidebarService: SidebarService,
+  constructor(public sidebarService: SidebarService,
               private authService: AuthService) {
-    /*this.imgUser = authService.usuario?.imagenUrl || `https://apps.internetinalambrico.com.co/Files/usuarios/${sessionStorage.getItem('img')}`;
-    this.nameUser = authService.usuario?.user || sessionStorage.getItem('user'); */
+    
     this.usuario = authService.usuario;
-    this.menuItems = sidebarService.menu; 
-
+   
+    
    }
-
   ngOnInit(): void {
+    
   }
+  
 
 }

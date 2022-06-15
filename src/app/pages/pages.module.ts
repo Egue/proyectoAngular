@@ -20,6 +20,7 @@ import { RegistroEmpleadosComponent } from './sistemagestion/registro-empleados/
 import { EmpleadosComponent } from './sistemagestion/empleados/empleados.component';
 import { UsuariosComponent } from './usuarios/usuarios/usuarios.component';
 import { CrearUsuariosComponent } from './usuarios/crear-usuarios/crear-usuarios.component';
+import { GeolocalizacionComponent } from './contratos/geolocalizacion/geolocalizacion.component';
 
 
 
@@ -39,6 +40,7 @@ import { CrearUsuariosComponent } from './usuarios/crear-usuarios/crear-usuarios
     RegistroEmpleadosComponent,
     UsuariosComponent,
     CrearUsuariosComponent,
+    GeolocalizacionComponent,
   ],
   exports:[
     DashboardComponent,

@@ -4,7 +4,7 @@ import { environment } from './../../environments/environment';
 import { RegisterForm } from './../interfaces/register-form.interface';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { tap  ,map , catchError} from 'rxjs/operators';
+import { tap  ,map , catchError, timeout} from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -20,16 +20,36 @@ export class AuthService {
               private router:Router) { }
 
 
-  validateToken():Observable<boolean>{
+  get token(){
     const token = localStorage.getItem('jwt') || '';
-     return this.http.get(`${base_url}/auth/validate` , {
-       headers:{
-         'Authorization' : 'Bearer '+ token
-       }       
-     })
+
+    return token;
+  }
+
+  get header(){
+    return {
+      headers:{
+        'Authorization' : 'Bearer '+ this.token
+      }
+    }
+  }
+  validateToken():Observable<boolean>{
+    
+
+     return this.http.get(`${base_url}/auth/validate/${this.token}` , this.header)
      .pipe(
-       map(resp => true ), //si se tiene una respuesta retorna true
+      tap(
+        (resp:any) => {
+          const { id, user, marca, active, email, url_img, role,created_at,updated_at} = resp.usuario[0];
+                        this.usuario = new Usuario(user, email,'',id,marca,active,url_img,role,created_at,updated_at)
+                        localStorage.setItem('jwt' , resp.response);
+                        localStorage.setItem('abc' , JSON.stringify(resp.menu));
+        }
+      ),
+       map(resp => true 
+        ), //si se tiene una respuesta retorna true
        catchError(error => of(false))//captura error y devuelve observable false
+       
      );
   }
 
@@ -45,9 +65,10 @@ export class AuthService {
                         const { id, user, marca, active, email, url_img, role,created_at,updated_at} = resp.usuario[0];
                         this.usuario = new Usuario(user, email,'',id,marca,active,url_img,role,created_at,updated_at)
                         localStorage.setItem('jwt' , resp.response);
-                        sessionStorage.setItem('user' , user);
-                        sessionStorage.setItem('img' , url_img);
-                        sessionStorage.setItem('mail' , email);
+                        localStorage.setItem('abc' , JSON.stringify(resp.menu));
+                        //sessionStorage.setItem('user' , user);
+                        //sessionStorage.setItem('img' , url_img);
+                        //sessionStorage.setItem('mail' , email);
                       })
                     );
   }

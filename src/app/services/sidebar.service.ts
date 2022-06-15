@@ -1,11 +1,34 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core'; 
+import { environment } from 'src/environments/environment';
+import { Usuario } from '../models/usuario.model';
+import {map} from 'rxjs/operators';  
+const base_url = environment.base_url;
+
+export interface ISubmenu {
+  title: string,
+  url: string
+}
+
+export interface IMenu {
+  title:string,
+  icono:string,
+  submenu:ISubmenu[]
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class SidebarService {
 
-  menu: any[] = [
+  public menu:IMenu[] = [];
+  
+  loadingMenu()
+  { 
+    this.menu = JSON.parse(localStorage.getItem('abc') || '{}');
+  }
+
+
+ /* menu: any[] = [
     {
       title : 'Dashboard',
       icono : 'mdi mdi-gauge',
@@ -36,6 +59,13 @@ export class SidebarService {
       ]
     },
     {
+      title:'Contratos',
+      icono:'mdi mdi-folder-multiple',
+      submenu:[
+        {title:'Geolocalización' , url:'geolocalizacion'},
+      ]
+    },
+    {
       title:'Configuracion',
       icono:'icon-wrench',
       submenu:[
@@ -43,7 +73,7 @@ export class SidebarService {
         {title:'Crear Usuario'  , url: 'crearuser'}
       ]
     }
-  ];
+  ];*/
 
-  constructor() { }
+
 }

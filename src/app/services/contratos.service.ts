@@ -1,0 +1,49 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment.prod';
+
+const base_url = environment.base_url;
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ContratosService {
+
+  constructor(private http:HttpClient) { }
+
+  get token():string
+  {
+    return localStorage.getItem('jwt') || '';
+  }
+
+  get headers()
+  {
+    return { 
+      headers: {'Authorization' : 'Bearer ' + this.token}
+    }
+  }
+
+  list()
+  {
+    const url = `${base_url}/contratos/gps/list`;
+
+    return this.http.get( url , this.headers);
+  } 
+
+  municipiosList(departamento:any){
+    const url = `${base_url}/contratos/municipios/${departamento}`;
+
+    return this.http.get(url , this.headers);
+  }
+
+  barriosList(municipio:any)
+  {
+    const url = `${base_url}/contratos/barrios/${municipio}`;
+
+    return this.http.get(url  , this.headers);
+
+  }
+
+
+}
+

@@ -1,0 +1,97 @@
+<div class="row">
+    <div class="col-lg-9">
+         
+    </div>
+    <div class="col-lg-3">
+        
+            <div class="card bg-danger">
+                <div class="card-body">
+                    <div class="d-flex no-block">
+                        <div class="m-r-20 align-self-center"><img 				src="../assets/images/icon/staff-w.png" alt="Income"></div>
+                        <div class="align-self-center">
+                            <h6 class="text-white m-t-10 m-b-0">Total Contratos</h6>
+                            <h2 class="m-t-0 text-white">{{cusCantidad}}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+    </div>
+</div> 
+
+<!--
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <button class=" " (click)="loadMap()">Cargar Mapa</button>
+                    </div>
+                    <div class="col-lg-9">
+                        <div id="map" style="height: 600px;"></div>
+                    </div>
+                </div>
+
+        </div>
+    </div>
+-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="card-body">
+                           <!-- <h4 class="card-title m-t-10">Drag &amp; Drop Event</h4>-->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="form-group has-success">
+                                            <label class="control-label">Departamento</label>
+                                            <select class="form-control custom-select" (change) ="searchMunicipios($event)">
+                                                <option value="0">Seleccione..</option>
+                                                <option value="85">Casanare</option>
+                                                <option value="81">Arauca</option>
+                                            </select>
+                                            <small class="form-control-feedback"> Seleccione Departamento </small> 
+                                        </div>
+                                    </div>
+                                    <div class="row" *ngIf="selectMunicipio">
+                                        <div class="form-group has-success">
+                                            <label class="control-label">Municipio</label>
+                                            <select class="form-control custom-select" (change) ="searchBarrio($event.target)">
+                                                <option value="" >Seleccione..</option>
+                                                 <option *ngFor="let item of municipioList" value="{{item.id_municipio}}">{{item.municipio}}</option>
+                                            </select>
+                                            <small class="form-control-feedback"> Seleccione Municipio </small> 
+                                        </div>
+                                    </div>
+                                    <div class="row" *ngIf="selectBarrio">
+                                        <div class="form-group has-success">
+                                            <label class="control-label">Barrio</label>
+                                            <select class="form-control custom-select" >
+                                                 <option  value=""></option>
+                                            </select>
+                                            <small class="form-control-feedback"> Seleccione Barrio </small> 
+                                        </div>
+                                    </div>
+                                    <button [disabled]="btnMap" class="btn m-t-10 btn-info btn-block waves-effect waves-light" (click)="loadMap()">Cargar Mapa</button>
+                                     
+                                    <!--<a href="#" data-toggle="modal" data-target="#add-new-event" class="btn m-t-10 btn-info btn-block waves-effect waves-light">
+                                            <i class="ti-plus"></i> Add New Event
+                                        </a>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="card-body b-l calender-sidebar">
+                            <div id="map" style="height: 600px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+   
