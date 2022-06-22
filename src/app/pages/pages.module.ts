@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
  
 
 import { SharedModule } from './../shared/shared.module';
@@ -21,6 +20,7 @@ import { EmpleadosComponent } from './sistemagestion/empleados/empleados.compone
 import { UsuariosComponent } from './usuarios/usuarios/usuarios.component';
 import { CrearUsuariosComponent } from './usuarios/crear-usuarios/crear-usuarios.component';
 import { GeolocalizacionComponent } from './contratos/geolocalizacion/geolocalizacion.component';
+import { PeligrosComponent } from './sistemagestion/peligros/peligros.component'; 
 
 
 
@@ -41,6 +41,7 @@ import { GeolocalizacionComponent } from './contratos/geolocalizacion/geolocaliz
     UsuariosComponent,
     CrearUsuariosComponent,
     GeolocalizacionComponent,
+    PeligrosComponent, 
   ],
   exports:[
     DashboardComponent,

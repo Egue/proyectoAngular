@@ -35,6 +35,17 @@
         </div>
     </div>
 -->
+<!--Flat de cargar-->
+<div class="row animated fadeIn fast" *ngIf="cargando">
+    <div class="col-12">
+         <div class="alert alert-info text-center" role="alert">
+             <h4 class="alert-heading">Cargando</h4>
+             <i class="fa fa-spin fa-refresh fa-2"></i>
+             <p class="mb-0">Por favor espere</p>
+         </div>
+    </div>
+</div>
+<!--fin cargar-->
 <div class="row">
     <div class="col-md-12">
         <div class="card">
@@ -60,7 +71,7 @@
                                         <div class="form-group has-success">
                                             <label class="control-label">Municipio</label>
                                             <select class="form-control custom-select" (change) ="searchBarrio($event.target)">
-                                                <option value="" >Seleccione..</option>
+                                                <option value="" >--Seleccione--</option>
                                                  <option *ngFor="let item of municipioList" value="{{item.id_municipio}}">{{item.municipio}}</option>
                                             </select>
                                             <small class="form-control-feedback"> Seleccione Municipio </small> 
@@ -69,12 +80,15 @@
                                     <div class="row" *ngIf="selectBarrio">
                                         <div class="form-group has-success">
                                             <label class="control-label">Barrio</label>
-                                            <select class="form-control custom-select" >
-                                                 <option  value=""></option>
+                                            <select class="form-control custom-select" (change)="getList($event.target)">
+                                                 <option  value="">--Seleccione--</option>
+                                                 <option *ngFor="let item of barriosList" value="{{item.barrio}}">{{item.barrio}}</option>
+
                                             </select>
                                             <small class="form-control-feedback"> Seleccione Barrio </small> 
                                         </div>
                                     </div>
+                                     
                                     <button [disabled]="btnMap" class="btn m-t-10 btn-info btn-block waves-effect waves-light" (click)="loadMap()">Cargar Mapa</button>
                                      
                                     <!--<a href="#" data-toggle="modal" data-target="#add-new-event" class="btn m-t-10 btn-info btn-block waves-effect waves-light">

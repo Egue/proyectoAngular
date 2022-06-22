@@ -23,11 +23,11 @@ export class ContratosService {
     }
   }
 
-  list()
+  list(barrio:string)
   {
     const url = `${base_url}/contratos/gps/list`;
-
-    return this.http.get( url , this.headers);
+    const data = {"barrio":barrio};
+    return this.http.post( url ,  data ,this.headers);
   } 
 
   municipiosList(departamento:any){

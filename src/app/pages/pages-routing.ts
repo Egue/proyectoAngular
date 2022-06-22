@@ -13,6 +13,7 @@ import { RegistroEmpleadosComponent } from './sistemagestion/registro-empleados/
 import { UsuariosComponent } from './usuarios/usuarios/usuarios.component';
 import { CrearUsuariosComponent } from './usuarios/crear-usuarios/crear-usuarios.component';
 import { GeolocalizacionComponent } from './contratos/geolocalizacion/geolocalizacion.component';
+import { PeligrosComponent } from './sistemagestion/peligros/peligros.component';
 
 
 const routes:Routes = [
@@ -30,6 +31,7 @@ const routes:Routes = [
     {path:'usuarios'    , component: UsuariosComponent , data:{titulo:'Usuarios'}},
     {path:'crearuser'    , component: CrearUsuariosComponent , data:{titulo:'Registro de Usuarios'}},
     {path: 'geolocalizacion' , component: GeolocalizacionComponent , data:{titulo:'Geolocalizacion'}},
+    {path: 'peligros' , component: PeligrosComponent , data:{titulo:'Peligros y Clasificación'}},
 
     
 

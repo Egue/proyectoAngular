@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ContratosService } from '../../../services/contratos.service';
-
+import { ContratosService } from '../../../services/contratos.service'; 
+//nfimport {AutoCompleteModule} from 'primeng/autocomplete';
 
 declare   const L:any;
 @Component({
@@ -17,9 +17,11 @@ export class GeolocalizacionComponent implements OnInit {
   public selectMunicipio:boolean = false;
   public selectBarrio:boolean = false;
   public municipioList:any[] = [];
+  public barriosList:any[] = [];
+  public cargando:boolean = false;;
   //https://stackoverflow.com/questions/42968243/how-to-add-multiple-markers-in-leaflet-js
     constructor(private contratoService: ContratosService) { 
-    this.getList();
+     
   }
 
   /**
@@ -34,6 +36,7 @@ INNER JOIN lista_municipios ON lista_municipios.id_municipio = listas_barrios.id
 
   loadMap()
   {
+    
     var map = L.map('map').setView([5.324, -72.393], 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
@@ -53,32 +56,38 @@ INNER JOIN lista_municipios ON lista_municipios.id_municipio = listas_barrios.id
   }
 
 
-  getList()
+  getList(event:any)
   {
-    this.contratoService.list()
+    this.cargando = true;
+    this.contratoService.list(event.value)
     .subscribe(
       (data:any) => {
         this.marketsArray = data.response; 
         this.cusCantidad = this.marketsArray.length;
+        this.cargando = false;
       }
     );
   }
 
   searchMunicipios(event:any)
   {
-     
+    this.cargando = true;
     this.contratoService.municipiosList(event.target.value)
     .subscribe((resp:any) => {
       this.municipioList = resp.response;
       this.selectMunicipio = true;
+      this.cargando = false;
     })
   }
 
   searchBarrio(event:any)
   {
+    this.cargando = true;
     this.contratoService.barriosList(event.value)
     .subscribe((resp:any) => {
-      console.log(resp.response);
+      this.barriosList = resp.response;
+      this.selectBarrio = true;
+      this.cargando = false;
     })
   }
 
