@@ -40,8 +40,8 @@ export class AuthService {
      .pipe(
       tap(
         (resp:any) => {
-          const { id, user, marca, active, email, url_img, role,created_at,updated_at} = resp.usuario[0];
-                        this.usuario = new Usuario(user, email,'',id,marca,active,url_img,role,created_at,updated_at)
+          const { id, user, marca, active, email, url_img, role,created_at,updated_at,id_empresa} = resp.usuario[0];
+                        this.usuario = new Usuario(user, email,'',id,marca,active,url_img,role,created_at,updated_at, id_empresa)
                         localStorage.setItem('jwt' , resp.response);
                         localStorage.setItem('abc' , JSON.stringify(resp.menu));
         }
@@ -62,8 +62,8 @@ export class AuthService {
     return this.http.post(`${base_url}/auth/login` , formData)
                     .pipe(
                       tap( (resp:any) => {
-                        const { id, user, marca, active, email, url_img, role,created_at,updated_at} = resp.usuario[0];
-                        this.usuario = new Usuario(user, email,'',id,marca,active,url_img,role,created_at,updated_at)
+                        const { id, user, marca, active, email, url_img, role,created_at,updated_at,id_empresa} = resp.usuario[0];
+                        this.usuario = new Usuario(user, email,'',id,marca,active,url_img,role,created_at,updated_at,id_empresa)
                         localStorage.setItem('jwt' , resp.response);
                         localStorage.setItem('abc' , JSON.stringify(resp.menu));
                         //sessionStorage.setItem('user' , user);

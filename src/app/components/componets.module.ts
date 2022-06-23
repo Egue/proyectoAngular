@@ -1,4 +1,4 @@
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IncrementadorComponent } from './incrementador/incrementador.component';
@@ -6,21 +6,25 @@ import { DonaComponent } from './dona/dona.component';
 
 
 import { NgChartsModule } from 'ng2-charts';
+import { SgControlesComponent } from './sg-controles/sg-controles.component';
 
 
 @NgModule({
   declarations: [
     IncrementadorComponent,
-    DonaComponent
+    DonaComponent,
+    SgControlesComponent
   ],
   exports:[
     IncrementadorComponent,
-    DonaComponent
+    DonaComponent,
+    SgControlesComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
-    NgChartsModule
+    NgChartsModule,
+    ReactiveFormsModule
   ]
 })
 export class ComponetsModule { }

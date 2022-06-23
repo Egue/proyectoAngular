@@ -1,6 +1,18 @@
+
 <div class="row">
     <div class="col-md-12">
         <div class="card">
+            <!--animacion cargando-->
+            <div class="row animated fadeIn fast" *ngIf="cargando">
+                <div class="col-12">
+                     <div class="alert alert-info text-center" role="alert">
+                         <h4 class="alert-heading">Cargando</h4>
+                         <i class="fa fa-spin fa-refresh fa-2"></i>
+                         <p class="mb-0">Por favor espere</p>
+                     </div>
+                </div>
+            </div>
+            <!--fin cargando-->
              <!--inicio-->
                 <div class="">
                     <div class="row">
@@ -10,47 +22,50 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div id="calendar-events">
-                                            <div class="calendar-events ui-draggable ui-draggable-handle" data-class="bg-info" style="position: relative;" *ngFor="let item of clasificacionList">
+                                            <div class="calendar-events ui-draggable ui-draggable-handle"     style="position: relative;" *ngFor="let item of clasificacionList" (click)="searchPeligroByClasificacion(item)" >
                                                 <i class="fa fa-circle text-info"></i> {{item.nombre}}
                                             </div>
                                         </div>
                                         <!--butoon-->
-                                        <button (click)="activarModal()" class="btn m-t-10 btn-info btn-block waves-effect waves-light"><i class="ti-plus"></i></button>
+                                        <button (click)="activarModal()" class="btn m-t-10 btn-info btn-block waves-effect waves-light"><i class="ti-plus"></i> Categoria</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-9">
-                            <div class="row">
+                            <div class="row animated fadeIn fast" *ngIf="!cargando">
                                 <div class="col-md-12">
                                     <!--tabla-->
                                     <div class="card">
                                         <div class="card-body">
-                                            <h4 class="card-title">Usuarios</h4>
-                                            <h6 class="card-subtitle">Usuarios registrados</h6>
+                                            <h4 class="card-title">Peligro <strong>{{peligroSeleccionado}}</strong></h4>
+                                            <h6 class="card-subtitle">Clasificacion de peligros y controles</h6>
+                                            <button (click)="activarModalPeligro()" [disabled]="activadoButtonPeligro" class="btn btn-info waves-effect waves-light"><i class="ti-plus"></i> Peligro</button>
                                             <div class="table-responsive">
-                                                <table class="table table-bordered">
+                                                <table class="table full-color-table full-primary-table hover-table">
                                                     <thead>
-                                                        <tr>
-                                                            <th>Avatar</th>
-                                                            <th>Correo</th>
+                                                        <tr >
+                                                            
+                                                            <th>Clasificación</th>
                                                             <th>Nombre</th>
-                                                            <th>Role</th>
-                                                            <th>Estado</th>
+                                                            <th>Consecuencias</th>                                                             
                                                             <th class="text-nowrap">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td>Lunar probe project</td>
-                                                            <td> </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td>May 15, 2015</td>
+                                                        <tr *ngFor="let peligro of peligrosList" >
+                                                            
+                                                            <td><i class="fa fa-bars cursor" id="{{peligro.id_peligro}}" (click)="openModelControles(peligro)"></i>{{peligro.nombreClasificacion}}</td>
+                                                            <td>{{peligro.nombre}}</td>
+                                                            <td>{{peligro.consecuencias}}</td>
                                                             <td class="text-nowrap">
-                                                                <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
-                                                                <a href="#" data-toggle="tooltip" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
+                                                                
+                                                                <a 
+                                                                data-toggle="tooltip" data-original-title="Close"
+                                                                class="cursor"
+                                                                (click) = "deletePeligro(peligro)"> <i class="fa fa-close text-danger"></i> </a>
                                                             </td>
+                                                            
                                                         </tr>
                                                          
                                                     </tbody>
@@ -110,3 +125,55 @@
 </div>
 </div>
 <!--fin modal-->
+
+<!--Modal Peligros-->
+<div class="fondo-modal animated fadeIn fast"
+[class.oculto] = "modalPeligro">
+    <div class="modal fade show" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" style="display: block;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel1"> <strong>Nuevo</strong> Peligro</h4>
+                    <button type="button" class="close" (click)="cerrarModalPeligro()" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <form [formGroup]="formPeligro" (submit)="savePeligro()">
+                <div class="modal-body">
+                   
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">Nombre</label>
+                            <input type="text" class="form-control" id="recipient-name1" formControlName="nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="form-clasificacion" class="control-label">Clasificación</label>
+                            <select class="form-control custom-select" (change)="onChangeClasificacion($event.target)">
+                                <option value="" >--Seleccione--</option>
+                                 <option *ngFor="let item of clasificacionList" value="{{item.id_clasificacion}}">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="control-label">Consecuencias</label>
+                            <textarea class="form-control" id="message-text1" rows="7" formControlName="consecuencias"></textarea>
+                        </div>
+                
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" (click)="cerrarModalPeligro()">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="formPeligro.invalid">Guardar</button>
+                </div></form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--fin modal peligros-->
+
+<!--modal Controles-->
+
+    <app-sg-controles
+        [estadoModal] = "estadoModalControles"
+        (estadoModal) = "estadoModalControles = $event"
+        [idpeligro]   = "idpeligro"
+    >
+
+    </app-sg-controles>
+ 
+<!--fin modal Controles-->

@@ -40,7 +40,7 @@ export class UsuariosService {
   {
     return resultado.map(
       user => new Usuario(user.user, user.email, '',user.id,user.marca,user.active,user.url_img,
-      user.role,user.created_at,user.updated_at )
+      user.role,user.created_at,user.updated_at,user.id_empresa)
     )
     /*return resultado.map(
       /*user => new Usuario(
@@ -59,7 +59,7 @@ export class UsuariosService {
          const usuarios = resp.response.usuarios.map( 
            user => new Usuario(
            user.user, user.email, '',user.id,user.marca,user.active,user.url_img,
-           user.role,user.created_at,user.updated_at
+           user.role,user.created_at,user.updated_at,user.id_empresa
          ));
          return {
            total: resp.response.total,

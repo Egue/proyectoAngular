@@ -10,8 +10,8 @@ export class Usuario {
         public url_img:string,
         public role:string,
         public created_at:string,
-        public updated_at:string
-
+        public updated_at:string,
+        public id_empresa:number
         //public obsional:?string
     )  {}
 

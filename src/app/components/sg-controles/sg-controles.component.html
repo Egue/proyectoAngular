@@ -1,0 +1,46 @@
+<div class="fondo-modal animated fadein fast" [class.oculto] = "estadoModal">
+<div class="modal fade bs-example-modal-lg show" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: block; padding-right: 17px;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myLargeModalLabel"><strong>Lista</strong> controles de <strong>{{idpeligro.nombre}}</strong></h4>
+                <button type="button" class="close"  (click)="closeModalControles()" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <!--BUTTON ADD-->
+                <div class="d-flex">
+                    <div class="mr-auto">
+                        <div class="form-group">
+                            <button id="demo-btn-addrow" class="btn btn-primary btn-sm" (click)="changeOpenForm()"><i class="ti-plus" aria-hidden="true"></i> Control
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row" *ngIf="openform">
+                    <div class="col-md-11">
+                    <form [formGroup]="formControl" (submit)="save()">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Ingrese nombre de control" formControlName="nombre">
+                                <span class="input-group-btn"><button type="submit" class="btn waves-effect waves-light btn-success"><i class="mdi mdi-content-save"></i></button></span>
+                            </div>
+                    </form>
+                    </div>    
+                </div>
+            <br>
+                <!--FIN BUTTON-->
+                <!--LIST CONTROLES-->
+                <div class="alert alert-success alert-rounded" *ngFor="let item of listControles"> <i class="ti-user"></i>{{item.nombre}} 
+                    <button type="button" class="close" (click)="delete(item.id_control)"> <span aria-hidden="true" >×</span> </button>
+                </div>
+                <!--FIN LIST-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect text-left"(click)="closeModalControles()">Cerrar</button> 
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+</div>
