@@ -26,7 +26,7 @@ export class UsuariosService {
 
   register(user:RegisterForm){
     
-    return this.http.post(`${base_url}/auth/register` , user);
+    return this.http.post(`${base_url}/auth/register` , user , this.headers);
 
   }
 

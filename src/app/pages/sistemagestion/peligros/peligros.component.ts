@@ -37,7 +37,7 @@ export class PeligrosComponent implements OnInit {
 
   public formPeligro = this.fb.group({
     nombre:['',[Validators.required , Validators.minLength(4)]],
-    consecuencias:['' , [Validators.required, Validators.minLength(20)]],
+    consecuencias:['' , [Validators.required]],
     id_clasificacion:['' , [Validators.required]],
     id_empresa:['']
   });
@@ -72,6 +72,7 @@ export class PeligrosComponent implements OnInit {
                 {
                   Swal.fire('Creado con Éxito' , 'Creado con éxito' , 'success');
                   this.formPeligro.reset();
+                  
                   this.listPeligrosLoad(this.selectionClasificacion , this.authService.usuario.id_empresa);
                 }
               });

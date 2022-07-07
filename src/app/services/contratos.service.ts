@@ -44,6 +44,13 @@ export class ContratosService {
 
   }
 
+  fechaBetwenn(data:any)
+  {
+    const url = `${base_url}/contratos/gps/findByBetween`;
+
+    return this.http.post<any>(url , data , this.headers);
+  }
+
 
 }
 

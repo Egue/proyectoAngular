@@ -1,0 +1,281 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <p-accordion>
+                    <p-accordionTab header="Crear Vistas" [selected]="true"  >
+                        <div class="">
+                            <div class="row animated fadeIn fast">
+                                <div class="col-lg-3">
+                                    <div class="card-body" style="background-color: #F8F9FA;">
+                                        <h4 class="card-title m-t-10">Grupo de vistas</h4>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="calender-events">
+                                                    <div class="calendar-events ui-draggable ui-draggable-handle" *ngFor ="let item of groupArray">
+                                                        <i class="{{item.icono}}"></i>{{item.title}}
+                                                    </div>
+                                                    <!--button-->
+                                                    <button class="btn m-t-10 btn-info btn-block waves-effect waves-light" (click)="openModalGrupo()"><i class="ti-plus"></i> Nuevo Grupo</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9">
+                                   <div class="card-body">
+                                    <h4 class="card-title m-t-10">Vistas para dar accesos</h4>
+                                    <!--buton-->
+                                    <p-toolbar styleClass="mb-4">
+                                        <ng-template pTemplate="left">
+                                            <button pButton pRipple  icon="pi pi-plus" class="p-button-success mr-2" (click)="openModalViews()"></button>
+                                            
+                                        </ng-template>
+                                 
+                                    </p-toolbar>
+                                    <!--Table-->
+                                    <p-table 
+                                    [value]="listViews" 
+                                    styleClass="p-datatable-sm"
+                                    [paginator]="true" 
+                                    [rows]="10" 
+                                    [showCurrentPageReport]="true" 
+                                    responsiveLayout="scroll"
+                                    currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} Vistas" [rowsPerPageOptions]="[10,25,50]">
+                                    <ng-template pTemplate="header">
+                                        <tr>
+                                            <th>Titulo</th>
+                                            <th>Url</th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-item>
+                                        <tr>
+                                            <td>{{item.title}}</td>
+                                            <td>{{item.url}}</td>
+                                        </tr>
+                                    </ng-template>
+                                    </p-table>
+                                   </div>
+                                </div>
+                            </div>
+                        </div>
+                    </p-accordionTab>
+                    <p-accordionTab header="Crear Roles"  >
+                        <div class="">
+                            <div class="row animated fadeIn fast">
+                                <div class="col-lg-3">
+                                    <div class="card-body" style="background-color: #F8F9FA;">
+                                        <h4 class="card-title m-t-10">Roles</h4>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="calender-events">
+                                                    <!--Roles-->
+                                                    <div class="calendar-events ui-draggable ui-draggable-handle" *ngFor ="let item of rolList" (click)="getListRelations(item)">
+                                                        {{item.role}}
+                                                    </div>
+                                                    <!--button-->
+                                                    <button class="btn m-t-10 btn-info btn-block waves-effect waves-light"  ><i class="ti-plus"></i> Nuevo Rol</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-9">
+                                    <div class="card-body">
+                                        <h4 class="card-title m-t-10">Asignación de Vistas</h4>
+                                         
+                                     <!--buton-->
+                                     <p-toolbar styleClass="mb-4">
+                                        <ng-template pTemplate="left">
+                                            <button pButton pRipple  icon="pi pi-plus" class="p-button-success mr-2" (click)="openModalRelations()"></button>
+                                            
+                                        </ng-template>
+                                 
+                                    </p-toolbar>
+                                    <!--Table-->
+                                    <p-table 
+                                    [value]="relationsList" 
+                                    styleClass="p-datatable-sm"
+                                    [paginator]="true" 
+                                    [rows]="10" 
+                                    [showCurrentPageReport]="true" 
+                                    responsiveLayout="scroll"
+                                    currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} Vistas" [rowsPerPageOptions]="[10,25,50]">
+                                    <ng-template pTemplate="header">
+                                        <tr>
+                                            <th>Rol</th>
+                                            <th>Grupo</th>
+                                            <th>Vista</th>
+                                            <th>Activo</th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-item>
+                                        <tr>
+                                            <td>{{item.roles_role}}</td>
+                                            <td>{{item.grupo}}</td>
+                                            <td>{{item.vista}}</td>
+                                            <td>{{item.active}}</td>
+                                        </tr>
+                                    </ng-template>
+                                    </p-table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </p-accordionTab>
+                    
+                </p-accordion>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--modal Nuevo Grupo-->
+<div class="fondo-modal animated fadeIn fast"
+    [class.oculto] = "modalGrupo">
+    
+<div class="modal fade none-border show" id="add-new-event" style="display: block; padding-right: 17px;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><strong>Nuevo</strong> Grupo de Menu</h4>
+                <button type="button" class="close"  (click)="cerrarModalGrupo()" aria-hidden="true">×</button>
+            </div>
+            <form   [formGroup]="formGroupMenu" (submit) = saveGroup()>
+                <div class="modal-body">
+                
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="control-label">Titulo</label>
+                            <input class="form-control form-white" placeholder="Ingrese el titulo" type="text" name="title"
+                            formControlName ="title"
+                            >
+                        </div>
+                       
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="control-label">Icono</label>
+                            <input class="form-control form-white" placeholder="Ingrese el icono a usar" type="text" name="icono"
+                            formControlName ="icono"
+                            >
+                        </div>
+                       
+                    </div>
+                
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary waves-effect waves-light save-category" type="submit"  >Guardar</button>
+                    <button type="button" class="btn btn-secondary waves-effect" (click)="cerrarModalGrupo()">Cerrar</button>
+                </div> 
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+<!--fin modal-->
+
+<!--modal Nuevo Grupo-->
+<div class="fondo-modal animated fadeIn fast"
+    [class.oculto] = "modalVista">
+    
+<div class="modal fade none-border show" id="add-new-event" style="display: block; padding-right: 17px;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><strong>Nueva</strong> Vista(url)</h4>
+                <button type="button" class="close"  (click)="cerrarModalViews()" aria-hidden="true">×</button>
+            </div>
+            <form   [formGroup]="formViews" (submit) = saveViews()>
+                <div class="modal-body">
+                
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="control-label">Titulo</label>
+                            <input class="form-control form-white" placeholder="Ingrese el titulo" type="text" name="title"
+                            formControlName ="title"
+                            >
+                        </div>
+                       
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="control-label">url</label>
+                            <input class="form-control form-white" placeholder="Ingrese la url" type="text" name="url"
+                            formControlName ="url"
+                            >
+                        </div>
+                       
+                    </div>
+                
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success waves-effect waves-light save-category" type="submit"  >Guardar</button>
+                    <button type="button" class="btn btn-secondary waves-effect" (click)="cerrarModalViews()">Cerrar</button>
+                </div> 
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+<!--fin modal-->
+
+
+
+<!--modal Relations-->
+<div class="fondo-modal animated fadeIn fast"
+    [class.oculto] = "modalRelations">
+    
+<div class="modal fade none-border show" id="add-new-event" style="display: block; padding-right: 17px;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><strong>Nueva</strong> Relación de Roles</h4>
+                <button type="button" class="close"  (click)="cerrarModalRelations()" aria-hidden="true">×</button>
+            </div>
+            <form   [formGroup]="formRelations" (submit) = saveRelations()>
+                <div class="modal-body">
+                
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="control-label">Rol</label>
+                            <select class="form-control custom-select"  formControlName="roles_role">
+                                <option *ngFor="let item of rolList" value="{{item.role}}">{{item.role}}</option>
+                           </select>
+                        </div>
+                       
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="control-label">Grupo</label>
+                            <select class="form-control custom-select"  formControlName="group_id">
+                                <option *ngFor="let item of groupArray" value="{{item.id}}">{{item.title}}</option>
+                           </select>
+                        </div>
+                       
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="control-label">Vista</label>
+                            <select class="form-control custom-select"  formControlName="vistas_id">
+                                <option *ngFor="let item of listViews" value="{{item.id}}">{{item.title}}</option>
+                           </select>
+                        </div>
+                       
+                    </div>
+                
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success waves-effect waves-light save-category" type="submit"  >Guardar</button>
+                    <button type="button" class="btn btn-secondary waves-effect" (click)="cerrarModalRelations()">Cerrar</button>
+                </div> 
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+<!--fin modal-->

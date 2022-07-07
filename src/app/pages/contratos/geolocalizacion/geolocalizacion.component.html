@@ -7,7 +7,7 @@
             <div class="card bg-danger">
                 <div class="card-body">
                     <div class="d-flex no-block">
-                        <div class="m-r-20 align-self-center"><img 				src="../assets/images/icon/staff-w.png" alt="Income"></div>
+                        <div class="m-r-20 align-self-center"><img 				src="./assets/images/icon/staff-w.png" alt="Income"></div>
                         <div class="align-self-center">
                             <h6 class="text-white m-t-10 m-b-0">Total Contratos</h6>
                             <h2 class="m-t-0 text-white">{{cusCantidad}}</h2>
@@ -100,7 +100,7 @@
                     </div>
                     <div class="col-lg-9">
                         <div class="card-body b-l calender-sidebar">
-                            <div id="map" style="height: 600px;"></div>
+                            <div id="map" [ngClass]="mapAltura"></div>
                         </div>
                     </div>
                 </div>
@@ -108,4 +108,105 @@
         </div>
     </div>
 </div>
-   
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                 
+                <!--calendario-->
+                <div class="p-fluid p-grid formgrid">
+                    <div class="p-field p-col-12 p-md-4">
+                        <label for="range">Elija el rango de fecha, debe seleccionar inicio y fin</label>
+                        <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" inputId="range" dateFormat="yy-mm-dd" [showIcon]="true" ></p-calendar>
+                                   
+                    </div>
+                </div>
+                <div class="p-fluid p-grid p-formgrid">
+                    <div class="p-field p-col-12 p-md-4">
+                        <button class="btn btn-danger" (click)="searchByBetween()">Buscar</button>
+                    </div>
+                </div>
+                <!--fincalendario-->
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--tabla-->
+<div class="row animated fadeIn fast" *ngIf="cargandoReporte">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Contratos geolocalizados</h4>
+                <h6 class="card-subtitle">Lista de contratos de rango elegido</h6>
+                
+                <!--Tabla inici 
+                <div class="table-responsive">
+                    <table class="table full-color-table full-primary-table hover-table">
+                        <thead>
+                            <tr >
+                                
+                                <th>Contrato</th>
+                                <th>Latitud</th>
+                                <th>Longitud</th>                                                             
+                                <th class="text-nowrap">Creado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of tableContratos" >
+                                
+                                <td>{{item.id_contrato}}</td>
+                                <td>{{item.latitud}}</td>
+                                <td>{{item.longitud}}</td>
+                                <td class="text-nowrap">{{item.created_at}}</td>                                
+                            </tr>                             
+                        </tbody>
+                    </table>
+                </div>
+              fin tabla-->
+
+                <!--tabla primeng -->
+                    <p-table 
+                    [value] ="tableContratos"
+                    [paginator] = "true"
+                    [rows]      =   "10"
+                    [showCurrentPageReport] = "true"
+                    currentPageReportTemplate ="Mostrando {first} de {last} de {totalRecords} resultados"
+                    [rowsPerPageOptions]="[10,25,50]"
+                    >
+                    <ng-template pTemplate="caption">
+                        <div class="flex">
+                            <button type="button" pButton pRipple icon="pi pi-file-excel"
+                            (click)="exportExcel()"
+                            class="p-button-success mr-2"
+                            pTooltip="XLS"
+                            tooltipPosition="bottom"
+                            ></button>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate = "header">
+                        <tr>
+                                <th>Contrato</th>
+                                <th>Latitud</th>
+                                <th>Longitud</th>                                                             
+                                <th>Creado</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item>
+                        <tr>
+                                <td>{{item.id_contrato}}</td>
+                                <td>{{item.latitud}}</td>
+                                <td>{{item.longitud}}</td>
+                                <td>{{item.created_at}}</td>     
+                        </tr>
+                    </ng-template>
+                     
+                    </p-table>
+               <!--fin--->
+            </div>
+        </div>
+    </div>
+</div>
+<!--fin-->

@@ -14,6 +14,10 @@ import { UsuariosComponent } from './usuarios/usuarios/usuarios.component';
 import { CrearUsuariosComponent } from './usuarios/crear-usuarios/crear-usuarios.component';
 import { GeolocalizacionComponent } from './contratos/geolocalizacion/geolocalizacion.component';
 import { PeligrosComponent } from './sistemagestion/peligros/peligros.component';
+import { RolesComponent } from './usuarios/roles/roles.component';
+import { SpRecaudoComponent } from './supergiros/sp-recaudo/sp-recaudo.component';
+import { PerfilComponent } from './usuarios/perfil/perfil.component';
+import { RcControlComponent } from './merkas/rc-control/rc-control.component';
 
 
 const routes:Routes = [
@@ -23,15 +27,28 @@ const routes:Routes = [
     {path:'' , component: DashboardComponent , data:{titulo:'Dashboard'}},
     {path:'progress' , component: ProgressComponent , data:{titulo:'Progress'}},
     {path:'grafica1' , component: Grafica1Component , data:{titulo:'Grafica # 1'}},
+
     {path:'settings' , component: AccountSetthingsComponent, data:{titulo:'Ajustes de cuenta'}},
+    {path:'myperfil'  , component: PerfilComponent, data:{titulo:'Perfil de usuario'} },
+    
     {path:'promesa' , component:  PromesasComponent , data:{titulo:'Promesas'}},
     {path:'rxjs'    , component: RxjsComponent , data:{titulo:'Rxjs'}},
+
     {path:'permisoTrabajo'    , component: PermisosComponent , data:{titulo:'Permisos de Trabaja'}},
     {path:'registroPersona'    , component: RegistroEmpleadosComponent , data:{titulo:'Registro Personal'}},
+    {path: 'peligros' , component: PeligrosComponent , data:{titulo:'Peligros y Clasificación'}},
+
     {path:'usuarios'    , component: UsuariosComponent , data:{titulo:'Usuarios'}},
     {path:'crearuser'    , component: CrearUsuariosComponent , data:{titulo:'Registro de Usuarios'}},
+    {path: 'roles' , component:RolesComponent , data:{titulo:'Vistas y roles de usuarios'}},
+
     {path: 'geolocalizacion' , component: GeolocalizacionComponent , data:{titulo:'Geolocalizacion'}},
-    {path: 'peligros' , component: PeligrosComponent , data:{titulo:'Peligros y Clasificación'}},
+
+    {path: 'sprecaudo' , component: SpRecaudoComponent , data:{titulo:'Recaudo Supergiros'}},
+
+    {path: 'merkasrc' , component:RcControlComponent , data:{titulo: 'Recibos Caja -> Merkas'}},
+    
+    
 
     
 
