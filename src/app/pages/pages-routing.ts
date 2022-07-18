@@ -18,6 +18,7 @@ import { RolesComponent } from './usuarios/roles/roles.component';
 import { SpRecaudoComponent } from './supergiros/sp-recaudo/sp-recaudo.component';
 import { PerfilComponent } from './usuarios/perfil/perfil.component';
 import { RcControlComponent } from './merkas/rc-control/rc-control.component';
+import { GeneralidadesComponent } from './sistemagestion/generalidades/generalidades.component';
 
 
 const routes:Routes = [
@@ -37,6 +38,7 @@ const routes:Routes = [
     {path:'permisoTrabajo'    , component: PermisosComponent , data:{titulo:'Permisos de Trabaja'}},
     {path:'registroPersona'    , component: RegistroEmpleadosComponent , data:{titulo:'Registro Personal'}},
     {path: 'peligros' , component: PeligrosComponent , data:{titulo:'Peligros y Clasificación'}},
+    {path:'generalidades' , component:GeneralidadesComponent , data:{titulo:'Generalidades del permiso de trabajo'}},
 
     {path:'usuarios'    , component: UsuariosComponent , data:{titulo:'Usuarios'}},
     {path:'crearuser'    , component: CrearUsuariosComponent , data:{titulo:'Registro de Usuarios'}},

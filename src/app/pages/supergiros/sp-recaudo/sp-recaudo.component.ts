@@ -3,6 +3,7 @@ import {CalendarModule} from 'primeng/calendar';
 import {FileUploadModule} from 'primeng/fileupload';
 import {DatePipe} from '@angular/common'; 
 import { SupergirosService } from '../../../services/supergiros.service';
+import { UploadFileService } from '../../../services/upload-file.service';
 @Component({
   selector: 'app-sp-recaudo',
   templateUrl: './sp-recaudo.component.html',
@@ -14,12 +15,14 @@ export class SpRecaudoComponent implements OnInit {
   public cargandoReporte:boolean = false;
   public pipe:DatePipe = new DatePipe('en-US');
   public rangeDates:any[]  = [];
-
-  public uploadedFiles: any[] = [];
+ 
 
   public listPagos: any[] = [];
 
-  constructor(private supergirosServices:SupergirosService) { }
+  public reporteFile:File | undefined;
+ 
+
+  constructor(private supergirosServices:SupergirosService , private uploadFileService:UploadFileService) { }
 
   ngOnInit(): void {
   }
@@ -39,28 +42,11 @@ export class SpRecaudoComponent implements OnInit {
             });
       
   }
+ 
+ 
 
-  onUpload(event:any)
-  {
-    for(let file of event.files) {
-      this.uploadedFiles.push(file);
-      console.log(this.uploadedFiles);
-  }
-  }
-
-  onSelectEvent(event:any)
-  {
-    console.log("Selected files" , event);
-    for(let file of event.files) {
-      this.uploadedFiles.push(file);
-      console.log(this.uploadedFiles);
-    }
-  }
-  onBeforeUpload(event:any)
-  {
+  myUploader(event:File){
      
-      console.log(event);
-    
   }
 
 }

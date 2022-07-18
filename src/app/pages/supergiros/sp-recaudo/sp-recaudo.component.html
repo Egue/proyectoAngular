@@ -26,7 +26,7 @@
                 <form >
                     <div class="p-fluid grid formgrid">
                         <div class="field col-12 md:col-4">
-                            <p-fileUpload name="demo[]"  (onUpload)="onUpload($event)" chooseLabel="Seleccionar" uploadLabel="Cargar" cancelLabel="cancelar
+                           <!-- <p-fileUpload name="demo[]"  (onUpload)="onUpload($event)" chooseLabel="Seleccionar" uploadLabel="Cargar" cancelLabel="cancelar
                             " (onBeforeUpload) = "onBeforeUpload($event)"
                                  [maxFileSize]="1000000">
                                 <ng-template pTemplate="content">
@@ -34,7 +34,14 @@
                                         <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
                                     </ul>
                                 </ng-template>
-                        </p-fileUpload>
+                        </p-fileUpload> -->
+                        <p-fileUpload name="myfile[]" 
+                        [customUpload]="true" 
+                        chooseLabel="Seleccionar" 
+                        uploadLabel="Cargar" 
+                        cancelLabel="cancelar"
+                        (uploadHandler)="myUploader($event)"
+                        ></p-fileUpload>
                         </div>
                         <div class="field col-12 md:col-4">
                             <label for="basic">Fecha de Reporte</label>

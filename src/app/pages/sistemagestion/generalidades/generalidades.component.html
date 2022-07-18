@@ -1,0 +1,66 @@
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+          
+             <!--inicio-->
+                <div class="">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="card-body">
+                                <h4 class="card-title m-t-10">Generalidades</h4>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div id="calendar-events">
+                                            <div class="calendar-events ui-draggable ui-draggable-handle"     style="position: relative;"   *ngFor="let item of listTipoGeneralidades" (click)="findByTipo(item)" >
+                                                <i class="fa fa-circle text-info"></i>{{item.tipo}}  
+                                            </div>
+                                        </div>
+                                        <!--butoon-->
+                                        <button   class="btn m-t-10 btn-info btn-block waves-effect waves-light"><i class="ti-plus"></i> Generalidad</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-9">
+                               
+                            <div class="row animated fadeIn fast" *ngIf="cargadoReporte">
+                                <div class="col-md-12">
+                                    <!--tabla-->
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5>Generalidades</h5>
+                                            <p-table [value]="listGeneralidadesByTipo" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll"
+                                            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]">
+                                            <ng-template pTemplate="header">
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Nombre</th>
+                                                    <th>Tipo</th>
+                                                    <th>Acción</th>
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="body" let-item>
+                                                <tr>
+                                                    <td>{{item.id_generalidades}}</td>
+                                                    <td>{{item.nombre}}</td>
+                                                    <td>{{item.tipo}}</td>
+                                                    <td> </td>
+                                                </tr>
+                                            </ng-template>
+                                            
+                                        </p-table>
+                                        </div>
+                                    </div>
+                                    <!--fin tabla-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             <!--fin-->
+                
+            
+        </div>
+    </div>
+</div> 

@@ -33,6 +33,8 @@ import { SpRecaudoComponent } from './supergiros/sp-recaudo/sp-recaudo.component
 import { PerfilComponent } from './usuarios/perfil/perfil.component';
 import { RcControlComponent } from './merkas/rc-control/rc-control.component';
 import { FileUploadModule } from 'primeng/fileupload';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { GeneralidadesComponent } from './sistemagestion/generalidades/generalidades.component';
 
 
 @NgModule({
@@ -53,7 +55,8 @@ import { FileUploadModule } from 'primeng/fileupload';
     RolesComponent,
     SpRecaudoComponent,
     PerfilComponent,
-    RcControlComponent, 
+    RcControlComponent,
+    GeneralidadesComponent, 
   ],
   exports:[
     DashboardComponent,
@@ -61,12 +64,19 @@ import { FileUploadModule } from 'primeng/fileupload';
     Grafica1Component,
     PagesComponent,
     AccountSetthingsComponent,
-    ProgressComponent,
+    PromesasComponent,
     RxjsComponent,
     PermisosComponent,
     RegistroEmpleadosComponent,
     UsuariosComponent,
-    CrearUsuariosComponent
+    CrearUsuariosComponent,
+    GeolocalizacionComponent,
+    PeligrosComponent,
+    RolesComponent,
+    SpRecaudoComponent,
+    PerfilComponent,
+    RcControlComponent,
+    GeneralidadesComponent,
   ],
   imports: [
     FormsModule,
@@ -82,6 +92,7 @@ import { FileUploadModule } from 'primeng/fileupload';
     PaginatorModule,
     ToolbarModule,
     FileUploadModule,
+    AutoCompleteModule,
   ]
 })
 export class PagesModule { }

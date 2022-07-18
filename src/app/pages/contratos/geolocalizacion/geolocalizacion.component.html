@@ -79,12 +79,22 @@
                                     </div>
                                     <div class="row" *ngIf="selectBarrio">
                                         <div class="form-group has-success">
-                                            <label class="control-label">Barrio</label>
-                                            <select class="form-control custom-select" (change)="getList($event.target)">
+                                            <label class="control-label">Barrio</label><br>
+                                           <!-- <select class="form-control custom-select" (change)="getList($event.target)">
                                                  <option  value="">--Seleccione--</option>
                                                  <option *ngFor="let item of barriosList" value="{{item.barrio}}">{{item.barrio}}</option>
 
-                                            </select>
+                                            </select> -->
+                                            <p-autoComplete [(ngModel)]="selectAutocomplete" [showEmptyMessage]="true" [suggestions]="filteredBarrio"  (completeMethod)="filterCountry($event)" field="barrio" [minLength]="3"
+                                            [dropdown]="true" (onSelect)="getList()"
+                                            >
+                                               <ng-template let-barriosList pTemplate="item">
+                                                <div class="country-item">
+                                                    <div>{{barriosList.barrio}}</div>
+                                                </div>
+
+                                               </ng-template> 
+                                        </p-autoComplete><br>
                                             <small class="form-control-feedback"> Seleccione Barrio </small> 
                                         </div>
                                     </div>

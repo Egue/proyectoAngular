@@ -19,6 +19,21 @@ export class UploadFileService {
 
       const formData = new FormData();
 
+      formData.append('xlsx' , archivo);
+
+      const resp = await fetch(url , {
+        method: 'POST',
+        headers: {
+          'Authorization': localStorage.getItem('jwt') || ''
+        },
+        body: formData
+      });
+
+      const data = await resp.json();
+
+      console.log(data);
+      return 'hola';
+
     } catch (error) {
       console.log(error);
       return false;

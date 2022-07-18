@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ContratosService } from '../../../services/contratos.service'; 
-//nfimport {AutoCompleteModule} from 'primeng/autocomplete';
+import {AutoCompleteModule} from 'primeng/autocomplete';
 import {CalendarModule} from 'primeng/calendar';
 import {DatePipe} from '@angular/common'; 
 import { PaginatorModule } from 'primeng/paginator';
@@ -13,20 +13,28 @@ declare   const L:any;
   ]
 })
 export class GeolocalizacionComponent implements OnInit {
-
-  public marketsArray:any[] = [];
+  //card rojo cantidad
   public cusCantidad:number = 0;
+  //mapp
+  public marketsArray:any[] = [];
+  public mapAltura:string = '';
+  public cargando:boolean = false;
+  public mapaCargado:boolean = false;
+  public map:any;
+  //select search 
   public btnMap:boolean = false;
   public selectMunicipio:boolean = false;
   public selectBarrio:boolean = false;
   public municipioList:any[] = [];
+  //barrios
+  public filteredBarrio: any[] = [];
+  public selectAutocomplete:any[] = [];
   public barriosList:any[] = [];
-  public cargando:boolean = false;
+  //buscar contratos x rango  
   public rangeDates:Date[]  = [];
   public cargandoReporte:boolean=false;
   public pipe:DatePipe = new DatePipe('en-US');
   public tableContratos:any[] = [];
-  public mapAltura:string = '';
 
   //table primeng
   public first:number = 0;
@@ -49,42 +57,45 @@ INNER JOIN lista_municipios ON lista_municipios.id_municipio = listas_barrios.id
 
   loadMap()
   {
-    
-    var map = L.map('map').setView([5.324, -72.393], 13);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '© OpenStreetMap'
-    }).addTo(map); 
-    //crear markets
-    for(var i = 0 ; i < this.marketsArray.length; i++)
-    {
-      /*var marker = new L.marker([this.marketsArray[i].latitud , this.marketsArray[i].longitud])
-        .bindPopup(`<h3>cus:${this.marketsArray[i].id_contrato}</h3><hr><p>Latitud:${this.marketsArray[i].latitud}</p><p>Longitud:${this.marketsArray[i].longitud}</p>`)
-        .addTo(map);*/
-        var circle = new L.circle([this.marketsArray[i].latitud , this.marketsArray[i].longitud],
-          {color:'red' , fillColo: '#f03' , fillOpacity:0.5, radius:10})
-          .bindPopup(`<h3>cus:${this.marketsArray[i].id_contrato}</h3><hr><p>Latitud:${this.marketsArray[i].latitud}</p><p>Longitud:${this.marketsArray[i].longitud}</p>`)
-          .addTo(map);
+     
+    this.map = L.map('map').setView([5.324, -72.393], 13);
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 19,
+          attribution: '© OpenStreetMap'
+          }).addTo(this.map); 
+          //crear markets
+          for(var i = 0 ; i < this.marketsArray.length; i++)
+          {
+            /*var marker = new L.marker([this.marketsArray[i].latitud , this.marketsArray[i].longitud])
+              .bindPopup(`<h3>cus:${this.marketsArray[i].id_contrato}</h3><hr><p>Latitud:${this.marketsArray[i].latitud}</p><p>Longitud:${this.marketsArray[i].longitud}</p>`)
+              .addTo(map);*/
+              var circle = new L.circle([this.marketsArray[i].latitud , this.marketsArray[i].longitud],
+                {color:'red' , fillColo: '#f03' , fillOpacity:0.5, radius:10})
+                .bindPopup(`<h3>cus:${this.marketsArray[i].id_contrato}</h3><hr><p>Latitud:${this.marketsArray[i].latitud}</p><p>Longitud:${this.marketsArray[i].longitud}</p>`)
+                .addTo(this.map);
+            
+              
       
+          } 
         
- 
-    } 
+  
    
   }
 
 
-  getList(event:any)
-  {
+  //getList(event:any)
+  getList()
+  { 
     this.mapAltura = 'map-altura';
     this.cargando = true;
-    this.contratoService.list(event.value)
+    this.contratoService.list(this.selectAutocomplete)
     .subscribe(
       (data:any) => {
         this.marketsArray = data.response; 
         this.cusCantidad = this.marketsArray.length;
         this.cargando = false;
       }
-    );
+    ); 
   }
 
   searchMunicipios(event:any)
@@ -97,6 +108,22 @@ INNER JOIN lista_municipios ON lista_municipios.id_municipio = listas_barrios.id
       this.cargando = false;
     })
   }
+  //automeplete biscar de aceurdo a evento
+  filterCountry(event:any){
+       var filtrado:any[] = [];
+       var query = event.query;
+       for(var i = 0; i <this.barriosList.length; i++)
+       {
+          var barrio = this.barriosList[i]; 
+          if(barrio.barrio.toLowerCase().indexOf(query.toLowerCase()) == 0)
+          {
+            filtrado.push(barrio);
+          }
+       }
+       this.filteredBarrio = filtrado;
+
+       
+  }
 
   searchBarrio(event:any)
   {
@@ -104,6 +131,7 @@ INNER JOIN lista_municipios ON lista_municipios.id_municipio = listas_barrios.id
     this.contratoService.barriosList(event.value)
     .subscribe((resp:any) => {
       this.barriosList = resp.response;
+       
       this.selectBarrio = true;
       this.cargando = false;
     })
