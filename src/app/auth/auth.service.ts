@@ -8,7 +8,9 @@ import { tap  ,map , catchError, timeout} from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 
-const base_url = environment.base_url;
+//const base_url = environment.base_url;
+const base_url = '/repositories/backend_jwt_3_slim/public/';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -34,9 +36,9 @@ export class AuthService {
     }
   }
   validateToken():Observable<boolean>{
-    
-
-     return this.http.get(`${base_url}/auth/validate/${this.token}` , this.header)
+    //const url = `${base_url}/auth/validate/${this.token}`;
+      //const url = '/repositories/backend_jwt_3_slim/public/';
+     return this.http.get( `${base_url}auth/validate/${this.token}` , this.header)
      .pipe(
       tap(
         (resp:any) => {
@@ -59,7 +61,12 @@ export class AuthService {
 
 
   login(formData:Login){
-    return this.http.post(`${base_url}/auth/login` , formData)
+    
+    const url = `${base_url}auth/login`;
+
+    //const url = `/repositories/backend_jwt_3_slim/public/auth/login`;
+    
+    return this.http.post(url , formData)
                     .pipe(
                       tap( (resp:any) => {
                         const { id, user, marca, active, email, url_img, role,created_at,updated_at,id_empresa} = resp.usuario[0];

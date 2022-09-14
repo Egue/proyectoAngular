@@ -19,6 +19,10 @@ import { SpRecaudoComponent } from './supergiros/sp-recaudo/sp-recaudo.component
 import { PerfilComponent } from './usuarios/perfil/perfil.component';
 import { RcControlComponent } from './merkas/rc-control/rc-control.component';
 import { GeneralidadesComponent } from './sistemagestion/generalidades/generalidades.component';
+import { ElementosProteccionComponent } from './sistemagestion/elementos-proteccion/elementos-proteccion.component';
+import { EmpresaComponent } from './sistemagestion/empresa/empresa.component';
+import { GeolocalizarComponent } from './contratos/geolocalizar/geolocalizar.component';
+import { ListComponent } from './sistemagestion/vehiculos/list/list.component';
 
 
 const routes:Routes = [
@@ -35,16 +39,22 @@ const routes:Routes = [
     {path:'promesa' , component:  PromesasComponent , data:{titulo:'Promesas'}},
     {path:'rxjs'    , component: RxjsComponent , data:{titulo:'Rxjs'}},
 
-    {path:'permisoTrabajo'    , component: PermisosComponent , data:{titulo:'Permisos de Trabaja'}},
+    {path:'permisoTrabajo'    , component: PermisosComponent , data:{titulo:'Permisos de Trabajo'}},
     {path:'registroPersona'    , component: RegistroEmpleadosComponent , data:{titulo:'Registro Personal'}},
     {path: 'peligros' , component: PeligrosComponent , data:{titulo:'Peligros y Clasificación'}},
     {path:'generalidades' , component:GeneralidadesComponent , data:{titulo:'Generalidades del permiso de trabajo'}},
+    {path: 'elementos-epp' , component:ElementosProteccionComponent , data:{titulo: 'Elementos de proteccion'}},
+    {path: 'config-empresa' , component:EmpresaComponent , data:{titulo:'Configuración empresa'}},
+    {path: 'vehiculo' , loadChildren: () => import('./sistemagestion/vehiculos/vehiculo.module').then(m => m.VehiculoModule),},
+    {path: 'marcas' , loadChildren: () => import('./sistemagestion/marcas/marcas.module').then(m => m.MarcasModule),},
+
 
     {path:'usuarios'    , component: UsuariosComponent , data:{titulo:'Usuarios'}},
     {path:'crearuser'    , component: CrearUsuariosComponent , data:{titulo:'Registro de Usuarios'}},
     {path: 'roles' , component:RolesComponent , data:{titulo:'Vistas y roles de usuarios'}},
 
     {path: 'geolocalizacion' , component: GeolocalizacionComponent , data:{titulo:'Geolocalizacion'}},
+    {path: 'geolocalizar' , component: GeolocalizarComponent , data:{titulo: 'Geolocalizar contratos'}},
 
     {path: 'sprecaudo' , component: SpRecaudoComponent , data:{titulo:'Recaudo Supergiros'}},
 

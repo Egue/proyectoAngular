@@ -19,7 +19,7 @@ public tituloSusb$:Subscription;
     this.tituloSusb$ = this.getArgumentosRuta()
     .subscribe(({titulo})=>{
       this.titulo = titulo; //({titulo}) desestructuracion de la data del observable, es variable de event
-      document.title = `AdminPro - ${titulo}`;
+      document.title = `HannilPro - ${titulo}`;
     });
 
   }

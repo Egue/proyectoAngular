@@ -5,7 +5,8 @@ import { map } from 'rxjs/operators';
 import { Peligro } from '../models/peligro.model';
 import { CargarPeligros } from '../interfaces/cargar-peligros.interface';
 
-const base_url = environment.base_url;
+//const url_base = environment.base_url;
+const url_base = '/repositories/backend_jwt_3_slim/public/';
 
 @Injectable({
   providedIn: 'root'
@@ -28,20 +29,20 @@ export class PeligrosService {
 
   listClasificacion()
   {
-    const url = `${base_url}/seguridad/clasificacion/list`;
+    const url = `${url_base}seguridad/clasificacion/list`;
     return this.http.get(url , this.headers);
   }
 
   saveClasificacion(clasificacion:any)
   {
-    const url = `${base_url}/seguridad/clasificacion/save`;
+    const url = `${url_base}seguridad/clasificacion/save`;
 
     return this.http.post(url ,  clasificacion , this.headers);
   }
 
   listPeligros(data:any)
   {
-    const url = `${base_url}/seguridad/peligro/list`;
+    const url = `${url_base}seguridad/peligro/list`;
 
     return this.http.post<CargarPeligros>(url , data , this.headers)
     .pipe(
@@ -58,14 +59,14 @@ export class PeligrosService {
   savePeligro(peligro:Peligro)
   {
      
-    const url = `${base_url}/seguridad/peligro/save`;
+    const url = `${url_base}seguridad/peligro/save`;
    return this.http.post(url , peligro , this.headers);
   }
 
   deletePeligro(peligro:Peligro)
   {
 
-    const url = `${base_url}/seguridad/peligro/deleteById/${peligro.id_peligro}`;
+    const url = `${url_base}seguridad/peligro/deleteById/${peligro.id_peligro}`;
 
     return this.http.delete(url , this.headers);
   }
@@ -73,21 +74,21 @@ export class PeligrosService {
 
   listControles(idpeligro:any)
   {
-    const url = `${base_url}/seguridad/controles/findByPeligro/${idpeligro}`;
+    const url = `${url_base}seguridad/controles/findByPeligro/${idpeligro}`;
 
     return this.http.get(url, this.headers);
   }
 
   saveControl(control:any)
   {
-    const url = `${base_url}/seguridad/controles/save`; 
+    const url = `${url_base}seguridad/controles/save`; 
     
     return this.http.post(url , control, this.headers);
   }
 
   deleteControl(id_control:any)
   {
-    const url = `${base_url}/seguridad/controles/deleteById/${id_control}`;
+    const url = `${url_base}seguridad/controles/deleteById/${id_control}`;
     
     return this.http.delete(url , this.headers);
   }

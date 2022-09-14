@@ -1,0 +1,98 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title"><i class="mdi mdi-city"></i>Selección de empresa</h4>
+                <h6 class="card-subtitle">Seleccione la empresa que va a editar</h6>
+                <div class="p-fluid p-grid formgrid">
+                    <div class="p-field p-col-12 p-md-4">
+                        <p-dropdown [options]="listEmpresa" [(ngModel)]="selectedEmpresa" optionLabel="razon_social" ></p-dropdown>
+                    </div>
+                </div>
+                <div class="p-fluid p-grid formgrid">
+                    <div class="p-field p-col-12 p-md-4">
+                        <button class="btn btn-danger" (click)="onSelectedEmpresa()"><i class="mdi mdi-lead-pencil"></i> Editar</button>
+                    </div>
+                </div>
+               
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <form   class="form-material m-t-40 row" [formGroup]="editForm" (submit)="save()">
+                <div class="form-group col-md-6 m-t-20">
+                    <label >Razón Social</label>
+                    <input type="text" class="form-control form-control-line"   formControlName="razon_social"> 
+                </div>
+
+                <div class="form-group col-md-6 m-t-20">
+                    <label >NIT</label>
+                    <input type="text" class="form-control form-control-line"  formControlName="nit"> 
+                </div>
+                <div class="form-group col-md-6 m-t-20">
+                    <label >Digito de verificación (DV)</label>
+                    <input type="text" class="form-control form-control-line"  formControlName="dv"> 
+                </div>
+                <div class="form-group col-md-6 m-t-20">
+                    <label >Logo</label>
+                    <input type="text" class="form-control form-control-line" formControlName="logo" > 
+                </div>
+                <div class="form-group col-md-6 m-t-20">
+                    <label >Código de Soporte</label>
+                    <input type="text" class="form-control form-control-line"   formControlName="codigo_soporte"> 
+                </div>
+                <div class="form-group col-md-6 m-t-20">
+                    <label >Dirección</label>
+                    <input type="text" class="form-control form-control-line"  formControlName="direccion"> 
+                </div>
+                <div class="form-group col-md-6 m-t-20">
+                    <label >Prefijo</label>
+                    <input type="text" class="form-control form-control-line"  formControlName="prefijo"> 
+                </div>
+                <!--mail-->
+                <div class="form-group col-md-6 m-t-20">
+                    <label >Servidor de correo</label>
+                    <input type="text" class="form-control form-control-line"  formControlName="host"> 
+                </div>
+                <div class="form-group col-md-6 m-t-20">
+                    <label >Correo para envios</label>
+                    <input type="text" class="form-control form-control-line"  formControlName="mail_send"> 
+                </div>
+                <div class="form-group col-md-6 m-t-20">
+                    <label >Contraseña</label>
+                    <input type="text" class="form-control form-control-line"  formControlName="password"> 
+                </div>
+                <div class="form-group col-md-6 m-t-20">
+                    <label >Puerto</label>
+                    <input type="text" class="form-control form-control-line"  formControlName="port"> 
+                </div>
+
+                <div class="form-group col-md-12 m-t-20">
+                    <label >Html1</label>
+                    <textarea class="form-control" rows="10" formControlName="html1"></textarea> 
+                </div>
+                <div class="form-group col-md-12 m-t-20">
+                    <label >Html2</label>
+                    <textarea class="form-control" rows="10" formControlName="html2"></textarea> 
+                </div>
+                <div class="form-group col-md-12 m-t-20">
+                    <label >Html3</label>
+                    <textarea class="form-control" rows="10" formControlName="html3"></textarea> 
+                </div>
+                <div class="form-group col-md-6 m-t-20">
+                      <button class="btn btn-primary" type="submit"><i class="mdi mdi-content-save"></i> Guardar</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+</div>

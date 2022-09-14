@@ -22,6 +22,8 @@ export class RcControlComponent implements OnInit {
 
   public modalCargando:boolean = true;
 
+  public loading:boolean = false;
+
   constructor(private merkasservice:MerkasService) { }
 
   ngOnInit(): void {
@@ -29,7 +31,7 @@ export class RcControlComponent implements OnInit {
   }
 
   getListBetween()
-  { 
+  { this.loading = true;
     const range = {
       valor1: this.pipe.transform(this.rangeDates[0] , 'yyyyMMdd') ,
       valor2: this.pipe.transform(this.rangeDates[1] , 'yyyyMMdd')
@@ -39,6 +41,7 @@ export class RcControlComponent implements OnInit {
                         .subscribe((resp:any)=> {
                           this.listRc = resp.response;
                           this.cargandoReporte = true; 
+                          this.loading = false;
                         });
   }
 

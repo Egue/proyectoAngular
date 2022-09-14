@@ -9,20 +9,18 @@
                         <label for="exampleInputuname">Nombre</label>
                         <div class="input-group">
                             <div class="input-group-addon"><i class="ti-user"></i></div>
-                            <input type="text" class="form-control" id="exampleInputuname" placeholder="Username">
+                            <input type="text" class="form-control" id="exampleInputuname" placeholder="Username" value="{{this.auth.usuario.user}}" disabled>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email</label>
                         <div class="input-group">
                             <div class="input-group-addon"><i class="ti-email"></i></div>
-                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" value="{{this.auth.usuario.email}}" disabled>
                         </div>
                     </div>
                    
                      
-                    <button type="submit" class="btn btn-success btn-block waves-effect waves-light m-r-10"><i class="fa fa-save"></i> Guardar cambios</button>
-                    
                 </form>
             </div>
         </div>
@@ -41,3 +39,59 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Cambiar de contraseña</h4>
+            <form   class="form-material m-t-40 row"  [formGroup]="formPassword" (submit)="updatedContrasena()">
+                <div class="form-group col-md-6 m-t-20">
+                    <label >Nueva Contraseña</label>
+                    <input type="text" class="form-control form-control-line"  formControlName="password"   > 
+                </div>
+                <div class="form-group col-md-3 m-t-20">
+                    <button class="btn btn-primary" (click)="aleatorioKey()" type="button"><i class="mdi mdi-ghost" ></i> Generar contraseña</button> 
+                </div>
+                <div class="form-group col-md-3 m-t-20"> 
+                    <button class="btn btn-success" [disabled]="this.formPassword.invalid" type="submit"><i class="fa fa-save"></i> Actualizar</button>
+                </div>
+            </form>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+ 
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body"> 
+                <p-accordion> 
+                    <p-accordionTab header="Llaves Electrónicas"> 
+                        <h6 class="card-subtittle">Para firmar electronicamente se hace necesario usar llaves únicas para cada usuario, por favor cree sus
+                            llaves si aplica firmar electronicamente.
+                        </h6>
+                        <button class="btn btn-lg btn-warning" [disabled]="this.formKeys.valid" (click)="generateKey()">Generar LLaves</button>
+                        <form   class="form-material m-t-40 row" [formGroup]="formKeys">
+                            <div class="form-group col-md-12 m-t-20">
+                                <label >Llave Privada</label>
+                                <textarea class="form-control" rows="10" formControlName="private_key" ></textarea> 
+                            </div>
+                            <div class="form-group col-md-12 m-t-20">
+                                <label >Llave Publica</label>
+                                <textarea class="form-control" rows="10" formControlName="public_key"></textarea> 
+                            </div>
+                        </form>
+                </p-accordionTab>
+                    <p-accordionTab header="Registro vehiculos">
+                        <h6 class="card-subtittle">En esta sección agrega información de su vehiculo si lo tiene inscrito a la empresa</h6>
+                        
+                    </p-accordionTab>
+                    
+                </p-accordion>
+            </div>
+        </div>
+    </div>
+</div>
+

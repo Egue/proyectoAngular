@@ -1,0 +1,8 @@
+{
+    "/repositories/backend_jwt_3_slim/public/*":{
+        "target": "https://apps.internetinalambrico.com.co",
+        "secure":"false",
+        "LogLevel":"debug",
+        "changeOrigin": true
+    }
+}

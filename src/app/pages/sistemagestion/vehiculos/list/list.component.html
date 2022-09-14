@@ -1,0 +1,86 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title"><i class="mdi mdi-format-list-bulleted-type"></i>Motos y Carros</h4>
+                <h6 class="card-subtitile">Registrados por la empresa y asociados a un empleado</h6>
+                <div>
+                    <h2 id="page-heading"  >
+                         
+                        <p-button
+                          id="jh-create-entity"
+                          class="float-right jh-create-entity create-contacto"
+                          [routerLink]="['/dashboard/vehiculo/new']"
+                          type="submit"
+                          icon="pi pi-plus"
+                          iconPos="left"
+                          data-cy="entityCreateButton"
+                        >
+                        </p-button>
+                      </h2>
+                      <br />
+                      <p-table
+                        #listVehiculos
+                        [value]="listVehiculo"
+                        [paginator] = "true"
+                        [loading]="loading"
+                        [rows]      =   "10"
+                        [showCurrentPageReport] = "true"
+                        currentPageReportTemplate ="Mostrando {first} de {last} de {totalRecords} resultados"
+                        [rowsPerPageOptions]="[10,25,50]"
+                      >
+                      <ng-template pTemplate="header">
+                            <tr>
+                                <th>Nombre de tarjeta</th>
+                                <th>Placa</th>
+                                <th>Imagen</th>
+                                <th>Tipo</th>
+                                <th style="width: 124px"></th>
+                            </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-vehiculo>
+
+                        <tr>
+                            <td>{{vehiculo.vehiculo_nombre_tarjeta}}</td>
+                            <td>{{vehiculo.vehiculo_placa}}</td>
+                            <td>{{vehiculo.vehiculo_imagen}}</td>
+                            <td>
+                                <ng-container *ngIf="vehiculo.vehiculo_tipo==='MOTOCICLETA';else carro">
+                                  <i class="mdi mdi-motorbike"></i> {{vehiculo.vehiculo_tipo}}
+                                </ng-container>
+                                <ng-template #carro>
+                                  <i class="mdi mdi-car"></i> {{vehiculo.vehiculo_tipo}}
+                                </ng-template>
+                                
+
+                            </td>
+                            <td>
+                                <div class="btn-group flex-btn-group-container">
+                                   
+                                    <p-button
+                                      type="submit"
+                                      [routerLink]="['/dashboard/vehiculo' , vehiculo.vehiculo_id!, 'edit']"
+                                      icon="pi pi-pencil"
+                                      styleClass="p-button-warning" 
+                                    >
+                                    </p-button>
+                                    <p-button
+                                      type="submit"
+                                       (onClick)="delete(vehiculo.vehiculo_id)"
+                                      icon="pi pi-times"
+                                      styleClass="p-button-danger" 
+                                    >
+                                    </p-button>
+                                  </div>
+                            </td>
+                        </tr>
+                      </ng-template>
+                                      
+
+                      </p-table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

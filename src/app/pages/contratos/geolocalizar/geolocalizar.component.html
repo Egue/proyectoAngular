@@ -1,0 +1,73 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title"><i class="mdi mdi-cloud-outline"></i>Buscar Contrato</h4>
+                <form  class="form-material m-t-40" [formGroup]="formCus" (submit)="getFindDireccionByCus()">
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-line" placeholder="ingrese contrato / cus" formControlName="cus">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-lg btn-success" type="submit" [disabled]="this.formCus.invalid"><i class="mdi mdi-file-find"></i> Buscar Contrato</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body" *ngIf="direccionCus.id_contrato">
+               
+                <form class="form p-t 20">
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputuname">Contrato</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="mdi mdi-image-filter-center-focus"></i></div>
+                                    <input type="text" class="form-control" id="exampleInputuname" disabled value="{{direccionCus.id_contrato}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputuname">Dirección</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="mdi mdi-home-map-marker"></i></div>
+                                    <input type="text" class="form-control" id="exampleInputuname" disabled value="{{direccionCus.direccion}}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+               <div class="text-center">
+                <button class="btn btn-primary" (click)="nuevoGps()"><i class="mdi mdi-google-maps"></i> Geolocalizar</button>
+                -
+                <button class="btn btn-danger"  (click)="updatedGps()"><i class="mdi mdi-content-save-all"></i> Guardar</button>
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Flat de cargar-->
+<div class="row animated fadeIn fast" *ngIf="cargando">
+    <div class="col-12">
+         <div class="alert alert-info text-center" role="alert">
+             <h4 class="alert-heading">Cargando</h4>
+             <i class="fa fa-spin fa-refresh fa-2"></i>
+             <p class="mb-0">Por favor espere</p>
+         </div>
+    </div>
+</div>
+<!--fin cargar-->
+<div class="row" *ngIf="ubicacionGpsEstado">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                
+                    <div id="map" [ngClass]="mapAltura"></div>
+                 
+            </div>
+        </div>
+    </div>
+</div>
+
+ 

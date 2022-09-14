@@ -8,8 +8,8 @@ import { of, Observable } from 'rxjs';
 import { Usuario } from '../models/usuario.model';
 import { IRole } from '../interfaces/role.interface';
 import { Rol } from '../models/role.model';
-const base_url = environment.base_url;
-
+//const base_url = environment.base_url;
+const base_url = '/repositories/backend_jwt_3_slim/public/';
 @Injectable({
   providedIn: 'root'
 })
@@ -26,7 +26,7 @@ export class UsuariosService {
 
   register(user:RegisterForm){
     
-    return this.http.post(`${base_url}/auth/register` , user , this.headers);
+    return this.http.post(`${base_url}auth/register` , user , this.headers);
 
   }
 
@@ -52,7 +52,7 @@ export class UsuariosService {
   }
 
   List(desde:number = 0){
-    const url = `${base_url}/usuarios/list/${desde}`;
+    const url = `${base_url}usuarios/list/${desde}`;
      return this.http.get<CargarUsuarios>( url , this.headers)
      .pipe(
        map( resp => {
@@ -71,7 +71,7 @@ export class UsuariosService {
   }
   findByName(letras:string = '')
   {
-    const url = `${base_url}/usuarios/findByName/${letras}`;
+    const url = `${base_url}usuarios/findByName/${letras}`;
     return this.http.get<any[]>(url , this.headers)
     .pipe(
         map( (resp:any) => {
@@ -83,14 +83,14 @@ export class UsuariosService {
 
   deleteById(usuario:Usuario)
   {
-    const url = `${base_url}/usuarios/delete/${usuario.id}`;
+    const url = `${base_url}usuarios/delete/${usuario.id}`;
 
     return this.http.delete(url , this.headers);
   }
 
   findByRole()
   {
-    const url = `${base_url}/roles/list`;
+    const url = `${base_url}roles/list`;
     return this.http.get<IRole>(url, this.headers)
     .pipe(
       map( resp => {
@@ -105,9 +105,31 @@ export class UsuariosService {
   updateUser(user:Usuario)
   {
     
-    return this.http.patch(`${base_url}/usuarios/edit/${user.id}` , user , this.headers);
+    return this.http.patch(`${base_url}usuarios/edit/${user.id}` , user , this.headers);
   }
 
+  findKeyById(user:Usuario)
+  {
+    return this.http.get(`${base_url}usuarios/findKeyById/${user.id}` , this.headers);
+  }
+
+  generateKeyElectronica(user:Usuario)
+  {
+    return this.http.get(`${base_url}usuarios/firmaElectronica/generate/${user.id}` , this.headers);
+  }
+
+  updatedPassword(usuario:Usuario , password:string)
+  {
+    const data = {
+      password : password
+    } 
+    return this.http.patch(`${base_url}usuarios/updatedPassword/${usuario.id}` , data , this.headers);
+  }
+
+  findByIdempresa(id_empresa:any)
+  {
+    return this.http.get(`${base_url}usuarios/findByIdempresa/${id_empresa}` , this.headers );
+  }
 
   
 }

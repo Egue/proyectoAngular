@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.prod';
-const base_url = environment.base_url;
+//const url_base = environment.base_url;
+const url_base = '/repositories/backend_jwt_3_slim/public/';
 
 @Injectable({
   providedIn: 'root'
@@ -24,47 +25,47 @@ export class RolesVistaService {
 
   listGroup()
   {
-    const url = `${base_url}/roles/group/list`;
+    const url = `${url_base}roles/group/list`;
 
     return this.http.get(url , this.headers);
   }
   saveGroup(data:any)
   {
-    const url = `${base_url}/roles/group/save`;
+    const url = `${url_base}roles/group/save`;
 
     return this.http.post(url, data , this.headers);
   }
 
   getListViews()
   {
-    const url= `${base_url}/roles/views/list`;
+    const url= `${url_base}roles/views/list`;
 
     return this.http.get(url , this.headers);
   }
 
   saveViews(data:any)
   {
-    const url = `${base_url}/roles/views/save`;
+    const url = `${url_base}roles/views/save`;
 
     return this.http.post(url , data , this.headers);
   }
 
   getListRoles()
   {
-    const url = `${base_url}/roles/list`;
+    const url = `${url_base}roles/list`;
 
     return this.http.get(url, this.headers);
   }
   
   getListRelations(role:any)
   {
-    const url = `${base_url}/roles/rol/${role}`;
+    const url = `${url_base}roles/rol/${role}`;
 
     return this.http.get(url , this.headers);
   }
   saveRelations(relations:any)
   { 
-    const url = `${base_url}/roles/relations/save`;
+    const url = `${url_base}roles/relations/save`;
 
     return this.http.post(url , relations , this.headers);
 

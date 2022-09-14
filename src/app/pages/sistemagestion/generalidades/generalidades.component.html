@@ -17,7 +17,7 @@
                                             </div>
                                         </div>
                                         <!--butoon-->
-                                        <button   class="btn m-t-10 btn-info btn-block waves-effect waves-light"><i class="ti-plus"></i> Generalidad</button>
+                                        <button   class="btn m-t-10 btn-info btn-block waves-effect waves-light" (click)="openModalGeneralidades()"><i class="ti-plus"></i> Generalidad</button>
                                     </div>
                                 </div>
                             </div>
@@ -64,3 +64,42 @@
         </div>
     </div>
 </div> 
+<div class="fondo-modal animated fadeIn fast"
+[class.oculto] = "modalFormGeneralidades">
+<div class="modal fade show" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" style="display: block;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1"> <strong>Nueva</strong> Generalidad</h4>
+                <button type="button" class="close" (click)="cerrarModalGeneralidades()" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <form [formGroup]="formGeneralidad" (submit)="save()">
+                <div class="modal-body">
+                   
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">Nombre</label>
+                            <input type="text" class="form-control" id="recipient-name1" formControlName="nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="form-clasificacion" class="control-label">Clasificación</label>
+                            <select class="form-control custom-select"  formControlName="tipo">
+                                <option value="EPP">EPP</option>
+                                <option value="EPCC">EPCC</option>
+                                <option value="condición física">condición física</option>
+                                <option value="Herramientas">Herramientas</option>
+                                <option value="Motocicleta">Motocicleta</option>
+                                <option value="Vehículo">Vehículo</option>
+                            </select>
+                        </div>
+                         
+                
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" (click)="cerrarModalGeneralidades()">Cancelar</button>
+                    <button type="submit" class="btn btn-primary"  >Guardar</button>
+                </div></form>
+
+        </div>
+    </div>
+</div>
+</div>

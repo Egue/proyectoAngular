@@ -1,0 +1,114 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title"><i class="mdi mdi-border-color"></i>Crear o Editar</h4>
+
+                <form   [formGroup] ="formEdit" (submit)="save()" >
+                    <div class="form-body">
+                        <ng-container *ngIf="formEdit.get('vehiculo_id')!.value">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group has-success ">
+                                        <label for="vehiculo_id" class="control-label">Id</label>
+                                        <input type="text" class="form-control" id="vehiculo_id" formControlName="vehiculo_id"> 
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                        </ng-container>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group has-success ">
+                                    <label for="vehiculo_nombre_tarjeta" class="control-label">N° Licencia Transito</label>
+                                    <input type="text" class="form-control" id="vehiculo_nombre_tarjeta" formControlName="vehiculo_nombre_tarjeta"> 
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group has-success ">
+                                    <label for="vehiculo_placa" class="control-label">Placa</label>
+                                    <input type="text" class="form-control" id="vehiculo_placa" formControlName="vehiculo_placa"><span class="bar"></span>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group has-success">
+                                    <label for="vehiculo_color" class="control-label">Color</label>
+                                    <input type="text" class="form-control" id="vehiculo_color" formControlName="vehiculo_color"><span class="bar"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group has-success">
+                                    <label for="vehiculo_cilindraje" class="control-label">Cilindraje</label>
+                                    <input type="number" class="form-control" id="vehiculo_cilindraje" formControlName="vehiculo_cilindraje"><span class="bar"></span>
+                                   
+                                </div> 
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group has-success">
+                                    <label for="vehiculo_modelo" class="control-label">Modelo</label>
+                                    <input type="number" class="form-control" id="vehiculo_modelo" formControlName="vehiculo_modelo"><span class="bar"></span>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group has-success">
+                                   <label for="marca_id" class="control-label">Marca</label>
+                                   <!-- <select  id="marca_id" class="form-control custom-select"  (change)="onChange($event.target , 'marca')" #marca_id>-->
+                                    <select  id="marca_id" class="form-control custom-select"   formControlName="id_marca">
+                                       <option></option>
+                                       <option *ngFor="let item of listMarca" value="{{item.key}}" >{{item.value}}</option>
+                                    </select> 
+                               
+                                    
+           
+                               </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group has-success">
+                                    <label for="tipo" class="control-label">Tipo Vehiculo</label>
+                                    <!--<select  id="tipo" class="form-control custom-select" (change)="onChange($event.target , 'tipo')" #vehiculo_tipo>-->
+                                        <select  id="tipo" class="form-control custom-select" formControlName="vehiculo_tipo">
+                                       <option></option>
+                                        <option value="MOTOCICLETA">MOTOCICLETA</option>
+                                        <option value="CARRO">CARRO</option>
+                                    </select>
+                                  
+            
+                               </div>
+                            </div>
+                            <div class="col-md-6">
+                                        
+                                <div class="form-group has-success">
+                                    <label for="usuario_id" class="control-label">Usuario Vehiculo</label>
+                                       <!--<select  id="usuario_id" class="form-control custom-select"  (change)="onChange($event.target , 'usuario')" #usuario_id>-->
+                                        <select  id="usuario_id" class="form-control custom-select"  formControlName="id_usuario">
+                                        <option></option>
+                                        <option *ngFor="let item of listUsuarios" value="{{item.key}}" >{{item.value}}</option>
+                                    </select>
+                                    
+                                </div>
+                            </div>
+                        </div>          
+            
+                    
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-success" type="submit" [disabled]="formEdit.invalid"><i class="mdi mdi-check"></i>Guardar</button>
+                        <button class="btn btn-inverse" type="button" (click)="previousState()">Cancelar</button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

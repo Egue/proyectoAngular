@@ -7,18 +7,27 @@ import { DonaComponent } from './dona/dona.component';
 
 import { NgChartsModule } from 'ng2-charts';
 import { SgControlesComponent } from './sg-controles/sg-controles.component';
+import { AddVehiculoComponent } from './add-vehiculo/add-vehiculo.component';
+import { AddBuenoMaloComponent } from './add-bueno-malo/add-bueno-malo.component';
+import { MotoSvgComponent } from './moto-svg/moto-svg.component';
 
 
 @NgModule({
   declarations: [
     IncrementadorComponent,
     DonaComponent,
-    SgControlesComponent
+    SgControlesComponent,
+    AddVehiculoComponent,
+    AddBuenoMaloComponent,
+    MotoSvgComponent
   ],
   exports:[
     IncrementadorComponent,
     DonaComponent,
-    SgControlesComponent
+    SgControlesComponent,
+    AddVehiculoComponent,
+    AddBuenoMaloComponent,
+    MotoSvgComponent
   ],
   imports: [
     CommonModule,

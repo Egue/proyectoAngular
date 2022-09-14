@@ -1,0 +1,242 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card" *ngIf="permiso.length > 0; else sinregistros">
+            <div class="card-body">
+                    <div class="text-center">
+                        <i class="mdi mdi-account-card-details"></i> {{permiso[0].prefijo}} - 00{{permiso[0].indicativo}} <i class="mdi mdi-calendar"></i>{{permiso[0].fecha_inicio}}
+                    </div>
+            </div>
+        </div>
+        <div class="card" *ngIf="permiso.length > 0">
+            <div class="card-body"> 
+                <p-accordion>
+                    <p-accordionTab header="EPP">
+                       
+                        <div *ngIf="listEPP.length == 0;else listEpp" class="text-center">
+                            <button class="btn btn-lg btn-success" (click)="crearEmpleadoGeneralidades('EPP')">Cargar Lista EPP</button>
+                        </div>
+                        <ng-template #listEpp>
+                            <div class="card">
+                                <div class="card-body">
+                                    <!--<div class="demo-checkbox">
+                                       <div *ngFor="let item of listEPP">
+                                            
+                                            
+                                                <input type="checkbox" id="epp_{{item.empleado_generalidades_id}}"   (change)="statusActive({item})" class="filled-in chk-col-red" [checked]="item.active == 'Y'" >
+                                                <label for="epp_{{item.empleado_generalidades_id}}">{{item.nombre}}</label>
+                                                                                        
+                                                <span class="label label-success label-rounded pull-right" *ngIf="item.inspeccion == null;else inspeccionNull" (click)="buenoMalo(item)">Bueno</span> <br>
+                                            <ng-template #inspeccionNull>
+                                                <span class="label label-danger label-rounded pull-right" (click)="buenoMalo(item)">Malo</span> <br>
+                                            </ng-template> 
+                    
+                                        </div>
+                                    </div> -->
+                                    <h4 class="card-title"><span class="lstick"></span> Elementos de protección</h4>
+                                    <table class="table browser m-t-30  table-striped">
+                                        <tbody>
+                                            <tr *ngFor="let item of listEPP">
+                                                <td>
+                                                    <input type="checkbox" id="epp_{{item.empleado_generalidades_id}}"   (change)="statusActive({item})" class="filled-in chk-col-red" [checked]="item.active == 'Y'" >
+                                                     <label for="epp_{{item.empleado_generalidades_id}}">{{item.nombre}}</label>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span class="label label-success label-rounded pull-right" *ngIf="item.inspeccion == null;else inspeccionNull" (click)="buenoMalo(item)">Bueno</span> <br>
+                                                    <ng-template #inspeccionNull>
+                                                        <span class="label label-danger label-rounded pull-right" (click)="buenoMalo(item)">Malo</span> <br>
+                                                    </ng-template> 
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                             
+                        </ng-template>
+                        
+
+
+                    </p-accordionTab>
+                    <p-accordionTab header="EPCC">
+                        <div *ngIf="listEPCC.length == 0;else listEpcc" class="text-center">
+                            <button class="btn btn-lg btn-primary" (click)="crearEmpleadoGeneralidades('EPCC')" >Cargar Lista EPCC</button>
+                        </div>
+                        <ng-template #listEpcc>
+                                <div class="card">
+                                    <div class="card-body">
+                                       <!-- <div class="demo-checkbox">
+                                            <div *ngFor="let item of listEPCC">
+                                                <input type="checkbox" id="epcc_{{item.empleado_generalidades_id}}" class="filled-in chk-col-purple" (change)="statusActive({item})" [checked]="item.active == 'Y'">
+                                                <label for="epcc_{{item.empleado_generalidades_id}}">{{item.nombre}}</label>
+                                            </div>
+                                        </div>-->
+                                        <h4 class="card-title"><span class="lstick"></span> Elementos de protección contra caidas</h4>
+                                        <table class="table browser m-t-30 no-border table-striped">
+                                            <tbody>
+                                                <tr *ngFor="let item of listEPCC">
+                                                    <td>
+                                                        <input type="checkbox" id="epcc_{{item.empleado_generalidades_id}}"   (change)="statusActive({item})" class="filled-in chk-col-red" [checked]="item.active == 'Y'" >
+                                                         <label for="epcc_{{item.empleado_generalidades_id}}">{{item.nombre}}</label>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <span class="label label-success label-rounded pull-right" *ngIf="item.inspeccion == null;else inspeccionNull" (click)="buenoMalo(item)">Bueno</span> <br>
+                                                        <ng-template #inspeccionNull>
+                                                            <span class="label label-danger label-rounded pull-right" (click)="buenoMalo(item)">Malo</span> <br>
+                                                        </ng-template> 
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                        </ng-template>
+                        
+                    </p-accordionTab>
+                    <p-accordionTab header="HERRAMIENTAS">
+                        <div class="text-center" *ngIf="listHerramienta.length == 0; else listHerr">
+                            <button class="btn btn-lg btn-warning" (click)="crearEmpleadoGeneralidades('Herramientas')">Cargar Lista Herramientas</button>
+                        </div>    
+                        <ng-template #listHerr>
+                            <div class="card">
+                                <div class="card-body">
+                                    <p-table
+                                        #dt1
+                                        [value] = "listHerramienta"
+                                        dataKey="id"
+                                        [loading]="loading"
+                                        [paginator]="true"
+                                        [rows]="10"
+                                        responsiveLayout="scroll"
+                                        [showCurrentPageReport]="true"
+                                        currentPageReportTemplate="Mostrando {first} de {last} {totalRecords} Resultados"
+                                        [rowsPerPageOptions]="[10,25]"
+                                        styleClass="p-datatable-gridlines" 
+                                    >
+                                   <!-- <ng-template pTemplate="caption">
+                                        <div class="flex">
+                                            <button pButton label="Limpiar Filtros" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt1)" ></button>
+                                        </div>
+                                    </ng-template> -->
+                                    <ng-template pTemplate="header">
+                                        <tr>
+                                            <th>
+                                                <p-columnFilter type="text" field="nombre"></p-columnFilter>
+                                            </th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-item>
+                                            <tr>
+                                                <td> 
+                                                    <input type="checkbox" id="herramienta_{{item.empleado_generalidades_id}}" class="filled-in chk-col-purple" (change)="statusActive({item})" [checked]="item.active == 'Y'">
+                                                <label for="herramienta_{{item.empleado_generalidades_id}}">{{item.nombre}}</label>
+                                                </td>
+                                            </tr>
+                                    </ng-template>
+                                    
+
+                                    </p-table>
+                                </div>
+                            </div>
+                        </ng-template>
+                        
+                    </p-accordionTab>
+                    <p-accordionTab header="FIRMA">
+                        <div class="text-center"  *ngIf="permiso[0].firma == null;else templateFirmado">
+                            <button class="btn btn-lg btn-primary" *ngIf="!tokenValidado" (click)="OpenModal()"><i class="mdi mdi-barcode"></i>Token</button>
+                            <button class="btn btn-lg btn-primary"  *ngIf="!tokenValidado"  (click)="firmarPermiso()"><i class="mdi mdi-grease-pencil"></i>Firmar Permiso</button>
+                        </div>    
+                        <ng-template #templateFirmado>
+                            <div class="alert alert-success ">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+                                <h3 class="text-success"><i class="fa fa-check-circle"></i> Firmado</h3><p class="text-justify">Su permiso de trabajo ya se encuentra firmado electrónicamente, 
+                                toda modificación al permiso de trabajo altera la firma, por tanto si desea agregar algun item adicional, solicite al administrador poder
+                                volver a firmar, de lo contrario su permiso sera invalidado y no aceptado.</p>
+                            </div>
+                        </ng-template>
+                        
+                    </p-accordionTab>
+                </p-accordion>
+            </div>
+        </div>
+        <ng-template #sinregistros>
+            <div class="card text-center">
+                <div class="jumbotron jumbotron-fluid">
+                    <div class="container">
+                        <h1 class="display-3">No esta asociado a ningun permiso</h1>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        
+    </div>
+</div> 
+
+
+
+<!--modal cargar generar token-->
+<div class="fondo-modal bounceIn animated" [class.oculto] = "modalToken">
+    <div class="modal fade none-border  show" id="add-new-event" style="display: block; padding-right: 17px;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><i class="mdi mdi-barcode"></i><strong>Generar</strong> Código</h4>
+                    <button type="button" class="close"  (click)="cerrarModalToken()" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body text-center">
+                     <button class="btn btn-lg btn-primary" *ngIf="!estadoToken;else formToken" (click)="generarToken()"><i class="mdi mdi-barcode"></i> Generar código</button>
+                     <ng-template #formToken>
+                        <p class="card-text">
+                            A su correo <strong>{{auth.usuario.email}}</strong> se ha enviado el código generado,
+                            por favor ingreselo aquí.
+
+                        </p>
+                        <h1><time>00:{{minutos}}:{{segundos}}</time></h1>
+                        <form class="row" [formGroup]="formCodigo" (submit)="validarToken()">
+                            <div class="form-group col-2">
+                                 
+                                <input type="text" class="form-control"     formControlName="a" style="padding:0% !important; height:50px" maxlength="1" autofocus="true"> 
+                            </div>
+                            <div class="form-group col-2">
+                                 
+                                <input type="text" class="form-control"  formControlName="b"  style="padding:0% !important; height:50px" maxlength="1"> 
+                            </div>
+                            <div class="form-group col-2">
+                                 
+                                <input type="text" class="form-control" formControlName="c"  style="padding:0% !important; height:50px" maxlength="1"> 
+                            </div>
+                            <div class="form-group col-2">
+                                 
+                                <input type="text" class="form-control"   formControlName="d" style="padding:0% !important; height:50px" maxlength="1"> 
+                            </div>
+                            <div class="form-group col-2">
+                                 
+                                <input type="text" class="form-control"  formControlName="e" style="padding:0% !important; height:50px" maxlength="1"> 
+                            </div>
+                            <div class="form-group col-2">
+                                 
+                                <input type="text" class="form-control"   formControlName="f" style="padding:0% !important; height:50px" maxlength="1"> 
+                            </div>
+                            <div class="form-group col-md-12 m-t-20" *ngIf="!respValidacion">
+                                <div class="alert alert-warning">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+                                    <h3 class="text-warning"><i class="fa fa-exclamation-triangle"></i> Error</h3> {{msmToken}}
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12 m-t-20">
+                                 
+                                <button class="btn btn-lg btn-primary" type="submit" [disabled]="this.formCodigo.invalid"><i class="mdi mdi-auto-fix" ></i> Validar</button>
+                          </div>
+                        </form>
+                     </ng-template>
+                     
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-add-bueno-malo
+    [estadoModalBuenoMalo]="estadoModalBuenoMalo"
+    (estadoModalBuenoMalo)="estadoModalBuenoMalo = $event"
+    [item]="item"
+></app-add-bueno-malo>

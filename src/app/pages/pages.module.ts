@@ -35,7 +35,12 @@ import { RcControlComponent } from './merkas/rc-control/rc-control.component';
 import { FileUploadModule } from 'primeng/fileupload';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { GeneralidadesComponent } from './sistemagestion/generalidades/generalidades.component';
-
+import { TabViewModule } from 'primeng/tabview';
+import { FieldsetModule } from 'primeng/fieldset';
+import { ElementosProteccionComponent } from './sistemagestion/elementos-proteccion/elementos-proteccion.component';
+import { EmpresaComponent } from './sistemagestion/empresa/empresa.component';
+import { GeolocalizarComponent } from './contratos/geolocalizar/geolocalizar.component';
+import { ListComponent } from './sistemagestion/vehiculos/list/list.component'; 
 
 @NgModule({
   declarations: [
@@ -56,7 +61,10 @@ import { GeneralidadesComponent } from './sistemagestion/generalidades/generalid
     SpRecaudoComponent,
     PerfilComponent,
     RcControlComponent,
-    GeneralidadesComponent, 
+    GeneralidadesComponent,
+    ElementosProteccionComponent,
+    EmpresaComponent,
+    GeolocalizarComponent,
   ],
   exports:[
     DashboardComponent,
@@ -93,6 +101,8 @@ import { GeneralidadesComponent } from './sistemagestion/generalidades/generalid
     ToolbarModule,
     FileUploadModule,
     AutoCompleteModule,
+    TabViewModule,
+    FieldsetModule, 
   ]
 })
 export class PagesModule { }
