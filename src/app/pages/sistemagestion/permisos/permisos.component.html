@@ -38,10 +38,13 @@
                             <p-progressBar mode="indeterminate" [style]="{'height': '6px'}" *ngIf="cargando"></p-progressBar>
                             <br>
                             <!--accordion-->
-                            <p-accordion>
+                            <p-accordion [(activeIndex)]="index">
+
                                 <p-accordionTab header="I PERMISO CONCEDIDO A">
                                    <!--tabla de empleados-->
-                                   <p-table [value]="listEmpleadoPermiso" responsiveLayout="scroll">
+                                   <p-table 
+                                   [value]="listEmpleadoPermiso" 
+                                   >
                                     <ng-template pTemplate="caption">
                                         <div class="flex align-items-center justify-content-between">
                                             
@@ -95,7 +98,10 @@
                                     </div>
                                 </p-accordionTab>
                                 <p-accordionTab header="III PREOPERACIONAL VEHICULO DE TRANSPORTE">
-                                    <app-moto-svg></app-moto-svg>
+                                    <ng-template pTemplate="content">
+                                        <app-moto-svg [lugarTrabajo]="lugarTrabajo"></app-moto-svg>
+                                    </ng-template>
+                                                                      
                                 </p-accordionTab>
                                 
                             </p-accordion>

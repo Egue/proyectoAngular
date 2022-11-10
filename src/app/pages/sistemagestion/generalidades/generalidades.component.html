@@ -2,13 +2,15 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-          
+            
              <!--inicio-->
                 <div class="">
                     <div class="row">
+                        
                         <div class="col-lg-3">
                             <div class="card-body">
                                 <h4 class="card-title m-t-10">Generalidades</h4>
+                                <p-progressBar mode="indeterminate" [style]="{'height': '6px'}" *ngIf="loading" ></p-progressBar>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div id="calendar-events">
@@ -22,14 +24,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-9">
-                               
+                        <div class="col-lg-9"> 
                             <div class="row animated fadeIn fast" *ngIf="cargadoReporte">
                                 <div class="col-md-12">
                                     <!--tabla-->
                                     <div class="card">
                                         <div class="card-body">
                                             <h5>Generalidades</h5>
+                                            
                                             <p-table [value]="listGeneralidadesByTipo" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll"
                                             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]">
                                             <ng-template pTemplate="header">

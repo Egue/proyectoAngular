@@ -16,6 +16,7 @@ export class GeneralidadesComponent implements OnInit {
 
   public tipoSelected:string = '';
 
+  public loading:boolean = true;
   public listTipoGeneralidades: any[] = [];
   
   public modalFormGeneralidades:boolean = true;
@@ -34,6 +35,7 @@ export class GeneralidadesComponent implements OnInit {
      this.sistemaGestionService.generalidadesDisct(this.authService.usuario.id_empresa)
                         .subscribe((resp:any) => {
                           this.listTipoGeneralidades = resp.response;
+                          this.loading = false;
                         });
 
    }

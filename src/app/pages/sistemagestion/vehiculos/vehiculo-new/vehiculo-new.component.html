@@ -4,14 +4,14 @@
             <div class="card-body">
                 <h4 class="card-title"><i class="mdi mdi-border-color"></i>Crear o Editar</h4>
 
-                <form   [formGroup] ="formEdit" (submit)="save()" >
+                <form   [formGroup] ="formEdit" (submit)="onSubmit()" >
                     <div class="form-body">
                         <ng-container *ngIf="formEdit.get('vehiculo_id')!.value">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group has-success ">
                                         <label for="vehiculo_id" class="control-label">Id</label>
-                                        <input type="text" class="form-control" id="vehiculo_id" formControlName="vehiculo_id"> 
+                                        <input type="text"  readonly="true" class="form-control" id="vehiculo_id" formControlName="vehiculo_id"> 
                                         
                                     </div>
                                 </div>
@@ -80,7 +80,7 @@
                                         <select  id="tipo" class="form-control custom-select" formControlName="vehiculo_tipo">
                                        <option></option>
                                         <option value="MOTOCICLETA">MOTOCICLETA</option>
-                                        <option value="CARRO">CARRO</option>
+                                        <option value="CAMIONETA">CAMIONETA</option>
                                     </select>
                                   
             

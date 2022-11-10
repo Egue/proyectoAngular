@@ -8,6 +8,10 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { AutoCompleteModule } from "primeng/autocomplete";
 import { DropdownModule } from "primeng/dropdown";
+import { VehiculosAdjuntosComponent } from './vehiculos-adjuntos/vehiculos-adjuntos.component';
+import { AccordionModule } from "primeng/accordion";
+import { ProgressBarModule } from "primeng/progressbar";
+import { ComponetsModule } from "src/app/components/componets.module";
 
 @NgModule({
     imports:[
@@ -18,8 +22,12 @@ import { DropdownModule } from "primeng/dropdown";
         CommonModule , 
         ReactiveFormsModule,
         AutoCompleteModule,
-        DropdownModule],
-    declarations: [ListComponent, VehiculoNewComponent],
+        DropdownModule,
+        AccordionModule,
+        ProgressBarModule,
+        ComponetsModule    
+    ],
+    declarations: [ListComponent, VehiculoNewComponent, VehiculosAdjuntosComponent],
     exports:[ListComponent , VehiculoNewComponent]
 })
 export class VehiculoModule{}

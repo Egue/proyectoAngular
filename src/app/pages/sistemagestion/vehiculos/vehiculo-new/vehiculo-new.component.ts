@@ -97,25 +97,51 @@ export class VehiculoNewComponent implements OnInit {
     }
   } */
 
-  save(){ 
+  onSubmit(){ 
     
-    this.formEdit.get('id_empresa')?.setValue(this.authService.usuario.id_empresa);
+  this.formEdit.get('id_empresa')?.setValue(this.authService.usuario.id_empresa);
     
    if(this.formEdit.valid)
-    {
-      console.log(this.formEdit.value);
-      this.vehiculoService.save(this.formEdit.value)
-                          .subscribe((resp:any) => {
-                            Swal.fire({ 
-                              icon: 'success',
-                              title: 'Creado',
-                              showConfirmButton: false,
-                              timer: 1500
-                            });
-                            this.formEdit.reset();
-                          })
+    { 
+      if(this.formEdit.get('vehiculo_id')?.value)
+      {
+        this.updated();
+      }else{
+        this.save();
+      }
     }
   }
+  save()
+  {
+    this.vehiculoService.save(this.formEdit.value)
+    .subscribe((resp:any) => {
+      Swal.fire({ 
+        icon: 'success',
+        title: 'Creado',
+        showConfirmButton: false,
+        timer: 1500
+      });
+      this.formEdit.reset();
+    })
+  }
+  updated()
+  {
+    this.vehiculoService.updated(this.formEdit.value).subscribe((resp:any) => {
+                  Swal.fire({ 
+                    icon: 'success',
+                    title: 'Actualizado',
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+                } , (error) => {
+                  Swal.fire({
+                    title:'Oops..',
+                    icon:'error',
+                    text:'Error actualizando'
+                  })
+                })
+  }
+
 
   usuariosFindByIdempresa()
   {

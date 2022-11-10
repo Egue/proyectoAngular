@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.prod';
+import { catchError, map } from 'rxjs';
 
 //const base_url = environment.base_url;
 const base_url = '/repositories/backend_jwt_3_slim/public/';
@@ -61,8 +62,8 @@ export class ContratosService {
     return this.http.get(`${base_url}contratos/gps/findById/${cus}` , this.headers);
   }
   updatedContratoGps(data:any)
-  {
-    return this.http.patch(`${base_url}contratos/gps/updatedContratoGps/${data.id_contrato}` , this.headers);
+  { 
+    return this.http.patch(`${base_url}contratos/gps/updatedContratoGps/${data.id_contrato}` , data, this.headers);
   }
 
   saveContratoGps(data:any)

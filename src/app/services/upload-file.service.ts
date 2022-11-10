@@ -1,17 +1,84 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 //const base_url = environment.base_url;
 const base_url = '/repositories/backend_jwt_3_slim/public/';
+
 @Injectable({
   providedIn: 'root'
 })
 export class UploadFileService {
 
-  constructor() { }
+  constructor(private http:HttpClient) { }
+
+  get token():string
+  {
+    return localStorage.getItem('jwt') || '';
+  }
+
+  
+  get headers()
+  {
+    return { 
+      headers: {'Authorization' : 'Bearer ' + this.token}
+    }
+  }
+
+  /**carga de Documentos */
+  async uploadFile(file:File , data:any)
+  {
+    const {documento_poliza , documento_fin , documento_inicio,documento_tipo , referencia_id} = data;
+     try {
+      const url = `${base_url}seguridad/documento/save`;
+
+      const formData = new FormData();
+
+      formData.append('documento_poliza' , documento_poliza);
+
+      formData.append('documento_inicio' , documento_inicio);
+
+      formData.append('documento_fin' , documento_fin),
+
+      formData.append('documento_tipo' , documento_tipo);
+
+      formData.append('referencia_id' , referencia_id);
+
+      formData.append('file_uploads' , file);
+
+      const resp = await fetch( url , {
+        method: 'POST',
+        headers: {
+          'Authorization' : `Bearer ${this.token}`
+        },
+        body: formData
+      });
+
+       if(resp.ok)
+       {
+        return true;
+
+       }else{
+        
+        return false;
+       
+      }
+
+     }catch(error)
+     {
+      return false;
+     }
+  }
+
+  //consultar url
+  getUrlDocumento(item:any){
+    return this.http.get(`${base_url}seguridad/documento/${item}` , this.headers);
+  }
+
+
 
   //cargar los archivo del modulo de supergiros
-  async uploadExcelSupergiros(archivo:File , categoria:'Supergiros' , fecha:string)
+  /*async uploadExcelSupergiros(archivo:File , categoria:'Supergiros' , fecha:string)
   {
     try {
       
@@ -38,5 +105,5 @@ export class UploadFileService {
       console.log(error);
       return false;
     }
-  }
+  }*/
 }

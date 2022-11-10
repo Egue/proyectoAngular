@@ -35,6 +35,12 @@ export class VehiculoServiceService {
     return this.http.post(`${url_base}seguridad/vehiculo/save` , vehiculo , this.headers);
   }
 
+  updated(vehiculo:any)
+  {
+     
+    return this.http.patch(`${url_base}seguridad/vehiculo/updated/${vehiculo.vehiculo_id}` , vehiculo , this.headers);
+  }
+
   delete(id_vehiculo:any)
   {
     return this.http.delete(`${url_base}seguridad/vehiculo/delete/${id_vehiculo}` , this.headers);
@@ -57,5 +63,13 @@ export class VehiculoServiceService {
                 })
               )
   }
+
+  listDocumentoTipo(data:any)
+  {
+      return this.http.post(`${url_base}seguridad/documento/findByTipo` , data , this.headers);
+  }
+
+ 
+
    
 }

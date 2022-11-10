@@ -142,7 +142,7 @@ export class GeolocalizarComponent implements OnInit {
       /*var marker = new L.marker([this.marketsArray[i].latitud , this.marketsArray[i].longitud])
         .bindPopup(`<h3>cus:${this.marketsArray[i].id_contrato}</h3><hr><p>Latitud:${this.marketsArray[i].latitud}</p><p>Longitud:${this.marketsArray[i].longitud}</p>`)
         .addTo(map);*/
-        L.marker([latitud, longitud]).addTo(this.map)
+        L.marker([latitud, longitud]).addTo(this.map).bindPopup('latitud: '+latitud+' longitud: '+longitud).openPopup();
       
         
 
@@ -153,8 +153,8 @@ export class GeolocalizarComponent implements OnInit {
   {
     const data = {
       id_contrato : this.direccionCus.id_contrato,
-      latitud: this.latitud,
-      longitud: this.longitud
+      latitud: `${this.latitud}`,
+      longitud: `${this.longitud}`
     }
 
     if(this.ubicacionGps.length == 0)
@@ -172,6 +172,7 @@ export class GeolocalizarComponent implements OnInit {
                               })
                             }
                           } , (error) => {
+                            console.log(error)
                             Swal.fire({
                               icon: 'error',
                               title: 'Oops...',
@@ -193,7 +194,7 @@ export class GeolocalizarComponent implements OnInit {
                                   timer: 1500
                                 })
                               }
-                            } , (error) => {
+                            } , (error) => { 
                               Swal.fire({
                                 icon: 'error',
                                 title: 'Oops...',

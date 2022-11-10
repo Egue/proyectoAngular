@@ -22,7 +22,10 @@ import {ProgressBarModule} from 'primeng/progressbar';
   ]
 })
 export class PermisosComponent implements OnInit {
+  //componente app-moto-svg 
+  public lugarTrabajo:string = '';
 
+  public index:number = 0; //inicio del accordion 
   public cargando:boolean = false;
 
   public loadingInModal:boolean = false;
@@ -44,6 +47,7 @@ export class PermisosComponent implements OnInit {
   public listTipoTrabajo:any[] = [];
 
   public lugar:any = [
+    {'name':'Interno'},
     {'name':'Urbano'},
     {'name':'Rural'},
     {'name':'Urbano y Rural'}
@@ -82,11 +86,12 @@ export class PermisosComponent implements OnInit {
     this.sistemaGestionService.getListPermisoOpen(this.authService.usuario.id)
               .subscribe((resp) => {
                   this.permisosActivos = resp;
-                  console.log(this.permisosActivos);
+                  
                   if(this.permisosActivos.length > 0)
                   { 
                     this.getlistEmpleadoPermiso();
                     this.getListPermisoPeligro();
+                    this.lugarTrabajo =  this.permisosActivos[0].lugar_de_trabajo;
                   }
               })
   }

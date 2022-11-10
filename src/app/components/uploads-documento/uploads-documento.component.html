@@ -1,0 +1,48 @@
+<div class="fondo-modal animated fadein fast" [class.oculto] ="oculto">
+    <div class="modal fade bs-example-modal-lg show" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: block; padding-right: 17px;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myLargeModalLabel">{{tipo}} </h4>
+                <button type="button" class="close"    aria-hidden="true" (click)="closeModal()">×</button>
+                </div>
+                
+                    <div class="modal-body">
+                        <p-messages [(value)]="msgs" [enableService]="false" *ngIf="messageError"></p-messages>
+                        <form [formGroup]="editForm">   
+                            <div class="p-fluid grid formgrid">
+                                    <div class="field col-12 md:col-4">
+                                        <label for="name">Nombre</label>
+                                        <input type="text" pInputText formControlName="documento_poliza"/>
+                                    </div>
+                                    <div class="field col-12 md:col-4"> 
+                                        <label for="inicio">Fecha incio</label>
+                                        <p-calendar inputId="inicio" formControlName="documento_inicio"></p-calendar>
+                                    </div>
+                                    <div class="field col-12 md:col-4">
+                                        <label for="fin">Fecha Caducidad</label>
+                                        <p-calendar inputId="caducidad" formControlName="documento_fin"></p-calendar>
+                                    </div>
+                                    <div class="field col-12 md:col-4">
+                                        <p-fileUpload 
+                                        #fileUpload
+                                        name="file[]" 
+                                        [customUpload]="true" 
+                                        chooseLabel="Seleccionar" 
+                                        uploadLabel="Cargar" 
+                                        cancelLabel="cancelar"
+                                        (uploadHandler)="myUploader($event.files[0])"
+                                        ></p-fileUpload>
+                                    </div>
+                                    
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+
+                    </div>
+                 
+            </div>
+        </div>
+    </div>
+</div>

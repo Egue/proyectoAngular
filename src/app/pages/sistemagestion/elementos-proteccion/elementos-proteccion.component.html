@@ -10,7 +10,7 @@
         <div class="card" *ngIf="permiso.length > 0">
             <div class="card-body"> 
                 <p-accordion>
-                    <p-accordionTab header="EPP">
+                    <p-accordionTab header="Inspección de EPP">
                        
                         <div *ngIf="listEPP.length == 0;else listEpp" class="text-center">
                             <button class="btn btn-lg btn-success" (click)="crearEmpleadoGeneralidades('EPP')">Cargar Lista EPP</button>
@@ -57,7 +57,7 @@
 
 
                     </p-accordionTab>
-                    <p-accordionTab header="EPCC">
+                    <p-accordionTab header="Inspección de EPCC">
                         <div *ngIf="listEPCC.length == 0;else listEpcc" class="text-center">
                             <button class="btn btn-lg btn-primary" (click)="crearEmpleadoGeneralidades('EPCC')" >Cargar Lista EPCC</button>
                         </div>
@@ -92,7 +92,7 @@
                         </ng-template>
                         
                     </p-accordionTab>
-                    <p-accordionTab header="HERRAMIENTAS">
+                    <p-accordionTab header="Inspección de Herramientas">
                         <div class="text-center" *ngIf="listHerramienta.length == 0; else listHerr">
                             <button class="btn btn-lg btn-warning" (click)="crearEmpleadoGeneralidades('Herramientas')">Cargar Lista Herramientas</button>
                         </div>    
@@ -140,7 +140,7 @@
                         </ng-template>
                         
                     </p-accordionTab>
-                    <p-accordionTab header="FIRMA">
+                    <p-accordionTab header="Firmar permiso">
                         <div class="text-center"  *ngIf="permiso[0].firma == null;else templateFirmado">
                             <button class="btn btn-lg btn-primary" *ngIf="!tokenValidado" (click)="OpenModal()"><i class="mdi mdi-barcode"></i>Token</button>
                             <button class="btn btn-lg btn-primary"  *ngIf="!tokenValidado"  (click)="firmarPermiso()"><i class="mdi mdi-grease-pencil"></i>Firmar Permiso</button>

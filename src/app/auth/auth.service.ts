@@ -28,10 +28,26 @@ export class AuthService {
     return token;
   }
 
+  get tokenRecovery()
+  {
+    const token = localStorage.getItem('recor') || '';
+
+    return token;
+  }
+
   get header(){
     return {
       headers:{
         'Authorization' : 'Bearer '+ this.token
+      }
+    }
+  }
+
+  get headerRecovery()
+  {
+    return {
+      headers: {
+        'Authorization': 'Bearer '+ this.tokenRecovery
       }
     }
   }
@@ -84,5 +100,24 @@ export class AuthService {
   {
     localStorage.removeItem('jwt');
     this.router.navigateByUrl('/login');
+  }
+
+  recovery(data:any)
+  {
+    return this.http.post(`${base_url}auth/recovery` , data).pipe(
+      tap( (resp:any) => {
+        localStorage.setItem('recor' , resp.response);
+      })
+    );
+  }
+
+  validateTokenRecovey(data:any)
+  { 
+    return this.http.post(`${base_url}auth/recoveryT/tokevalidate` , data , this.headerRecovery);
+  }
+
+  passwordNew(data:any)
+  {
+    return this.http.post(`${base_url}auth/recoveryP/newPassword` , data , this.headerRecovery);
   }
 }

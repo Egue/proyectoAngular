@@ -10,6 +10,12 @@ import { SgControlesComponent } from './sg-controles/sg-controles.component';
 import { AddVehiculoComponent } from './add-vehiculo/add-vehiculo.component';
 import { AddBuenoMaloComponent } from './add-bueno-malo/add-bueno-malo.component';
 import { MotoSvgComponent } from './moto-svg/moto-svg.component';
+import { UploadsDocumentoComponent } from './uploads-documento/uploads-documento.component';
+import { TableDocumentosComponent } from './table-documentos/table-documentos.component';
+import { TableModule } from 'primeng/table';
+import { FileUploadModule } from 'primeng/fileupload';
+import { CalendarModule } from 'primeng/calendar';
+import { InputTextModule } from 'primeng/inputtext';
 
 
 @NgModule({
@@ -19,7 +25,9 @@ import { MotoSvgComponent } from './moto-svg/moto-svg.component';
     SgControlesComponent,
     AddVehiculoComponent,
     AddBuenoMaloComponent,
-    MotoSvgComponent
+    MotoSvgComponent,
+    UploadsDocumentoComponent,
+    TableDocumentosComponent
   ],
   exports:[
     IncrementadorComponent,
@@ -27,13 +35,19 @@ import { MotoSvgComponent } from './moto-svg/moto-svg.component';
     SgControlesComponent,
     AddVehiculoComponent,
     AddBuenoMaloComponent,
-    MotoSvgComponent
+    MotoSvgComponent,
+    UploadsDocumentoComponent,
+    TableDocumentosComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     NgChartsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TableModule,
+    FileUploadModule,
+    CalendarModule,
+    InputTextModule
   ]
 })
 export class ComponetsModule { }

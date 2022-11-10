@@ -6,15 +6,12 @@
                 <h6 class="card-subtitile">Registrados por la empresa y asociados a un empleado</h6>
                 <div>
                     <h2 id="page-heading"  >
-                         
+                      <button pButton label="Limpiar Filtros" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(listVehiculos)" ></button>
                         <p-button
-                          id="jh-create-entity"
                           class="float-right jh-create-entity create-contacto"
                           [routerLink]="['/dashboard/vehiculo/new']"
-                          type="submit"
                           icon="pi pi-plus"
                           iconPos="left"
-                          data-cy="entityCreateButton"
                         >
                         </p-button>
                       </h2>
@@ -30,18 +27,23 @@
                         [rowsPerPageOptions]="[10,25,50]"
                       >
                       <ng-template pTemplate="header">
-                            <tr>
+                            <tr><th>Usuario Vinculado</th>
                                 <th>Nombre de tarjeta</th>
-                                <th>Placa</th>
+                                <th>Color</th>
+                                <th>Placa
+                                    <p-columnFilter type="text" field="vehiculo_placa" display="menu"></p-columnFilter>
+                                </th>
                                 <th>Imagen</th>
                                 <th>Tipo</th>
+                                <th>Marca</th>
                                 <th style="width: 124px"></th>
                             </tr>
                       </ng-template>
                       <ng-template pTemplate="body" let-vehiculo>
 
-                        <tr>
+                        <tr><td>{{vehiculo.user}}</td>
                             <td>{{vehiculo.vehiculo_nombre_tarjeta}}</td>
+                            <td>{{vehiculo.vehiculo_color}}</td>
                             <td>{{vehiculo.vehiculo_placa}}</td>
                             <td>{{vehiculo.vehiculo_imagen}}</td>
                             <td>
@@ -54,9 +56,16 @@
                                 
 
                             </td>
+                            <td>{{vehiculo.marca_nombre}}</td>
                             <td>
                                 <div class="btn-group flex-btn-group-container">
-                                   
+                                  <p-button
+                                  [routerLink]="['/dashboard/vehiculo' , vehiculo.vehiculo_id!, 'adjuntar']"
+                                  pi-paperclip
+                                  icon="pi pi-paperclip"
+                                  styleClass="p-button-success" 
+                                >
+                                </p-button>
                                     <p-button
                                       type="submit"
                                       [routerLink]="['/dashboard/vehiculo' , vehiculo.vehiculo_id!, 'edit']"

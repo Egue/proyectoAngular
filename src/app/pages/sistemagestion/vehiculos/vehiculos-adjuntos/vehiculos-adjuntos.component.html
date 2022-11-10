@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-tittle btn btn-primary" routerLink="/dashboard/vehiculo/list">Volver</h4>
+                <p-progressBar mode="indeterminate" [style]="{'height': '6px'}" *ngIf="loading"></p-progressBar>
+                <p-accordion [(activeIndex)]="index" (activeIndexChange)="onChange($event)">
+                    
+                    <p-accordionTab header="SEGURO SOAT">
+                        <button class="btn btn-lg btn-warning" (click)="openModal()"><i class="fa fa-plus-square-o"></i></button>
+                        <br>
+                       <app-table-documentos   [listItem]="listItem" [loading]="loading"></app-table-documentos>
+                    </p-accordionTab>
+                    <p-accordionTab header="TECNOMECANICA">
+                        <ng-template pTemplate="content">
+                            <button class="btn btn-lg btn-warning" (click)="openModal()"><i class="fa fa-plus-square-o"></i></button>
+                            <app-table-documentos [listItem]="listItem" [loading]="loading"></app-table-documentos>
+                        </ng-template>                        
+                    </p-accordionTab>
+                    <p-accordionTab header="OTROS DOCUMENTOS">
+                        <ng-template pTemplate="content">
+                            <button class="btn btn-lg btn-warning" (click)="openModal()"><i class="fa fa-plus-square-o"></i></button>
+                            <app-table-documentos  [listItem]="listItem" [loading]="loading"></app-table-documentos>
+                        </ng-template>    
+                    </p-accordionTab>
+                </p-accordion>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal uploadsDocumentos-->
+<app-uploads-documento
+    [oculto] ="modal"
+    (ocultoOut) = "changeOculto($event)"
+    [referencia] = "referencia"
+    [tipo] = "tipo"
+></app-uploads-documento>
+<!--fin-->

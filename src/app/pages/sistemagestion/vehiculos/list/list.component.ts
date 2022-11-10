@@ -54,4 +54,9 @@ export class ListComponent implements OnInit {
     })
   }
 
+  clear(table: any) {
+    table.clear();
+}
+
+
 }
