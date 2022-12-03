@@ -75,7 +75,7 @@ export class UsuariosService {
     return this.http.get<any[]>(url , this.headers)
     .pipe(
         map( (resp:any) => {
-          //console.log(resp.response)
+           //console.log(resp.response)
           return this.transformarUsuarios(resp.response)
         })
     );

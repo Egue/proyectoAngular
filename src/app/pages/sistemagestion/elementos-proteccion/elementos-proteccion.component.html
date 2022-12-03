@@ -143,7 +143,7 @@
                     <p-accordionTab header="Firmar permiso">
                         <div class="text-center"  *ngIf="permiso[0].firma == null;else templateFirmado">
                             <button class="btn btn-lg btn-primary" *ngIf="!tokenValidado" (click)="OpenModal()"><i class="mdi mdi-barcode"></i>Token</button>
-                            <button class="btn btn-lg btn-primary"  *ngIf="!tokenValidado"  (click)="firmarPermiso()"><i class="mdi mdi-grease-pencil"></i>Firmar Permiso</button>
+                            <button class="btn btn-lg btn-primary"  *ngIf="tokenValidado"  (click)="firmarPermiso()"><i class="mdi mdi-grease-pencil"></i>Firmar Permiso</button>
                         </div>    
                         <ng-template #templateFirmado>
                             <div class="alert alert-success ">

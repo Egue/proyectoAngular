@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Select } from '../../common/select-models';
-import {map} from 'rxjs/operators';
+import {map , tap} from 'rxjs/operators';
+import { VehiculoQuery } from 'src/app/components/moto-svg/vehiculoQuery.model';
 //const url_base = environment.base_url;
 const url_base = '/repositories/backend_jwt_3_slim/public/';
 
@@ -67,6 +68,48 @@ export class VehiculoServiceService {
   listDocumentoTipo(data:any)
   {
       return this.http.post(`${url_base}seguridad/documento/findByTipo` , data , this.headers);
+  }
+
+  findByEmpresaAndPlaca(data:any)
+  {
+    return this.http.post<any>(`${url_base}seguridad/vehiculo/findByEmpresaAndPlaca` , data ,  this.headers)
+    .pipe(
+       map(resp => {
+          const vehiculos = resp.response.map(
+            (vehiculo: {
+              id_empresa?: string;
+              vehiculo_color?: string;
+              vehiculo_cilindraje?: string; 
+              vehiculo_id?: string; 
+              vehiculo_placa?: string; 
+              vehiculo_tipo?: string; 
+          }) => 
+            new VehiculoQuery(vehiculo.vehiculo_id ,vehiculo.vehiculo_tipo ,vehiculo.id_empresa  , vehiculo.vehiculo_placa , (vehiculo.vehiculo_placa+' | '+vehiculo.vehiculo_tipo+' | '+vehiculo.vehiculo_cilindraje+' cc | '+vehiculo.vehiculo_color))
+          );
+
+          return vehiculos;
+       })
+    );
+  }
+
+  disctGeneralidades(item:any)
+  {
+    return this.http.get(`${url_base}seguridad/vehiculoGeneralidades/disctItem/${item}` , this.headers);
+  }
+
+  findByNameGeneralidadesVehiculos(item:any)
+  {
+    return this.http.post(`${url_base}seguridad/vehiculoGeneralidades/findByNameGeneralidadesVehiculos` , item , this.headers);
+  }
+
+  editVehiculoGeneralides(item:any)
+  {
+    return this.http.patch(`${url_base}seguridad/vehiculoGeneralidades/editInspeccion/${item.vehiculo_generalidades_id}` , item , this.headers);
+  }
+
+  deletePermisosVehiculos(item:any)
+  {
+    return this.http.delete(`${url_base}seguridad/permisosVehiculos/delete/${item.permiso_vehiculo_id}` , this.headers);
   }
 
  

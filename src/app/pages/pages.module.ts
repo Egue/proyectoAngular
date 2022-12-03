@@ -41,6 +41,7 @@ import { ElementosProteccionComponent } from './sistemagestion/elementos-protecc
 import { EmpresaComponent } from './sistemagestion/empresa/empresa.component';
 import { GeolocalizarComponent } from './contratos/geolocalizar/geolocalizar.component';
 import { ListComponent } from './sistemagestion/vehiculos/list/list.component'; 
+import { MessageModule } from 'primeng/message';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { ListComponent } from './sistemagestion/vehiculos/list/list.component';
     GeneralidadesComponent,
     ElementosProteccionComponent,
     EmpresaComponent,
-    GeolocalizarComponent,
+    GeolocalizarComponent, 
+
   ],
   exports:[
     DashboardComponent,
@@ -103,6 +105,7 @@ import { ListComponent } from './sistemagestion/vehiculos/list/list.component';
     AutoCompleteModule,
     TabViewModule,
     FieldsetModule, 
+    MessageModule
   ]
 })
 export class PagesModule { }

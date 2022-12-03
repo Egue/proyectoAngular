@@ -16,7 +16,11 @@ import { TableModule } from 'primeng/table';
 import { FileUploadModule } from 'primeng/fileupload';
 import { CalendarModule } from 'primeng/calendar';
 import { InputTextModule } from 'primeng/inputtext';
+import { DialogModule} from 'primeng/dialog';
+import {   AutoCompleteModule } from 'primeng/autocomplete';
+import {SelectButtonModule} from 'primeng/selectbutton';
 
+import {ButtonModule} from 'primeng/button';
 
 @NgModule({
   declarations: [
@@ -47,7 +51,11 @@ import { InputTextModule } from 'primeng/inputtext';
     TableModule,
     FileUploadModule,
     CalendarModule,
-    InputTextModule
+    InputTextModule, 
+    DialogModule,
+    AutoCompleteModule,
+    SelectButtonModule,
+    ButtonModule
   ]
 })
 export class ComponetsModule { }

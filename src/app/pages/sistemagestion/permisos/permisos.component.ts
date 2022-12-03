@@ -25,6 +25,8 @@ export class PermisosComponent implements OnInit {
   //componente app-moto-svg 
   public lugarTrabajo:string = '';
 
+  public  sinPermisos:boolean = false;
+
   public index:number = 0; //inicio del accordion 
   public cargando:boolean = false;
 
@@ -80,18 +82,26 @@ export class PermisosComponent implements OnInit {
   addPermiso(){ this.modalEstado = false; }
   cerrarModal(){ this.modalEstado = true; }
 
+  //consultar si existe un permiso activo
   getListPermisoOpen()
   {
-    this.cargando = true;
+    this.cargando = true; //un modal de true
+    //consulta por id de usuario
     this.sistemaGestionService.getListPermisoOpen(this.authService.usuario.id)
               .subscribe((resp) => {
+                //asignamos respuesta a permisosActivos
                   this.permisosActivos = resp;
-                  
+                  this.cargando = false;//quitamos el false
                   if(this.permisosActivos.length > 0)
                   { 
-                    this.getlistEmpleadoPermiso();
-                    this.getListPermisoPeligro();
+                    console.log(this.permisosActivos);
+                    //this.getlistEmpleadoPermiso();
+                    //this.getListPermisoPeligro();
                     this.lugarTrabajo =  this.permisosActivos[0].lugar_de_trabajo;
+                    this.sinPermisos = false;//desaárece el boton
+                  }else{
+                    //la respuesta es q no tiene permisos se activa boton
+                    this.sinPermisos = true;
                   }
               })
   }

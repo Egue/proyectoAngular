@@ -23,7 +23,8 @@ export class GeneralidadesComponent implements OnInit {
   public formGeneralidad = this.fb.group({
     nombre : ['' , Validators.required],
 		tipo: ['' , Validators.required],
-		id_empresa: ['' , Validators.required]
+		id_empresa: ['' , Validators.required],
+    item: ['',  Validators.required]
   });
 
   //tabla

@@ -1,0 +1,99 @@
+<div *ngIf="!sinPermisos">
+    <div class="bg-theme stats-bar" *ngFor="let item of permisosActivos">
+        <div class="row">
+            <div class="col-lg-3 col-md-4">
+                <div class="p-20 active">
+                    <h6 class="text-white">Permiso</h6>
+                    <h3 class="text-white m-b-0">{{item.prefijo}}-{{item.indicativo}}</h3>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4">
+                <div class="p-20">
+                    <h6 class="text-white">Fecha Creación</h6>
+                    <h3 class="text-white m-b-0">{{item.fecha_inicio}}</h3>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4">
+                <div class="p-20">
+                    <h6 class="text-white">Lugar de Trabajo</h6>
+                    <h3 class="text-white m-b-0">{{item.lugar_de_trabajo}}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p-progressBar mode="indeterminate" [style]="{'height': '6px'}" *ngIf="cargando"></p-progressBar>
+    <br>
+    <!--accordion-->
+    <p-accordion [(activeIndex)]="index">
+
+        <p-accordionTab header="I PERMISO CONCEDIDO A">
+           <!--tabla de empleados-->
+           <p-table 
+           [value]="listEmpleadoPermiso" 
+           >
+            <ng-template pTemplate="caption">
+                <div class="flex align-items-center justify-content-between">
+                    
+                    <p-button icon="pi pi-plus" (click)="openModalEmpleados()"></p-button>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Nombre</th> 
+                    <th>Correo</th> 
+                    <th>Acción</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-empleado>
+                <tr>
+                    <td>{{empleado.user}}</td> 
+                    <td>{{empleado.email}}</td>
+                    <td><i class="mdi mdi-delete cursor" (click)="deletePermisoEmpleado(empleado)"></i> </td>
+                </tr>
+            </ng-template>
+           </p-table>
+           <!--empleados-->
+        </p-accordionTab>
+        <p-accordionTab header=" II ANÁLISIS SEGURO DE TRABAJO">
+            <p-button icon="pi pi-plus" (click)="openModalPeligros()"></p-button>
+            <div class="col-md-12">
+                <div class="card  ">
+                    <div class="card-body" *ngFor="let item of listPermisoPeligro">
+                        <h4 class="card-title">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="deletePermisoPeligro(item)"> <span aria-hidden="true">×</span> </button>
+                            <span class="lstick"></span>
+                            {{item.peligro_nombre}}
+                            
+                        </h4>
+                        <div class="alert alert-warning">
+                            <h3 class="text-warning"><i class="fa fa-exclamation-triangle"></i>Consecuencias</h3>
+                            {{item.peligro_consecuencias}}
+                        </div>
+                         
+                        <div class="alert alert-success">
+                            <h3 class="text-success"><i class="fa fa-check-circle"></i>Controles</h3>
+                            <ul>
+                                <li *ngFor="let subItem of item.controles">{{subItem.nombre}}</li>
+                            </ul>
+                        </div>
+                       
+                    </div>
+                </div>
+
+
+            </div>
+        </p-accordionTab>
+        <p-accordionTab header="III PREOPERACIONAL VEHICULO DE TRANSPORTE">
+            <ng-template pTemplate="content">
+
+                <app-moto-svg 
+                [lugarTrabajo]="lugarTrabajo"
+                [permiso]="permisosActivos[0].id_permiso"></app-moto-svg>
+                
+            </ng-template>
+                                              
+        </p-accordionTab>
+        
+    </p-accordion>
+   </div>
+    <!---->

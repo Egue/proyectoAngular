@@ -60,10 +60,13 @@ const routes:Routes = [
 
     {path: 'merkasrc' , component:RcControlComponent , data:{titulo: 'Recibos Caja -> Merkas'}},
     
-    
+    //system de archivo
+
+    {path:'Archivo' , loadChildren:() => import('./system-archivo/system-archivo.module').then(m => m.SystemArchivoModule)},
 
     
-
+      //system de inventario
+      {path:'inventario' , loadChildren:()=>import('./system-inventario/system-inventario.module').then(m=>m.SystemInventarioModule)},
 
     ]
   

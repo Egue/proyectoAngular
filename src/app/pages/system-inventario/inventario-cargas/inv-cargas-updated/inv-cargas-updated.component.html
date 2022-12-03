@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title"><i class="mdi mdi-group"></i>Cargas de inventario</h4>
+                <form [formGroup] ="editForm" (submit)="onSubmit()">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <span class="p-fluid">
+                                <div class="form-floating mb-6">
+                                  <h5>Bodega</h5>
+                                  <p-dropdown  [options]="bodegaList" formControlName="bodega_id" optionLabel="bodega_nombre" optionValue="bodega_id"></p-dropdown>
+                                  
+                                </div>
+                               </span>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating mb-2">
+                                <span class="p-fluid">
+                                  <h5>Proveedor</h5>
+                                  <p-dropdown [options]="proveedorList" formControlName="proveedor_id" optionLabel="proveedor_name" optionValue="proveedor_id"></p-dropdown>
+                                </span>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-2">
+                                <label class="control-label">Factura</label>
+                                <input type="text" id="factura" class="form-control" placeholder="# factura" formControlName="ingreso_factura">
+                              </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating mb-2">
+                                <span class="p-fluid">
+                                    <h5>Tipo de pago</h5>
+                                 <p-dropdown [options]="tipoPago" formControlName="ingreso_tipo" optionLabel="name" optionValue="valor"></p-dropdown>
+                                    </span>
+                                </div>
+                        </div>
+                    </div>
+                    <button pButton type="submit" label="Guardar" class="p-button-success" icon="pi pi-check" [hidden]="detalleIngreso"></button>
+                  <button pButton label="Cancelar" class="p-button-warning" icon="pi pi-times"  [routerLink]="['/dashboard/inventario/ingresos/list']"></button>
+                </form>
+                <hr>
+                <!--cargadetalle-->
+                <app-inv-cargas-detalle *ngIf="detalleIngreso"
+                [ingresoId] = "editForm.get('ingreso_id')?.value"
+                [bodegaId]="editForm.get('bodega_id')?.value"
+                >
+
+                </app-inv-cargas-detalle>
+                <!--fin-->
+            </div>
+        </div>
+    </div>
+</div>

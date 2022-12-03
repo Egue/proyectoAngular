@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-titile">Lista de ingresos de articulos</h4>
+                <div class="row">
+                    <div class="col-md-9">
+                         
+                        <span class="p-fluid">
+                            <p-calendar   selectionMode="range" [readonlyInput]="true" inputId="range" dateFormat="yy-mm-dd" [showIcon]="true"></p-calendar>
+                        </span>
+                    </div>
+                    <div class="col-md-3">
+                        <p-button label="Buscar" icon="pi pi-search" class="p-button-success" [loading]="loadingRanges" (onClick)="searchRange()"></p-button>
+                      <!--  <p-button label="Search" icon="pi pi-search" [loading]="isLoading"></p-button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                    <button pButton pRipple label="Nuevo ingreso" [routerLink]="['/dashboard/inventario/ingresos/new']" icon="pi pi-plus" class="p-button-success mr-2"  ></button>
+                     
+                </ng-template>
+                </p-toolbar>
+            </div>
+        </div>
+    </div>
+</div>
