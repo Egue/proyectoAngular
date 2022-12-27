@@ -39,7 +39,7 @@ const routes:Routes = [
     {path:'promesa' , component:  PromesasComponent , data:{titulo:'Promesas'}},
     {path:'rxjs'    , component: RxjsComponent , data:{titulo:'Rxjs'}},
 
-    {path:'permisoTrabajo'    , component: PermisosComponent , data:{titulo:'Permisos de Trabajo'}},
+    {path:'permisoTrabajo'    , loadChildren:()=>import('./sistemagestion/permisos/permisos.module').then(m=>m.PermisosModule) },
     {path:'registroPersona'    , component: RegistroEmpleadosComponent , data:{titulo:'Registro Personal'}},
     {path: 'peligros' , component: PeligrosComponent , data:{titulo:'Peligros y Clasificación'}},
     {path:'generalidades' , component:GeneralidadesComponent , data:{titulo:'Generalidades del permiso de trabajo'}},
@@ -47,6 +47,9 @@ const routes:Routes = [
     {path: 'config-empresa' , component:EmpresaComponent , data:{titulo:'Configuración empresa'}},
     {path: 'vehiculo' , loadChildren: () => import('./sistemagestion/vehiculos/vehiculo.module').then(m => m.VehiculoModule),},
     {path: 'marcas' , loadChildren: () => import('./sistemagestion/marcas/marcas.module').then(m => m.MarcasModule),},
+    {path:'integrantes' , loadChildren:()=>import('./sistemagestion/empleados/empleados.module').then(m=>m.EmpleadosModule)},
+    {path:'permisoPeligros', loadChildren:() =>import('./sistemagestion/permiso-peligro/permiso-peligro.module').then(m=>m.PermisoPeligroModule)},
+    {path:'permisoInspeccion' , loadChildren:()=>import('./sistemagestion/permiso-vehiculo/permiso-vehiculo.module').then(m=>m.PermisoVehiculoModule)},
 
 
     {path:'usuarios'    , component: UsuariosComponent , data:{titulo:'Usuarios'}},

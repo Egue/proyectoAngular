@@ -110,4 +110,9 @@ export class InvCargasDetalleComponent implements OnInit {
     this.totalVenta = total;
   }
 
+  delete(item:any)
+  {
+    console.log(item);
+  }
+
 }

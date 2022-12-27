@@ -21,6 +21,8 @@ import {   AutoCompleteModule } from 'primeng/autocomplete';
 import {SelectButtonModule} from 'primeng/selectbutton';
 
 import {ButtonModule} from 'primeng/button';
+import {  RouterModule } from '@angular/router';
+import { DrawComponent } from './draw/draw.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import {ButtonModule} from 'primeng/button';
     AddBuenoMaloComponent,
     MotoSvgComponent,
     UploadsDocumentoComponent,
-    TableDocumentosComponent
+    TableDocumentosComponent,
+    DrawComponent
   ],
   exports:[
     IncrementadorComponent,
@@ -55,7 +58,8 @@ import {ButtonModule} from 'primeng/button';
     DialogModule,
     AutoCompleteModule,
     SelectButtonModule,
-    ButtonModule
+    ButtonModule,
+    RouterModule
   ]
 })
 export class ComponetsModule { }

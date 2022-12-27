@@ -1,0 +1,95 @@
+<div class="row">
+    
+    <div class="col-md-12">
+        <div class="card"> <div class="btn-group m-b-10 m-r-10" role="group" aria-label="Button group with nested dropdown">
+            <button type="button" class="btn btn-secondary font-18" (click)="back()"><i class="mdi mdi-arrow-left-bold"></i></button>
+            
+            <button type="button" class="btn btn-secondary font-18" (click)="openModalPeligros()"><i class="mdi mdi-plus-box"></i></button>
+        </div> 
+           
+            <div class="card-body" *ngFor="let item of listPermisoPeligro">
+                
+                <h4 class="card-title">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="deletePermisoPeligro(item)"> <span aria-hidden="true">×</span> </button>
+                    <span class="lstick"></span>
+                    {{item.peligro_nombre}}
+                    
+                </h4>
+                <div class="alert alert-warning">
+                    <h3 class="text-warning"><i class="fa fa-exclamation-triangle"></i>Consecuencias</h3>
+                    {{item.peligro_consecuencias}}
+                </div>
+                 
+                <div class="alert alert-success">
+                    <h3 class="text-success"><i class="fa fa-check-circle"></i>Controles</h3>
+                    <ul>
+                        <li *ngFor="let subItem of item.controles">{{subItem.nombre}}</li>
+                    </ul>
+                </div>
+               
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
+<!--cargar modal de peligros-->
+<div class="fondo-modal animated fadeIn fast" [class.oculto] = "modalPeligros">
+    <div id="myModal" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: block; padding-right: 15px;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel"><span>Agregar</span> Peligros</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="closeModalPeligros()">×</button>
+                </div>
+                <div class="modal-body">
+                    <p-progressBar mode="indeterminate" [style]="{'height': '6px'}" *ngIf="loadingInModal"></p-progressBar>
+                   <!--categorias-->
+                   <div class="card-body" *ngIf="categoriaOculta">
+                    <h4 class="card-title"><span class="lstick"></span>Categorias</h4>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="calendar-events">
+                                <div class="calendar-events ui-draggable ui-draggable-handle"  style="position: relative;"  *ngFor="let item of listCategorias" (click) ="getListPeligros(item)" >
+                                    <i class="mdi mdi-chemical-weapon"></i> {{item.nombre}}  
+                                </div>
+                            </div>
+                      </div>
+                    </div>
+                </div>
+                   <!--fin-->
+                   <!--peligros-->
+                   <div class="card-body" *ngIf="peligrosOculta">
+                    <h4 class="card-title"><span class="lstick"></span>Peligros</h4>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="calendar-events">
+                                <div class="calendar-events ui-draggable ui-draggable-handle"  style="position: relative;"  *ngFor="let item of listPeligros" (click)="savePermisoPeligro(item)" >
+                                    <i class="fa fa-warning text-danger"></i> {{item.nombre}}  
+                                </div>
+                            </div>
+                      </div>
+                    </div>
+                </div>
+                   <!---->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info waves-effect" *ngIf="peligrosOculta" (click)="modalAtrasPeligros()">Atras</button>
+                    <button type="button" class="btn btn-info waves-effect" (click)="closeModalPeligros()">Cerrar</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div>
+
+
+<!--Modal de carga-->
+<div class="fondo-modal animated fadeIn fast" [class.oculto] = "!cargando">
+
+</div>

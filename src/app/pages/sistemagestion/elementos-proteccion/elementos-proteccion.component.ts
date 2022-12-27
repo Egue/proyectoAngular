@@ -15,6 +15,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class ElementosProteccionComponent implements OnInit {
  
+  public cargando:boolean = false;
   //validar si esta firmado
 
   public permiso:any = [];
@@ -64,9 +65,12 @@ export class ElementosProteccionComponent implements OnInit {
 
   getInfoPermiso()
   {
+    this.cargando = true;
     this.sistemaGestionServices.getInfoPermisoEmpleado(this.auth.usuario.id)
                                 .subscribe((resp:any) => {
                                   this.permiso = resp.response;  
+                                  this.cargando = false;
+                                  console.log(this.permiso);
                                   if(this.permiso.length > 0)
                                   { 
                                     this.getlistEpp(this.permiso[0].id_permiso);

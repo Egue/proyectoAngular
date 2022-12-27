@@ -17,7 +17,7 @@ export class InvCargasRoutingResolveService implements Resolve<null>{
                      
                     if(carga.response)
                     {
-                        return of(carga.response);
+                        return of(carga.response[0]);
                     }else {
                         this.router.navigate(['400']);
                         return EMPTY;

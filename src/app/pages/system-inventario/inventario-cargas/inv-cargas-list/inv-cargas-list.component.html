@@ -7,7 +7,7 @@
                     <div class="col-md-9">
                          
                         <span class="p-fluid">
-                            <p-calendar   selectionMode="range" [readonlyInput]="true" inputId="range" dateFormat="yy-mm-dd" [showIcon]="true"></p-calendar>
+                            <p-calendar  [(ngModel)]="rangeDate" selectionMode="range" [readonlyInput]="true" inputId="range" dateFormat="yy-mm-dd" [showIcon]="true"></p-calendar>
                         </span>
                     </div>
                     <div class="col-md-3">
@@ -29,6 +29,54 @@
                      
                 </ng-template>
                 </p-toolbar>
+
+                <p-table
+                    #listCargas
+                    [value]="listIngreso"
+                    [paginator]="true"
+                    [loading]="loading"
+                    [rows]="10"
+                    [showCurrentPageReport] = "true"
+                    currentPageReportTemplate ="Mostrando {first} de {last} de {totalRecords} resultados"
+                    [rowsPerPageOptions]="[10,25,50]"
+                >
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Código</th>
+                        <th>#Compra</th>
+                        <th>Proveedor</th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-ingreso>
+                    <tr>
+                        <td>{{ingreso.ingreso_id}}</td>
+                        <td>{{ingreso.ingreso_factura}}</td>
+                        <td>{{ingreso.proveedor_name}}</td>
+                        <td>
+                            <div class="btn-group flex-btn-group-container">
+                                 
+                                  <p-button
+                                    type="submit" 
+                                    [routerLink]="['/dashboard/inventario/ingresos/' , ingreso.ingreso_id , 'edit']"
+                                    icon="pi pi-pencil"
+                                    styleClass="p-button-warning" 
+                                  >
+                                  </p-button>
+                                  <p-button
+                                    type="submit" 
+                                    icon="pi pi-times"
+                                    styleClass="p-button-danger" 
+                                    *ngIf="authService.usuario.role=='ADMIN_ADMIN'"
+                                  >
+                                  </p-button>
+                                </div>
+                        </td>
+                    </tr>
+                </ng-template>
+                
+
+                </p-table>
             </div>
         </div>
     </div>

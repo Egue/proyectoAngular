@@ -4,7 +4,10 @@
             <div class="card-body">
 
                 <div class="btn-group m-b-10 m-r-10" role="group" aria-label="Button group with nested dropdown">
-                    <button type="button" class="btn btn-secondary font-18" (click)="openDialog()"><i class="mdi mdi-plus-box"></i></button> 
+                    <button type="button" class="btn btn-secondary font-18" [routerLink]="['/dashboard/permisoTrabajo']"><i class="mdi mdi-arrow-left-bold"></i></button> 
+
+                    <button type="button" class="btn btn-secondary font-18" (click)="openDialog()"><i class="mdi mdi-plus-box"></i></button>
+                    
                     <!--<button type="button" class="btn btn-secondary font-18"><i class="mdi mdi-delete"></i></button> -->
                 </div> 
                 <!--<button type="button " class="btn btn-secondary m-r-10 m-b-10"><i class="mdi mdi-reload font-18"></i></button>-->
@@ -28,12 +31,7 @@
                                      
                                     <td class="hidden-xs-down bg-success text-white" (click)="editPreoperacion(item)">{{item.vehiculo_placa}}</td>
                                     <td class="max-texts"  >  <span class="label label-info m-r-10">{{item.vehiculo_tipo}}</span>  Tarjeta: {{item.vehiculo_nombre_tarjeta}} </td>
-                                    <td><i class="mdi mdi-account-star"></i> <ng-container *ngIf="item.user==null;else conductor" ><span (click)="OpenModalConductor()">Agregar conductor</span></ng-container>
-                                        <ng-template #conductor>
-                                            {{item.user}}
-                                        </ng-template>
-                                        
-                                    </td>
+                                    <td><span class="label label-info m-r-10">Conductor</span> {{item.user}}</td>
                                     <td class="hidden-xs-down"><i class="mdi mdi-delete" (click)="delete(item)"></i></td>
                                      
                                 </tr>
@@ -104,9 +102,13 @@
        
         <form (submit)="onSubmit()">
             <div class="field">
-                <label for="name"></label>
+                <label for="name">Placa</label>
                 <p-autoComplete   [suggestions]="listVehiculos" (completeMethod)="search($event)" (onSelect)="onChangeSelect($event)" field="concatName" [minLength]="3" ></p-autoComplete>
                  
+            </div>
+            <div class="field">
+                <label for="conductor">Conductor</label>
+                <p-autoComplete [suggestions]="listConductor" (completeMethod)="searchConductor($event)" field="user" [minLength]="3" (onSelect)="onChangeCoductor($event)"></p-autoComplete>
             </div>
         </form>
               <br><br>
@@ -120,22 +122,4 @@
 
 </div>
 
-<!--modal agregar conductor-->
-<p-dialog [(visible)]="conductor" [style]="{width: '450px'}" header="Agregar Conductor" [modal]="true" styleClass="p-fluid">
-    <ng-template pTemplate="content">
-       
-        <form (submit)="onSave()">
-            <div class="field">
-                <label for="name"></label>
-                <p-autoComplete   [suggestions]="listConductor" (completeMethod)="searchConductor($event)"  field="user"  [minLength]="3" ></p-autoComplete>
-                 
-            </div>
-        </form>
-              <br><br>
-        <button pButton   label="Guardar" icon="pi pi-check" class="p-button-primary"   ></button>
-    </ng-template>
-
-    
-</p-dialog>
  
-<!--fin-->

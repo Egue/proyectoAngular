@@ -38,7 +38,8 @@ public listConductor:any[] = [];
     id_empresa:['' , Validators.required],
     permiso_id:['', Validators.required],
     vehiculo_id:['', Validators.required],
-    tipo:['' , Validators.required]
+    tipo:['' , Validators.required],
+    conductor_id:['', Validators.required]
  })
 
  //disctin item
@@ -118,6 +119,7 @@ onChangeSelect(event:any)
   this.editForm.get('tipo')?.setValue(event.tipo);
   this.editForm.get('permiso_id')?.setValue(this.permiso);
   this.editForm.get('id_empresa')?.setValue(this.authService.usuario.id_empresa);
+  
 }
 
 editPreoperacion(item:any)
@@ -169,17 +171,7 @@ delete(item:any):void
     })
 }
 
-
-//agregarconductor
-OpenModalConductor()
-{
-  this.conductor = true;
-}
-closeModalConductor()
-{
-  this.conductor = false;
-}
-
+ 
 //buscar conductor
 searchConductor(string:any)
 {
@@ -188,9 +180,10 @@ searchConductor(string:any)
   })
 }
 
-onSave()
+onChangeCoductor(event:any)
 {
-  
+
+  this.editForm.get('conductor_id')?.setValue(event.id);
 }
 
 

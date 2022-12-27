@@ -199,4 +199,9 @@ export class SistemaGestionService {
   {
     return this.http.post(`${url_base}seguridad/permisosPeligros/save` , data , this.headers);
   }
+
+  permisoTrabajoFindById(id:any)
+  {
+    return this.http.get(`${url_base}seguridad/permiso/findById/${id}` , this.headers);
+  }
 }

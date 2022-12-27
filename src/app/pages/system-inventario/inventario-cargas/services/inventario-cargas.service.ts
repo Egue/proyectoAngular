@@ -41,4 +41,9 @@ export class InventarioCargasService {
     return this.http.post(`${base_url}inventario/ingresoDetalle/save` , data , this.headers);
   }
 
+  inventarioCargaFindBetween(data:any)
+  {
+    return this.http.post(`${base_url}inventario/ingreso/findByBetween` , data , this.headers);
+  }
+
 }

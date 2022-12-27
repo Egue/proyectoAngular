@@ -6,7 +6,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { ToolbarModule } from 'primeng/toolbar';
 import { InvCargasUpdatedComponent } from './inv-cargas-updated/inv-cargas-updated.component';
 import {   DropdownModule } from 'primeng/dropdown';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InvCargasDetalleComponent } from './inv-cargas-detalle/inv-cargas-detalle.component';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
@@ -23,6 +23,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     InventarioCargasRoutingModule,
     CalendarModule,
     ToolbarModule,

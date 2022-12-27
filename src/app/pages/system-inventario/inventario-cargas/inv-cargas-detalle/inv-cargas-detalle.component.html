@@ -30,7 +30,7 @@
             <td>{{item.compra | currency: 'USD' | lowercase}}</td>
             <td>{{item.venta | currency: 'USD' | lowercase}}</td>
             <td>  
-                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"  ></button></td>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="delete(item)" ></button></td>
         </tr>
 
     </ng-template>

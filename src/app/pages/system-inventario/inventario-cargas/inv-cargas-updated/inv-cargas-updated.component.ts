@@ -50,10 +50,10 @@ export class InvCargasUpdatedComponent implements OnInit {
 
     this.activedRoute.data.subscribe(({carga}) => { 
       
-      if(carga[0].ingreso_id)
+      if(carga)
       {
          this.detalleIngreso = true;
-        this.updatedForm(carga[0]);
+        this.updatedForm(carga);
       }
     })
   }
@@ -71,7 +71,8 @@ export class InvCargasUpdatedComponent implements OnInit {
     {
       
       this.inventarioCargaService.inventarioCargaSave(this.editForm.value).subscribe((resp:any) => {
-                console.log(resp.response);
+              
+        this.route.navigateByUrl(`dashboard/inventario/ingresos/${resp.response}/edit`);
       })
     }
   }

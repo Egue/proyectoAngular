@@ -42,6 +42,7 @@ import { EmpresaComponent } from './sistemagestion/empresa/empresa.component';
 import { GeolocalizarComponent } from './contratos/geolocalizar/geolocalizar.component';
 import { ListComponent } from './sistemagestion/vehiculos/list/list.component'; 
 import { MessageModule } from 'primeng/message';
+import {CardModule} from 'primeng/card'
 
 @NgModule({
   declarations: [
@@ -105,7 +106,8 @@ import { MessageModule } from 'primeng/message';
     AutoCompleteModule,
     TabViewModule,
     FieldsetModule, 
-    MessageModule
+    MessageModule, 
+    CardModule
   ]
 })
 export class PagesModule { }

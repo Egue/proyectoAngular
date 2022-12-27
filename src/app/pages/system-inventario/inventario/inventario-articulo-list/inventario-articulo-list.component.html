@@ -27,9 +27,7 @@
                         <th>Código</th>
                         <th>Valor</th>
                         <th>Categoria</th>
-                        <th>Unitario</th>
-                        <th>Estado</th>
-                        <th>Stock</th>
+                        <th>Unitario</th> 
                         <th></th>
                     </tr>
                 </ng-template>
@@ -41,8 +39,7 @@
                         <td>{{articulo.valor}}</td>
                         <td>{{articulo.categoria}}</td>
                         <td>{{articulo.unitario}}</td>
-                        <td><span [class]="'product-badge status-' + (articulo.estado ? articulo.estado.toLowerCase() : '')">{{articulo.estado}}</span></td>
-                        <td>{{articulo.cantidad}}</td>
+                        
                         <td>
                             <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"  ></button>
                             <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" ></button>
@@ -87,3 +84,4 @@
         </ng-template>
 
 </p-dialog>
+

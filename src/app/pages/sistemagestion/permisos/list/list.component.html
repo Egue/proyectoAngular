@@ -1,0 +1,107 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="btn-group m-b-10 m-r-10" role="group" aria-label="Button group with nested dropdown">
+                    
+                    <button type="button" class="btn btn-secondary font-18" (click)="addPermiso()" ><i class="mdi mdi-plus-box"></i></button>
+                    
+                     
+                </div>
+
+                <p-table #dtlistPermiso 
+                [value]="listPermisos" 
+                [rows]="10" 
+                [loading]="loading"
+                [paginator]="true" 
+                responsiveLayout="scroll"
+                currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} registros" 
+                [showCurrentPageReport]="true">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th># Permiso</th>                            
+                            <th>Fecha apertura</th>
+                            <th>Fecha Cierre</th>
+                            <th>Creado por</th>
+                            <th>Tipo Trabajo</th>
+                            <th>Lugar</th>
+                            <th>Estado</th>
+                            <th></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-permiso>
+                        <tr>
+                            <td>{{permiso.prefijo}}-{{permiso.indicativo}}</td>
+                            <td>{{permiso.fecha_inicio}}-{{permiso.hora_inicio}}</td>
+                            <td>{{permiso.fecha_cierre}}-{{permiso.hora_cierre}}</td>
+                            <td>{{permiso.user}}</td>
+                            <td>{{permiso.nombre_tipo}}</td>
+                            <td>{{permiso.lugar_de_trabajo}}</td>
+                            <td>
+                                <ng-container *ngIf="permiso.estado==1;else inactivo">
+                                    <span class="badge badge-success">Abierto</span>
+                                </ng-container>
+                                <ng-template #inactivo>
+                                    <span class="badge badge-danger">Cerrado</span>
+                                </ng-template>
+                                
+                                
+                            </td>
+                            <td>
+                                <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-primary mr2" [routerLink]="['/dashboard/permisoTrabajo' , permiso.id_permiso! , 'permiso']" [loading]="loading"></button>
+                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"  ></button>
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"  ></button></td>
+                        </tr>
+                    </ng-template>
+                    
+                </p-table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Modal agregar un permisod e trabajo nuevo, si ya existe uno no se muestra botton-->
+<div class="fondo-modal animated fadeIn fast"
+[class.oculto] = "modalEstado">
+<div class="modal fade none-border show" id="add-new-event" style="display: block; padding-right: 17px;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><strong>Nuevo</strong> Permiso</h4>
+                <button type="button" class="close"  (click)="cerrarModal()" aria-hidden="true">×</button>
+            </div>
+            <form [formGroup]="formPermiso" (submit) = saveClasificacion()>
+            <div class="modal-body">
+                
+                <div class="modal-body">
+                    <div class="p-fluid grid">
+                        <div class="field col-12 md:col-4">
+                            <p-calendar inputId="calendar"  formControlName ="fecha_inicio" class="ng-invalid ng-dirty" [showIcon]="true" [showTime]="true" [showSeconds]="true" placeholder="Fecha permiso"></p-calendar>
+                        </div>
+                        <br>
+                        <div class="field col-12 md:col-4">
+                            <p-dropdown inputId="lugar" formControlName="lugar_de_trabajo" [autoDisplayFirst]="false" [options]="lugar"  optionLabel="name" class="ng-invalid ng-dirty" placeholder="Lugar Trabajo"></p-dropdown>
+                        </div>
+                        <br>
+                        <div class="field col-12 md:col-4">
+                            <p-dropdown inputId="tipo"  (onChange) = "selectedTipo($event)" [autoDisplayFirst]="false" [options]="listTipoTrabajo" optionLabel="nombre" class="ng-invalid ng-dirty" placeholder="Tipo de Trabajo"></p-dropdown>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                     
+                    <button type="button" class="btn btn-danger waves-effect waves-light save-category" type="submit"  [disabled]="this.formPermiso.invalid">Guardar</button>
+                    <button type="button" class="btn btn-secondary waves-effect" (click)="cerrarModal()">Cerrar</button>
+                </div> 
+               
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+ 
