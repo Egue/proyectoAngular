@@ -49,7 +49,7 @@ export class SistemaGestionService {
   {
     //const url = '/repositories/backend_jwt_3_slim/public/';
 
-    return this.http.post(`${url_base}/seguridad/permiso/save` , data ,this.headers);
+    return this.http.post(`${url_base}seguridad/permiso/save` , data ,this.headers);
   }
 
   getListPermisoOpen(id:any)

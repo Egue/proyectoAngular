@@ -39,19 +39,22 @@
                             <td>{{permiso.nombre_tipo}}</td>
                             <td>{{permiso.lugar_de_trabajo}}</td>
                             <td>
-                                <ng-container *ngIf="permiso.estado==1;else inactivo">
+                                <ng-container *ngIf="permiso.estado==1">
                                     <span class="badge badge-success">Abierto</span>
                                 </ng-container>
-                                <ng-template #inactivo>
+                                <ng-container *ngIf="permiso.estado==0">
+                                    <span class="badge badge-warning">Anulado</span>
+                                </ng-container>
+                                <ng-container *ngIf="permiso.estado==2">
                                     <span class="badge badge-danger">Cerrado</span>
-                                </ng-template>
+                                </ng-container>
                                 
                                 
                             </td>
                             <td>
-                                <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-primary mr2" [routerLink]="['/dashboard/permisoTrabajo' , permiso.id_permiso! , 'permiso']" [loading]="loading"></button>
-                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"  ></button>
-                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"  ></button></td>
+                                <button pButton pRipple icon="pi pi-list" [hidden]="permiso.estado!=1" class="p-button-rounded p-button-primary mr2" [routerLink]="['/dashboard/permisoTrabajo' , permiso.id_permiso! , 'permiso']" [loading]="loading"></button>
+                                <!--<button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"  ></button>-->
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" [hidden]="permiso.estado!=1" (click)="inactive(permiso)" ></button></td>
                         </tr>
                     </ng-template>
                     

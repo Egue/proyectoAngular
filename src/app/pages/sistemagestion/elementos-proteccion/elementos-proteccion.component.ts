@@ -7,6 +7,7 @@ import { SistemaGestionService } from 'src/app/services/sistema-gestion.service'
 import Swal from 'sweetalert2';
 import {map} from 'rxjs/operators';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-elementos-proteccion',
   templateUrl: './elementos-proteccion.component.html',
@@ -50,23 +51,30 @@ export class ElementosProteccionComponent implements OnInit {
   public msmToken:string = '';
 
   /**modal add bueno malo */
-  public estadoModalBuenoMalo = true;
-  public item = {};
+  public estadoModalBuenoMalo:boolean = true;
+  public item:any;
+
+  //permiso full
+  public idPermiso:any;
 
 
-
-
-  constructor(private sistemaGestionServices:SistemaGestionService , public auth:AuthService , private fb:FormBuilder) { }
+  constructor(private sistemaGestionServices:SistemaGestionService , public auth:AuthService , private fb:FormBuilder,
+    private activatedRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
-  this.getInfoPermiso();
-   
+  //this.getInfoPermiso();
+   this.activatedRoute.data.subscribe(({permiso}) => {
+    if(permiso){
+      this.idPermiso = permiso;
+      this.getInfoPermiso();
+    }
+   })
   }
 
   getInfoPermiso()
   {
     this.cargando = true;
-    this.sistemaGestionServices.getInfoPermisoEmpleado(this.auth.usuario.id)
+    /*this.sistemaGestionServices.getInfoPermisoEmpleado(this.auth.usuario.id)
                                 .subscribe((resp:any) => {
                                   this.permiso = resp.response;  
                                   this.cargando = false;
@@ -77,7 +85,11 @@ export class ElementosProteccionComponent implements OnInit {
                                     this.getlistEpcc(this.permiso[0].id_permiso);
                                     this.getlistHerramientas(this.permiso[0].id_permiso);
                                   }
-                                });
+                                });*/
+      this.getlistEpcc(this.idPermiso);
+      this.getlistEpp(this.idPermiso);
+      this.getlistHerramientas(this.idPermiso);
+      this.cargando = false;
   }
 
   crearEmpleadoGeneralidades(tipo:string)
@@ -331,5 +343,10 @@ buenoMalo(item:any)
                                     icon:'error'
                                   });
                                 });
+}
+
+back()
+{
+  window.history.back();
 }
 }

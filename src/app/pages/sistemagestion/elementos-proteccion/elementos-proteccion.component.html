@@ -1,13 +1,24 @@
 <div class="row">
-    <div class="col-12">
-        <div class="card" *ngIf="permiso.length > 0; else sinregistros">
+    <div class="col-md-12">
+        <div class="card">
             <div class="card-body">
-                    <div class="text-center">
-                        <i class="mdi mdi-account-card-details"></i> {{permiso[0].prefijo}} - 00{{permiso[0].indicativo}} <i class="mdi mdi-calendar"></i>{{permiso[0].fecha_inicio}}
-                    </div>
+                <div class="btn-group m-b-10 m-r-10" role="group" aria-label="Button group with nested dropdown">
+                    <button type="button" class="btn btn-secondary font-18" (click)="back()"><i class="mdi mdi-arrow-left-bold"></i></button>
+                    
+                    <button type="button" class="btn btn-secondary font-18"  ><i class="mdi mdi-plus-box"></i></button>
+                </div>
+
+                <div class="btn-group m-b-10" role="group">
+                    <p-button label="Submit" icon="pi pi-check" iconPos="right"></p-button>
+                </div>
             </div>
         </div>
-        <div class="card" *ngIf="permiso.length > 0">
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        
+        <div class="card">
             <div class="card-body"> 
                 <p-accordion>
                     <p-accordionTab header="Inspección de EPP">
@@ -18,20 +29,7 @@
                         <ng-template #listEpp>
                             <div class="card">
                                 <div class="card-body">
-                                    <!--<div class="demo-checkbox">
-                                       <div *ngFor="let item of listEPP">
-                                            
-                                            
-                                                <input type="checkbox" id="epp_{{item.empleado_generalidades_id}}"   (change)="statusActive({item})" class="filled-in chk-col-red" [checked]="item.active == 'Y'" >
-                                                <label for="epp_{{item.empleado_generalidades_id}}">{{item.nombre}}</label>
-                                                                                        
-                                                <span class="label label-success label-rounded pull-right" *ngIf="item.inspeccion == null;else inspeccionNull" (click)="buenoMalo(item)">Bueno</span> <br>
-                                            <ng-template #inspeccionNull>
-                                                <span class="label label-danger label-rounded pull-right" (click)="buenoMalo(item)">Malo</span> <br>
-                                            </ng-template> 
-                    
-                                        </div>
-                                    </div> -->
+                                    
                                     <h4 class="card-title"><span class="lstick"></span> Elementos de protección</h4>
                                     <table class="table browser m-t-30  table-striped">
                                         <tbody>
@@ -140,33 +138,11 @@
                         </ng-template>
                         
                     </p-accordionTab>
-                    <p-accordionTab header="Firmar permiso">
-                        <div class="text-center"  *ngIf="permiso[0].firma == null;else templateFirmado">
-                            <button class="btn btn-lg btn-primary" *ngIf="!tokenValidado" (click)="OpenModal()"><i class="mdi mdi-barcode"></i>Token</button>
-                            <button class="btn btn-lg btn-primary"  *ngIf="tokenValidado"  (click)="firmarPermiso()"><i class="mdi mdi-grease-pencil"></i>Firmar Permiso</button>
-                        </div>    
-                        <ng-template #templateFirmado>
-                            <div class="alert alert-success ">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
-                                <h3 class="text-success"><i class="fa fa-check-circle"></i> Firmado</h3><p class="text-justify">Su permiso de trabajo ya se encuentra firmado electrónicamente, 
-                                toda modificación al permiso de trabajo altera la firma, por tanto si desea agregar algun item adicional, solicite al administrador poder
-                                volver a firmar, de lo contrario su permiso sera invalidado y no aceptado.</p>
-                            </div>
-                        </ng-template>
-                        
-                    </p-accordionTab>
+                 
                 </p-accordion>
             </div>
         </div>
-        <ng-template #sinregistros>
-            <div class="card text-center">
-                <div class="jumbotron jumbotron-fluid">
-                    <div class="container">
-                        <h1 class="display-3">No esta asociado a ningun permiso</h1>
-                    </div>
-                </div>
-            </div>
-        </ng-template>
+         
         
     </div>
 </div> 
@@ -174,7 +150,7 @@
 
 
 <!--modal cargar generar token-->
-<div class="fondo-modal bounceIn animated" [class.oculto] = "modalToken">
+<!--<div class="fondo-modal bounceIn animated" [class.oculto] = "modalToken">
     <div class="modal fade none-border  show" id="add-new-event" style="display: block; padding-right: 17px;">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -233,15 +209,6 @@
             </div>
         </div>
     </div>
-</div>
-
-<app-add-bueno-malo
-    [estadoModalBuenoMalo]="estadoModalBuenoMalo"
-    (estadoModalBuenoMalo)="estadoModalBuenoMalo = $event"
-    [item]="item"
-></app-add-bueno-malo>
-
-<!--Modal de carga-->
-<div class="fondo-modal animated fadeIn fast" [class.oculto] = "!cargando">
-
-</div>
+</div>-->
+ 
+ 

@@ -186,5 +186,10 @@ onChangeCoductor(event:any)
   this.editForm.get('conductor_id')?.setValue(event.id);
 }
 
+toback()
+{
+  history.back();
+}
+
 
 }

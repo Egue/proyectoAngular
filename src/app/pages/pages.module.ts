@@ -36,8 +36,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { GeneralidadesComponent } from './sistemagestion/generalidades/generalidades.component';
 import { TabViewModule } from 'primeng/tabview';
-import { FieldsetModule } from 'primeng/fieldset';
-import { ElementosProteccionComponent } from './sistemagestion/elementos-proteccion/elementos-proteccion.component';
+import { FieldsetModule } from 'primeng/fieldset'; 
 import { EmpresaComponent } from './sistemagestion/empresa/empresa.component';
 import { GeolocalizarComponent } from './contratos/geolocalizar/geolocalizar.component';
 import { ListComponent } from './sistemagestion/vehiculos/list/list.component'; 
@@ -63,8 +62,7 @@ import {CardModule} from 'primeng/card'
     SpRecaudoComponent,
     PerfilComponent,
     RcControlComponent,
-    GeneralidadesComponent,
-    ElementosProteccionComponent,
+    GeneralidadesComponent, 
     EmpresaComponent,
     GeolocalizarComponent, 
 

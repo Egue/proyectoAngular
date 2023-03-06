@@ -7,8 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { PagesComponent } from './pages.component';
 import { NgModule } from '@angular/core';
 import { Routes , RouterModule } from '@angular/router';
-import { Grafica1Component } from './grafica1/grafica1.component';
-import { PermisosComponent } from './sistemagestion/permisos/permisos.component';
+import { Grafica1Component } from './grafica1/grafica1.component'; 
 import { RegistroEmpleadosComponent } from './sistemagestion/registro-empleados/registro-empleados.component';
 import { UsuariosComponent } from './usuarios/usuarios/usuarios.component';
 import { CrearUsuariosComponent } from './usuarios/crear-usuarios/crear-usuarios.component';
@@ -18,11 +17,9 @@ import { RolesComponent } from './usuarios/roles/roles.component';
 import { SpRecaudoComponent } from './supergiros/sp-recaudo/sp-recaudo.component';
 import { PerfilComponent } from './usuarios/perfil/perfil.component';
 import { RcControlComponent } from './merkas/rc-control/rc-control.component';
-import { GeneralidadesComponent } from './sistemagestion/generalidades/generalidades.component';
-import { ElementosProteccionComponent } from './sistemagestion/elementos-proteccion/elementos-proteccion.component';
+import { GeneralidadesComponent } from './sistemagestion/generalidades/generalidades.component'; 
 import { EmpresaComponent } from './sistemagestion/empresa/empresa.component';
-import { GeolocalizarComponent } from './contratos/geolocalizar/geolocalizar.component';
-import { ListComponent } from './sistemagestion/vehiculos/list/list.component';
+import { GeolocalizarComponent } from './contratos/geolocalizar/geolocalizar.component'; 
 
 
 const routes:Routes = [
@@ -43,7 +40,7 @@ const routes:Routes = [
     {path:'registroPersona'    , component: RegistroEmpleadosComponent , data:{titulo:'Registro Personal'}},
     {path: 'peligros' , component: PeligrosComponent , data:{titulo:'Peligros y Clasificación'}},
     {path:'generalidades' , component:GeneralidadesComponent , data:{titulo:'Generalidades del permiso de trabajo'}},
-    {path: 'elementos-epp' , component:ElementosProteccionComponent , data:{titulo: 'Elementos de proteccion'}},
+    {path: 'elementos-epp' , loadChildren:() =>import('./sistemagestion/elementos-proteccion/elementos-proteccion.module').then(m=>m.ElementosProteccionModule),},
     {path: 'config-empresa' , component:EmpresaComponent , data:{titulo:'Configuración empresa'}},
     {path: 'vehiculo' , loadChildren: () => import('./sistemagestion/vehiculos/vehiculo.module').then(m => m.VehiculoModule),},
     {path: 'marcas' , loadChildren: () => import('./sistemagestion/marcas/marcas.module').then(m => m.MarcasModule),},

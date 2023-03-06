@@ -30,6 +30,21 @@ export class PermisoService {
   findByIdUsuarioActive(usuario:any){
     return this.http.get(`${url_base}seguridad/permiso/findByIdUsuarioActive/${usuario}` , this.headers);
   }
+
+  inactive(id:any)
+  {
+    return this.http.delete(`${url_base}seguridad/permiso/inactive/${id}` , this.headers);
+  }
+
+  cerrado(id:any)
+  {
+    return this.http.delete(`${url_base}seguridad/permiso/cerrado/${id}` , this.headers);
+  }
+
+  findById(id:any)
+  {
+    return this.http.get(`${url_base}seguridad/permiso/findById/${id}` , this.headers);
+  }
  
   
  

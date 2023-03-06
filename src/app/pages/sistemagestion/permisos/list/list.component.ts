@@ -67,6 +67,7 @@ export class ListComponent implements OnInit {
       //consultar por id de usuario
       this.permisoService.findByIdUsuarioActive(this.authService.usuario.id).subscribe((resp:any) => {
         this.listPermisos = resp.response;
+        console.log(resp.response);
         this.loading = false;
       })
     }
@@ -121,6 +122,39 @@ export class ListComponent implements OnInit {
                           .subscribe((resp:any) => {
                             this.listTipoTrabajo = resp.response;
                           })
+  }
+
+  public inactive(item:any)
+  {
+    Swal.fire({
+      title: 'Eliminar permiso?',
+      text: "Esta seguro de eliminar el permiso?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        item.estado = 0;
+        this.permisoService.inactive(item.id_permiso).subscribe((resp:any) => {
+          Swal.fire(
+            'Inactivado',
+            'El permiso fue inactivado con éxito',
+            'success'
+          )
+        }, error => {
+
+          Swal.fire(
+            'Error inesperado',
+            `${error.error.response}`,
+            'error'
+          )
+
+        })
+       
+      }
+    })
   }
 
 

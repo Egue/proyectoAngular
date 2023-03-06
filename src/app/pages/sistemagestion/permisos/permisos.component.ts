@@ -15,6 +15,7 @@ import { SGPermisoActivo } from 'src/app/models/sgPermisoActivo.model';
 import {ProgressBarModule} from 'primeng/progressbar';
 import { MenuItem } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PermisoService } from './services/permiso.service';
 @Component({
   selector: 'app-permisos',
   templateUrl: './permisos.component.html',
@@ -94,8 +95,8 @@ export class PermisosComponent implements OnInit {
 
   constructor(private fb:FormBuilder , 
     private sistemaGestionService:SistemaGestionService , 
-    private authService:AuthService , 
-    private peligrosService:PeligrosService,
+    private authService:AuthService ,  
+    private permisoService:PermisoService,
     private route:Router , 
     private activatedRoute:ActivatedRoute) { }
 
@@ -104,16 +105,31 @@ export class PermisosComponent implements OnInit {
       if(permiso)
       {
         this.permisosActivos = permiso;
+        this.validarQueinCreoPermiso(permiso.id_usuario);
       }
      })
     //this.getListPermisoOpen(); 
-    this.items = [
-      {label :'Integrantes' , icon:'pi pi-users' , url:'../../../../assets/images/seguridad/add.png' , status:'true', link:'/dashboard/integrantes',idpermiso:this.permisosActivos.id_permiso , router:'add'},
-      {label:'Peligros' , icon:'pi pi-bolt' , url:'../../../../assets/images/seguridad/peligro.png', status:'true', link:'/dashboard/permisoPeligros',idpermiso:this.permisosActivos.id_permiso , router:'add'},
-      {label:'Preoperacional' , icon:'pi pi-bookmark-fill' , url:'../../../../assets/images/seguridad/preoperacionl.png', status:'false', link:'/dashboard/elementos-epp' , idpermiso:this.permisosActivos.id_permiso ,router:''},
-      {label:'Inspección' , icon:'pi pi-check-circle' , url:'../../../../assets/images/seguridad/inspeccion.png',status:'false', link:'/dashboard/permisoInspeccion', idpermiso:this.permisosActivos.id_permiso , router:'add'},
-      {label:'firmar' , icon:'pi pi-pencil' , url:'../../../../assets/images/seguridad/firma.png',status:'false', router:''}
-    ];
+    
+  }
+
+  //consultarpermiso para realizar ajuste
+  public validarQueinCreoPermiso(usuario:any)
+  {
+    if(this.authService.usuario.id === usuario)
+    {
+      this.items = [
+        {label :'Integrantes' , icon:'pi pi-users' , url:'../../../../assets/images/seguridad/add.png' , status:'true', link:'/dashboard/integrantes',idpermiso:this.permisosActivos.id_permiso , router:'add'},
+        {label:'Peligros' , icon:'pi pi-bolt' , url:'../../../../assets/images/seguridad/peligro.png', status:'true', link:'/dashboard/permisoPeligros',idpermiso:this.permisosActivos.id_permiso , router:'add'},
+        {label:'Preoperacional' , icon:'pi pi-bookmark-fill' , url:'../../../../assets/images/seguridad/preoperacionl.png', status:'false', link:'/dashboard/elementos-epp' , idpermiso:this.permisosActivos.id_permiso ,router:'add'},
+        {label:'Inspección' , icon:'pi pi-check-circle' , url:'../../../../assets/images/seguridad/inspeccion.png',status:'false', link:'/dashboard/permisoInspeccion', idpermiso:this.permisosActivos.id_permiso , router:'add'},
+        {label:'firmar' , icon:'pi pi-pencil' , url:'../../../../assets/images/seguridad/firma.png',status:'false', router:''}
+      ];
+    }else{
+      this.items = [
+           {label:'Preoperacional' , icon:'pi pi-bookmark-fill' , url:'../../../../assets/images/seguridad/preoperacionl.png', status:'false', link:'/dashboard/elementos-epp' , idpermiso:this.permisosActivos.id_permiso ,router:'add'},
+        {label:'Inspección' , icon:'pi pi-check-circle' , url:'../../../../assets/images/seguridad/inspeccion.png',status:'false', link:'/dashboard/permisoInspeccion', idpermiso:this.permisosActivos.id_permiso , router:'add'},
+      ];
+    }
   }
 
  
@@ -200,6 +216,7 @@ export class PermisosComponent implements OnInit {
 
   handleClick(event:any){
     const url = `${event.link}/${event.idpermiso}/${event.router}`;
+    console.log(url);
     this.route.navigateByUrl(url);
   }
 
