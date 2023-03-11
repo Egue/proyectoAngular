@@ -47,7 +47,7 @@ const routes:Routes = [
     {path:'integrantes' , loadChildren:()=>import('./sistemagestion/empleados/empleados.module').then(m=>m.EmpleadosModule)},
     {path:'permisoPeligros', loadChildren:() =>import('./sistemagestion/permiso-peligro/permiso-peligro.module').then(m=>m.PermisoPeligroModule)},
     {path:'permisoInspeccion' , loadChildren:()=>import('./sistemagestion/permiso-vehiculo/permiso-vehiculo.module').then(m=>m.PermisoVehiculoModule)},
-
+    {path:'generate-pdf' , loadChildren:()=>import('./sistemagestion/generate-pdf/generate-pdf.module').then(m=>m.GeneratePdfModule)},
 
     {path:'usuarios'    , component: UsuariosComponent , data:{titulo:'Usuarios'}},
     {path:'crearuser'    , component: CrearUsuariosComponent , data:{titulo:'Registro de Usuarios'}},
@@ -67,6 +67,9 @@ const routes:Routes = [
     
       //system de inventario
       {path:'inventario' , loadChildren:()=>import('./system-inventario/system-inventario.module').then(m=>m.SystemInventarioModule)},
+
+
+      //generate odf
 
     ]
   

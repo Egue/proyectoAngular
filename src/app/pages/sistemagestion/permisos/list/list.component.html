@@ -54,7 +54,9 @@
                             <td>
                                 <button pButton pRipple icon="pi pi-list" [hidden]="permiso.estado!=1" class="p-button-rounded p-button-primary mr2" [routerLink]="['/dashboard/permisoTrabajo' , permiso.id_permiso! , 'permiso']" [loading]="loading"></button>
                                 <!--<button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"  ></button>-->
-                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" [hidden]="permiso.estado!=1" (click)="inactive(permiso)" ></button></td>
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" [hidden]="permiso.estado!=1" (click)="inactive(permiso)" ></button>
+                                <button pButton pRipple icon="pi pi-file-pdf" class="p-button-rounded p-button-danger" [routerLink]="['/dashboard/generate-pdf' , permiso.id_permiso! , 'pdf']"></button>
+                            </td>
                         </tr>
                     </ng-template>
                     

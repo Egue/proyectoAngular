@@ -1,0 +1,8 @@
+#tableHeader{
+    border: 1px solid;
+    border-collapse: collapse;
+}
+
+#tableHeader tr{
+    border: 1px solid;
+}
