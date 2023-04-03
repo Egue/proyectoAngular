@@ -5,6 +5,7 @@ import { SGEmpleado } from '../models/sgEmpleado.model';
 import {map } from 'rxjs/operators'
 import { SGPermisoEmpleado } from '../models/sgPermisoEmpleado';
 import { SGPermisoActivo } from '../models/sgPermisoActivo.model'; 
+import { Observable } from 'rxjs';
 //const url_base = environment.base_url;
 const url_base = '/repositories/backend_jwt_3_slim/public/';
 @Injectable({
@@ -139,6 +140,16 @@ export class SistemaGestionService {
   { 
     return this.http.post(`${url_base}seguridad/empleadoGeneralidades/findByEmpleadoAndPermisoAndTipo` , data , this.headers);
   }
+
+  getEmpleadoGeneralidadesFilterTypeIsNotNull(data:any):Observable<any[]>
+  {
+    return this.http.post<any[]>(`${url_base}seguridad/empleadoGeneralidades/findByEmpleadoPermisoTrabajoIsNotNull` , data , this.headers);
+  }
+
+  getfirmaFindByIdPermisoAndIdUser(data:any)
+  {
+    return this.http.post(`${url_base}seguridad/permisosEmpleados/findByIdPermisoAndIdUser`,data , this.headers);
+  }
  /**
   *  edita el estado active de empleadogeneralidades
   */
@@ -204,4 +215,11 @@ export class SistemaGestionService {
   {
     return this.http.get(`${url_base}seguridad/permiso/findById/${id}` , this.headers);
   }
+
+  //generar pdf buscar empleados
+  pdfEmpleados(id:any)
+  {
+    return this.http.get(`${url_base}pdf/permisosEmpleados/${id}` , this.headers);
+  }
+
 }

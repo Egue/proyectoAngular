@@ -27,17 +27,17 @@ const routes:Routes = [
     canActivate:[AuthGuard],
     children: [      
     {path:'' , component: DashboardComponent , data:{titulo:'Dashboard'}},
-    {path:'progress' , component: ProgressComponent , data:{titulo:'Progress'}},
-    {path:'grafica1' , component: Grafica1Component , data:{titulo:'Grafica # 1'}},
+    //{path:'progress' , component: ProgressComponent , data:{titulo:'Progress'}},
+    //{path:'grafica1' , component: Grafica1Component , data:{titulo:'Grafica # 1'}},
 
     {path:'settings' , component: AccountSetthingsComponent, data:{titulo:'Ajustes de cuenta'}},
     {path:'myperfil'  , component: PerfilComponent, data:{titulo:'Perfil de usuario'} },
     
-    {path:'promesa' , component:  PromesasComponent , data:{titulo:'Promesas'}},
-    {path:'rxjs'    , component: RxjsComponent , data:{titulo:'Rxjs'}},
+   // {path:'promesa' , component:  PromesasComponent , data:{titulo:'Promesas'}},
+    //{path:'rxjs'    , component: RxjsComponent , data:{titulo:'Rxjs'}},
 
     {path:'permisoTrabajo'    , loadChildren:()=>import('./sistemagestion/permisos/permisos.module').then(m=>m.PermisosModule) },
-    {path:'registroPersona'    , component: RegistroEmpleadosComponent , data:{titulo:'Registro Personal'}},
+    //{path:'registroPersona'    , component: RegistroEmpleadosComponent , data:{titulo:'Registro Personal'}},
     {path: 'peligros' , component: PeligrosComponent , data:{titulo:'Peligros y Clasificación'}},
     {path:'generalidades' , component:GeneralidadesComponent , data:{titulo:'Generalidades del permiso de trabajo'}},
     {path: 'elementos-epp' , loadChildren:() =>import('./sistemagestion/elementos-proteccion/elementos-proteccion.module').then(m=>m.ElementosProteccionModule),},
@@ -48,10 +48,8 @@ const routes:Routes = [
     {path:'permisoPeligros', loadChildren:() =>import('./sistemagestion/permiso-peligro/permiso-peligro.module').then(m=>m.PermisoPeligroModule)},
     {path:'permisoInspeccion' , loadChildren:()=>import('./sistemagestion/permiso-vehiculo/permiso-vehiculo.module').then(m=>m.PermisoVehiculoModule)},
     {path:'generate-pdf' , loadChildren:()=>import('./sistemagestion/generate-pdf/generate-pdf.module').then(m=>m.GeneratePdfModule)},
-
-    {path:'usuarios'    , component: UsuariosComponent , data:{titulo:'Usuarios'}},
-    {path:'crearuser'    , component: CrearUsuariosComponent , data:{titulo:'Registro de Usuarios'}},
-    {path: 'roles' , component:RolesComponent , data:{titulo:'Vistas y roles de usuarios'}},
+    {path:'firmas' , loadChildren:()=>import('./sistemagestion/firma/firma.module').then(m=>m.FirmaModule)},
+    {path:'usuarios'    , loadChildren:() => import('./usuarios/usuarios.module').then(m => m.UsuariosModule)},     
 
     {path: 'geolocalizacion' , component: GeolocalizacionComponent , data:{titulo:'Geolocalizacion'}},
     {path: 'geolocalizar' , component: GeolocalizarComponent , data:{titulo: 'Geolocalizar contratos'}},

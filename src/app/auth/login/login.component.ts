@@ -26,6 +26,10 @@ export class LoginComponent {
  
 
   login(){
+    
+    if(this.formLogin.valid)
+    {
+
     this.authService.login(this.formLogin.value)
     .subscribe( resp => {
           if(this.formLogin.get('remember')?.value)
@@ -40,6 +44,11 @@ export class LoginComponent {
       Swal.fire('Error' , err.error.response , 'error');
     })
     
+  
+  }else{
+      Swal.fire('Error' , 'Todos los campos son obligatorios' , 'error');
+  } 
+
   }
 
 }

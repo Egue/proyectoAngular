@@ -1,0 +1,51 @@
+<p-toast></p-toast>
+<div class="row">
+   <div class="col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <form  [formGroup]="formDatos" (submit)="onSave()">
+                <div class="row">
+                    <div class="col-md-6" *ngIf="this.formDatos.get('id')?.value">
+                        <label for="id">Id</label>
+                       <span class="p-fluid">
+                        <input type="text" pInputText  formControlName="id" readonly/>
+                       </span>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="tipo">Tipo documento</label>
+                        <span class="p-fluid">
+                            <p-dropdown [options]="tipoDocumento" formControlName="tipo_documento"  [showClear]="true" placeholder="Seleccione tipo documento" optionLabel="name" optionValue="name"></p-dropdown>
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="documento">N° documento</label>
+                        <span class="p-fluid">
+                            <p-inputNumber formControlName="documento" ></p-inputNumber>
+                        </span>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="cargo">Cargo en la empresa</label>
+                        <span class="p-fluid">
+                            <input type="text" pInputText  formControlName="cargo"/>
+                        </span>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-10">
+
+                    </div>
+                    <div class="col-md-2">
+                        <span class="p-fluid">
+                            <p-button label="Guardar" icon="pi pi-check" iconPos="left" type="submit" *ngIf="!this.formDatos.get('id')?.value"></p-button>
+                            <p-button label="Actualizar" icon="pi pi-check" pRipple iconPos="left" type="submit" class="p-button-success" *ngIf="this.formDatos.get('id')?.value"></p-button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+   </div>
+</div>

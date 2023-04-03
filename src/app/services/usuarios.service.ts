@@ -131,5 +131,21 @@ export class UsuariosService {
     return this.http.get(`${base_url}usuarios/findByIdempresa/${id_empresa}` , this.headers );
   }
 
+//recuperar datospersonales
+  getfindByIdDatosPersonales(id:any){
+    return this.http.get(`${base_url}usuarios/datospersonales/findbyid/${id}`, this.headers);
+  }
+
+  ///guardardatospersonales
+
+  saveDatosPersonales(datos:any)
+  {
+      return this.http.post(`${base_url}usuarios/datospersonales/save` , datos, this.headers);
+  }
+  //actualizar
+  updatedDatosPersonales(datos:any)
+  {
+    return this.http.patch(`${base_url}usuarios/datospersonales/updated/${datos.id}` , datos , this.headers);
+  }
   
 }

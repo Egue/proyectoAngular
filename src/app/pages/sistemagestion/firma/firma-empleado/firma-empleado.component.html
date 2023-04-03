@@ -1,0 +1,95 @@
+ 
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-body" *ngIf="permiso">
+                    <table class="table vm font-14">
+                        <tbody><tr>
+                            <td class="b-0">Permiso de Trabajo</td>
+                            <td class="text-right font-medium b-0">{{permiso.prefijo}} #{{permiso.indicativo}}</td>
+                        </tr>
+                        <tr>
+                            <td>Fecha Creación</td>
+                            <td class="text-right font-medium">{{permiso.fecha_inicio}} - {{permiso.hora_inicio}}</td>
+                        </tr>
+                        <tr>
+                            <td>Lugar de Trabajo</td>
+                            <td class="text-right font-medium">{{permiso.lugar_de_trabajo}}</td>
+                        </tr>
+                   
+                    </tbody></table>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Información Para firmar</h4>
+                <h6 class="card-subtitle">Valide la información antes de firmar electrónicamente, ya que una vez firmada si realiza un cambio
+                    la firma se invalida.
+                </h6>
+                <p-table #dt [value]="list"   >
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Inspección</th>
+                        </tr>
+                    </ng-template>
+                    
+                    <ng-template pTemplate="body" let-item>
+                        <tr>
+                            <td>{{item.nombre}}</td>
+                            <td class="text-right"><span [class]="'product-badge status-'+(item.inspeccion ? item.inspeccion.toLowerCase():'')">{{item.inspeccion}}</span></td>
+                        </tr>
+                    </ng-template>
+
+                </p-table>
+             
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">
+                    Firma electrónica
+                    <p-messages [(value)]="msgs"></p-messages>
+                   <div class="row">
+                    <div class="col-md-12" *ngIf="firma.public_key"> 
+                        <span class="p-fluid">
+                          <textarea pInputTextarea [(ngModel)]="firma.public_key" disabled="true" [rows]="10"></textarea>
+                        </span>
+                      </div>
+                   </div>
+
+                   <div *ngIf="buttonFirma; else firmado">
+                                                 
+                        <div class="grid p-fluid">
+                            <div class="col-12 md:col-4 text-center">
+                                <label for="">{{timeLeftString}}</label>
+                                <button pButton type="button" label="{{conteo}}" [disabled]="timeLeft > 0 && timeLeft < 120" icon="pi pi-qrcode" (click)="generarToken()"></button>
+                        
+                            </div>
+                            <div class="col-12 md:col-4">
+                                <div class="p-inputgroup">
+                                    <input type="text" pInputText placeholder="token" [(ngModel)]="token">   
+                                    <button type="button" pButton pRipple icon="pi pi-send" styleClass="p-button-warn" [disabled]="!generateToken" (click)="validarToken()"></button>      
+                                </div>
+                            </div>
+                        </div>
+                     
+                    </div>
+                   <ng-template #firmado>
+                    <div class="alert alert-success">
+                         
+                        <h3 class="text-success"><i class="fa fa-check-circle"></i> Firmado</h3> 
+                        Su permiso de trabajo ya se encuentra firmado, bajo los estandares de firma electrónica
+                    </div>
+                   </ng-template>
+                   
+                    
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>

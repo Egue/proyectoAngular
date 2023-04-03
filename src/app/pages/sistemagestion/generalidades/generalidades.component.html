@@ -99,12 +99,18 @@
                                 <option value="CAMIONETA">Camioneta</option>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label for="form-empresa" class="control-label">Empresa</label>
+                            <select class="form-control custom-select" formControlName="id_empresa">
+                                <option *ngFor="let item of listEmpresa" value="{{item.id_empresa}}">{{item.razon_social}}</option>
+                            </select>
+                        </div>
                          
                 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" (click)="cerrarModalGeneralidades()">Cancelar</button>
-                    <button type="submit" class="btn btn-primary"  >Guardar</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="!formGeneralidad.valid" >Guardar</button>
                 </div></form>
 
         </div>

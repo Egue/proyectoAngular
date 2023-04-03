@@ -15,7 +15,9 @@ import { ActivatedRoute } from '@angular/router';
   ]
 })
 export class ElementosProteccionComponent implements OnInit {
- 
+ //fondo para validar
+  public modalgeneralidades:boolean = false;
+
   public cargando:boolean = false;
   //validar si esta firmado
 
@@ -66,11 +68,25 @@ export class ElementosProteccionComponent implements OnInit {
    this.activatedRoute.data.subscribe(({permiso}) => {
     if(permiso){
       this.idPermiso = permiso;
-      this.getInfoPermiso();
+      
     }
    })
   }
 
+//**abrir accordion */
+onTabOpen(event:any)
+{
+  if(event.index == 0)
+  {
+    this.getlistEpp(this.idPermiso);
+  }else if(event.index ==1)
+  {
+    this.getlistEpcc(this.idPermiso);
+  }else if(event.index ==2)
+  {
+    this.getlistHerramientas(this.idPermiso);
+  }
+}
   getInfoPermiso()
   {
     this.cargando = true;
@@ -87,7 +103,7 @@ export class ElementosProteccionComponent implements OnInit {
                                   }
                                 });*/
       this.getlistEpcc(this.idPermiso);
-      this.getlistEpp(this.idPermiso);
+      
       this.getlistHerramientas(this.idPermiso);
       this.cargando = false;
   }
@@ -96,7 +112,7 @@ export class ElementosProteccionComponent implements OnInit {
   {
      const data = {
       empleado_id : this.auth.usuario.id,
-      permiso_id : this.permiso[0].id_permiso,
+      permiso_id : this.idPermiso,
       tipo: tipo,
       id_empresa : this.auth.usuario.id_empresa
      } 
@@ -107,7 +123,7 @@ export class ElementosProteccionComponent implements OnInit {
                                 
                                 if(resp.response)
                                 { 
-                                  this.getInfoPermiso()
+                                  //this.getInfoPermiso()
                                   
                                   Swal.fire({
                                     icon: 'success',
@@ -115,6 +131,16 @@ export class ElementosProteccionComponent implements OnInit {
                                     showConfirmButton: false,
                                       timer: 1500
                                   })
+                                  if(tipo ==="EPP")
+                                  {
+                                    this.getlistEpp(this.idPermiso);
+                                  }else if(tipo === "EPCC")
+                                  {
+                                    this.getlistEpcc(this.idPermiso);
+                                  }else if(tipo === "Herramientas")
+                                  {
+                                    this.getlistHerramientas(this.idPermiso);
+                                  }
                                 }
                               } , (err) => {
                                 Swal.fire({
@@ -128,6 +154,7 @@ export class ElementosProteccionComponent implements OnInit {
 
   getlistEpp(permiso_id:any)
   {
+    this.cargando = true;
       const epp = {
         empleado_id : this.auth.usuario.id,
         permiso_id : permiso_id,
@@ -136,7 +163,15 @@ export class ElementosProteccionComponent implements OnInit {
 
       this.sistemaGestionServices.getEmpleadoGeneralidadesFilterType(epp)
                                   .subscribe((resp:any) => {
-                                    this.listEPP = resp.response;  
+                                    this.listEPP = resp.response;   
+                                    if(this.listEPP.length == 0)
+                                    {
+                                      this.crearEmpleadoGeneralidades('EPP');
+                                      
+                                    }
+                                    this.cargando = false;
+                                  } , error => {
+                                    this.cargando = false;
                                   })
 
   }
@@ -150,6 +185,9 @@ export class ElementosProteccionComponent implements OnInit {
     this.sistemaGestionServices.getEmpleadoGeneralidadesFilterType(epcc)
                                 .subscribe((resp:any) => {
                                   this.listEPCC = resp.response
+                                  if(this.listEPCC.length == 0){
+                                    this.crearEmpleadoGeneralidades('EPCC');
+                                  }
                                 })
   }
   getlistHerramientas(permiso_id:any)
@@ -162,10 +200,15 @@ export class ElementosProteccionComponent implements OnInit {
     this.sistemaGestionServices.getEmpleadoGeneralidadesFilterType(epcc)
                                 .subscribe((resp:any) => {
                                   this.listHerramienta = resp.response
+                                  if(this.listHerramienta.length === 0)
+                                  {
+                                    this.crearEmpleadoGeneralidades('Herramientas');
+                                  }
                                 })
   }
   statusActive(epp:any)
   {
+    this.modalgeneralidades = true;
     if(epp.item.active == 'Y')
     {
       epp.item.active = 'N'
@@ -175,7 +218,9 @@ export class ElementosProteccionComponent implements OnInit {
     
     this.sistemaGestionServices.editEmpleadoGeneralidades(epp.item)
                                 .subscribe((resp:any) => { 
+                                  this.modalgeneralidades = false;
                                 } , (err) => {
+                                  this.modalgeneralidades = false;
                                   Swal.fire({
                                     title:'Oops..',
                                     text:'error actualizando',
@@ -326,17 +371,16 @@ modalBuenoMalo(item:any)
   this.estadoModalBuenoMalo = false;
 }
 
-buenoMalo(item:any)
+buenoMalo(item:any , estado:string)
 {
-  if(item.inspeccion == null)
-  {
-    item.inspeccion = 1 ;
-  }else{
-    item.inspeccion = null;
-  }
+  this.modalgeneralidades = true;
+  item.inspeccion = estado;
+  
   this.sistemaGestionServices.editEmpleadoGeneralidades(item)
                                 .subscribe((resp:any) => { 
+                                  this.modalgeneralidades = false;
                                 } , (err) => {
+                                  this.modalgeneralidades = false;
                                   Swal.fire({
                                     title:'Oops..',
                                     text:'error actualizando',

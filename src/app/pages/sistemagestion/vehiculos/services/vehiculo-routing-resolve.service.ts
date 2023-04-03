@@ -1,9 +1,7 @@
-import { HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from "@angular/router";
 import { EMPTY, mergeMap, Observable, of } from "rxjs";
 import { VehiculoServiceService } from "./vehiculo-service.service";
-
 
 @Injectable({providedIn:'root'})
 export class VehiculoRoutingResolveService implements Resolve<null>{

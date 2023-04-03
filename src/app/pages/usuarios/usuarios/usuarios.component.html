@@ -206,14 +206,19 @@
                                     </ng-template>
                                 </td>
                                 <td class="text-nowrap text-center">
-                                    <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
-                                    
-                                    <a 
-                                    data-toggle="tooltip" data-original-title="Close"
-                                    class="cursor"
-                                    (click) = "deleteUsuario(usuario)"
-                                    > 
-                                    <i class="fa fa-close text-danger"></i> </a>
+                                    <button 
+                                    pButton pRipple 
+                                    (click)="selected(usuario)"
+                                    icon="pi pi-pencil" 
+                                    class="p-button-rounded p-button-success mr-2" 
+                                    >
+                                </button>
+                    
+                                <button pButton pRipple icon="pi pi-trash" 
+                                *ngIf="authService.usuario.role =='ADMIN_ADMIN'"
+                                class="p-button-rounded p-button-warning" 
+                                (click) = "deleteUsuario(usuario)"></button>
+                
                                 </td>
                             </tr>
                              
@@ -229,3 +234,10 @@
         </div>
     </div>
 </div>
+
+
+<ng-container *ngIf="activateEdit">
+    <app-datos-personales
+    [usuario]="seletedUser">
+</app-datos-personales>
+</ng-container>

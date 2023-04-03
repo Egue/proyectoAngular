@@ -1,33 +1,95 @@
 <div class="row">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-body" id=htmlData>
-                <table class="table table-bordered">
-                    <tr>
-                         <td rowspan="4">
-                            <img src="../../../../../assets/images/logoint.jpeg" alt="" width="90px" height="90px">
-                         </td>
-                         <td rowspan="4"><strong>PERMISOS DE TRABAJO SEGURO EN ALTURAS</strong></td>
-                         <td style="font-size: small;">Fecha: 09-03-2018</td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: small;">Versión: 04</td>
-                    </tr>
-                    <tr>
-                                          
-                        <td style="font-size: small;">Página 1 de 2</td>
-                        
-                    </tr>
-                    <tr><td style="font-size: small;">Código: F-GHSE-5</td></tr>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6">
+    <div class="col-md-12">
         <div class="card">
             <div class="card-body">
                 <button pButton pRipple icon="pi pi-file-pdf" class="p-button-rounded p-button-danger" (click)="openPDF()"></button>
             </div>
         </div>
     </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body" id=htmlData>
+                 <table width="100%" class="table table-sm" *ngIf="permisoTrabajo">
+                    <tbody>
+                        <tr>
+                            <td width="20%" class="text-center">
+                                <img [src]="image" alt="" width="80px">
+                            </td>
+                            <td class="text-center bg-success" colspan="2"><p class="text-uppercase text-light font-weight-bold text-light">Permiso de trabajo en alturas</p></td>
+                        </tr>
+                        <tr >
+                            <td>Fecha: <strong>{{permisoTrabajo.fecha_inicio}}</strong> </td>
+                            <td>Hora  de Inicio: <strong>{{permisoTrabajo.hora_inicio}}</strong></td>
+                            <td>Hora de cierre: {{permisoTrabajo.hora_cierre}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"   *ngIf="empleados">N° de personas que ejecutan la labor: &nbsp;<strong>{{empleados.cuenta}}</strong></td>
+                            <td>Lugar de ejecución: <strong>{{permisoTrabajo.lugar_de_trabajo}}</strong></td>                            
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="text-center"><p style="font-size: small;">Si las condiciones iniciales bajo las cuales se autoriza este permiso de trabajo cambian, se debe suspender
+                                el trabajo y realizar las acciones correctivas pertinentes, para poder continuar con la labor.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="text-center">
+                                <p style="font-size: small;">IMPORTANTE !!HACER MANTENIMIENTO DE ELEMENTOS DE PROTECCIÓN Y EQUIPOS CONTA CAÍDA EN ALTURA CADA 8 DÍAS</p>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="text-center bg-info text-light font-weight-bold">
+                                <p style="font-size: small; ">I. Permiso concedido a</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="text-center">
+                                <p style="font-size: small;">Verifique que todo el personal cuente con los EPP necesarios para la operación indicando Si(S) , No(N), No Aplica(Na) segun corresponda</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                 </table>
+                 <!--tabla Empleados-->
+                 <table class="table table-sm" *ngIf="empleados">
+                    <tbody>
+                        <tr>
+                            <th>Nombre y apellidos</th>
+                            <th>Tipo de documento</th>
+                            <th>Numero documento</th>
+                            <th>Cargo</th>
+                            <th>Firmado</th>
+                        </tr>
+                        <tr *ngFor="let item of empleados.empleados">
+                                <td>{{item.user}}</td>
+                                <td>{{item.tipo_documento}}</td>
+                                <td>{{item.documento}}</td>
+                                <td>{{item.cargo}}</td>
+                                <td></td>
+                        </tr>
+                    </tbody>
+                 </table>
+                 <!--Tabla herramientas-->
+                 <div class="row">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Herramienta</td>
+                                <td>T1</td>
+                                <td>T2</td>
+                            </tr>
+                            <tr *ngFor="let item of listHerramientas">
+                                <td >{{item.nombre}}</td>
+                                <td *ngFor="let subitem of item.empleados">
+                                    {{subitem.option}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                 </div>
+            </div>
+        </div>
+    </div>
+   
 </div>

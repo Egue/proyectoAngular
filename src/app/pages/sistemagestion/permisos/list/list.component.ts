@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/auth/auth.service';
 import { SistemaGestionService } from 'src/app/services/sistema-gestion.service';
 import Swal from 'sweetalert2';
@@ -10,7 +11,8 @@ import { PermisoService } from '../services/permiso.service';
   selector: 'app-list',
   templateUrl: './list.component.html',
   styles: [
-  ]
+  ],
+  providers: [MessageService]
 })
 export class ListComponent implements OnInit {
 
@@ -44,7 +46,8 @@ export class ListComponent implements OnInit {
   constructor(private authService:AuthService , 
     private permisoService:PermisoService , 
     private fb:FormBuilder ,
-    private sistemaGestionService:SistemaGestionService) { }
+    private sistemaGestionService:SistemaGestionService , 
+    private _messageService:MessageService) { }
 
 
   ngOnInit(): void {
@@ -67,7 +70,7 @@ export class ListComponent implements OnInit {
       //consultar por id de usuario
       this.permisoService.findByIdUsuarioActive(this.authService.usuario.id).subscribe((resp:any) => {
         this.listPermisos = resp.response;
-        console.log(resp.response);
+         
         this.loading = false;
       })
     }
@@ -86,8 +89,7 @@ export class ListComponent implements OnInit {
     let hora = this.pipe.transform(this.formPermiso.get('fecha_inicio')?.value , 'H:mm:ss');
     this.formPermiso.get('fecha_inicio')?.setValue(fecha);
     this.formPermiso.get('hora_inicio')?.setValue(hora);
-    this.formPermiso.get('lugar_de_trabajo')?.setValue(this.formPermiso.get('lugar_de_trabajo')?.value.name);
-
+    this.formPermiso.get('lugar_de_trabajo')?.setValue(this.formPermiso.get('lugar_de_trabajo')?.value.name); 
     if(this.formPermiso.valid)
     {  
       
@@ -96,17 +98,39 @@ export class ListComponent implements OnInit {
           if(resp){ 
             this.formPermiso.reset();
             this.modalEstado = true;
-            this.getListPermisos();
+            this._messageService.add({severity:'success' , summary:'Permiso' , detail:'Creado con éxito'})
+             
+            //this.getListPermisos();
+            setTimeout(() => {
+              this.createEmpleadoPermiso(resp.response);
+            }, 2000);
           }
         } , error => {
           this.modalEstado = true;
-          Swal.fire({
-            title:'Oops..',
-            text:error.error.response,
-            icon:'error'
-          })
+          console.log(error)
+          this._messageService.add({severity:'error' , summary:'Error' , detail:error.error.response})
         })
     }
+  }
+
+  /**CREAR USUARIO COMO EMPLEADO_permiso retornado */
+  createEmpleadoPermiso(id:any)
+  {
+      if(id)
+      {
+        const data = {
+          id_permiso_trabajo : id,
+          id_user : this.authService.usuario.id,
+          id_empresa : this.authService.usuario.id_empresa
+        }
+        this.sistemaGestionService.savePermisoEmpleado(data).subscribe((resp:any) => {
+                    this._messageService.add({severity:'success' , summary:'Empleado' , detail:'Empleado adicionado'});
+                    this.getListPermisos();
+
+        } , error => {
+                  this._messageService.add({severity:'error' , summary:'Error' , detail:error.error.response})
+        })
+      }
   }
 
 

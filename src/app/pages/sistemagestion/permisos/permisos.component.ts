@@ -122,7 +122,7 @@ export class PermisosComponent implements OnInit {
         {label:'Peligros' , icon:'pi pi-bolt' , url:'../../../../assets/images/seguridad/peligro.png', status:'true', link:'/dashboard/permisoPeligros',idpermiso:this.permisosActivos.id_permiso , router:'add'},
         {label:'Preoperacional' , icon:'pi pi-bookmark-fill' , url:'../../../../assets/images/seguridad/preoperacionl.png', status:'false', link:'/dashboard/elementos-epp' , idpermiso:this.permisosActivos.id_permiso ,router:'add'},
         {label:'Inspección' , icon:'pi pi-check-circle' , url:'../../../../assets/images/seguridad/inspeccion.png',status:'false', link:'/dashboard/permisoInspeccion', idpermiso:this.permisosActivos.id_permiso , router:'add'},
-        {label:'firmar' , icon:'pi pi-pencil' , url:'../../../../assets/images/seguridad/firma.png',status:'false', router:''}
+        {label:'firmar' , icon:'pi pi-pencil' , url:'../../../../assets/images/seguridad/firma.png',status:'false', link:'/dashboard/firmas' , idpermiso:this.permisosActivos.id_permiso, router:'empleado'}
       ];
     }else{
       this.items = [
@@ -216,7 +216,7 @@ export class PermisosComponent implements OnInit {
 
   handleClick(event:any){
     const url = `${event.link}/${event.idpermiso}/${event.router}`;
-    console.log(url);
+    //console.log(url);
     this.route.navigateByUrl(url);
   }
 

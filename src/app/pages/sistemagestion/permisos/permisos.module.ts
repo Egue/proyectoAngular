@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
+import { ToastModule } from 'primeng/toast';
 
 
 
@@ -24,7 +25,8 @@ import { CardModule } from 'primeng/card';
     ReactiveFormsModule,
     DropdownModule,
     CalendarModule,
-    CardModule
+    CardModule,
+    ToastModule
   ]
 })
 export class PermisosModule { }

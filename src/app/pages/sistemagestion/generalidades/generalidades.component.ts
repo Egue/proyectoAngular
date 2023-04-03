@@ -32,7 +32,10 @@ export class GeneralidadesComponent implements OnInit {
   public rows:number = 10;
   public listGeneralidadesByTipo:any[] = [];
   public cargadoReporte:boolean = false;
-  constructor(private sistemaGestionService:SistemaGestionService , private authService:AuthService , private fb:FormBuilder) {
+
+  //list
+  public listEmpresa:any[] = [];
+  constructor(private sistemaGestionService:SistemaGestionService , private authService:AuthService , private fb:FormBuilder   ) {
      this.sistemaGestionService.generalidadesDisct(this.authService.usuario.id_empresa)
                         .subscribe((resp:any) => {
                           this.listTipoGeneralidades = resp.response;
@@ -42,10 +45,21 @@ export class GeneralidadesComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    if(this.authService.usuario.role === "ADMIN_ADMIN")
+    {
+      this.getListEmpresa();
+    }
+  }
+  getListEmpresa()
+  {
+    this.sistemaGestionService.getlistEmpresa().subscribe((resp:any) => {
+      this.listEmpresa = resp.response;
+      console.log(this.listEmpresa);
+    })
   }
   save()
   {
-    this.formGeneralidad.get("id_empresa")?.setValue(this.authService.usuario.id_empresa); 
+    //this.formGeneralidad.get("id_empresa")?.setValue(this.authService.usuario.id_empresa); 
     if(this.formGeneralidad.valid){
       console.log(this.formGeneralidad.value);
       this.sistemaGestionService.generalidadesSave(this.formGeneralidad.value)

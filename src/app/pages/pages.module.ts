@@ -38,10 +38,9 @@ import { GeneralidadesComponent } from './sistemagestion/generalidades/generalid
 import { TabViewModule } from 'primeng/tabview';
 import { FieldsetModule } from 'primeng/fieldset'; 
 import { EmpresaComponent } from './sistemagestion/empresa/empresa.component';
-import { GeolocalizarComponent } from './contratos/geolocalizar/geolocalizar.component';
-import { ListComponent } from './sistemagestion/vehiculos/list/list.component'; 
+import { GeolocalizarComponent } from './contratos/geolocalizar/geolocalizar.component'; 
 import { MessageModule } from 'primeng/message';
-import {CardModule} from 'primeng/card'
+import {CardModule} from 'primeng/card'; 
 
 @NgModule({
   declarations: [
@@ -53,12 +52,9 @@ import {CardModule} from 'primeng/card'
     PromesasComponent,
     RxjsComponent,
     PermisosComponent,
-    RegistroEmpleadosComponent,
-    UsuariosComponent,
-    CrearUsuariosComponent,
+    RegistroEmpleadosComponent,  
     GeolocalizacionComponent,
-    PeligrosComponent,
-    RolesComponent,
+    PeligrosComponent, 
     SpRecaudoComponent,
     PerfilComponent,
     RcControlComponent,
@@ -76,12 +72,9 @@ import {CardModule} from 'primeng/card'
     PromesasComponent,
     RxjsComponent,
     PermisosComponent,
-    RegistroEmpleadosComponent,
-    UsuariosComponent,
-    CrearUsuariosComponent,
+    RegistroEmpleadosComponent,  
     GeolocalizacionComponent,
-    PeligrosComponent,
-    RolesComponent,
+    PeligrosComponent, 
     SpRecaudoComponent,
     PerfilComponent,
     RcControlComponent,

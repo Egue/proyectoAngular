@@ -23,11 +23,13 @@ export class UsuariosComponent  implements OnInit  {
   public desde:number = 0;
   public cargando:boolean = true;
   public optionsRole: Rol[] | undefined;
- 
-
+  
+  public seletedUser:any;
+  public activateEdit:boolean = false;
+  
   constructor(
     private usuarioService:UsuariosService,
-    private authService: AuthService
+    public authService: AuthService
     ) {
       
     this.cargarRoles();
@@ -139,6 +141,13 @@ export class UsuariosComponent  implements OnInit  {
    .subscribe();
 
     
+  }
+
+
+  selected(item:Usuario)
+  {
+      this.seletedUser = item.id;
+      this.activateEdit = true;
   }
 
 }
