@@ -6,7 +6,7 @@ import {map } from 'rxjs/operators'
 import { SGPermisoEmpleado } from '../models/sgPermisoEmpleado';
 import { SGPermisoActivo } from '../models/sgPermisoActivo.model'; 
 import { Observable } from 'rxjs';
-//const url_base = environment.base_url;
+// const url_base = environment.base_url;
 const url_base = '/repositories/backend_jwt_3_slim/public/';
 @Injectable({
   providedIn: 'root'
@@ -165,6 +165,10 @@ export class SistemaGestionService {
     return this.http.post(`${url_base}seguridad/permisosEmpleados/firmarEmpleado`, data , this.headers);
   }
 
+  getInforForFirma(idPermiso:number){
+    return this.http.get(`${url_base}seguridad/permiso/final/${idPermiso}` , this.headers);
+  }
+
   /**
    * configurar empresas
    */
@@ -220,6 +224,18 @@ export class SistemaGestionService {
   pdfEmpleados(id:any)
   {
     return this.http.get(`${url_base}pdf/permisosEmpleados/${id}` , this.headers);
+  }
+
+
+  //firma empresa
+  firmarPermisosSave(data:any)
+  {
+    return this.http.post(`${url_base}seguridad/firmas/save` , data , this.headers);
+  }
+
+  firmasGetFindByEmpresa(id:any)
+  {
+    return this.http.get(`${url_base}seguridad/firmas/findByIdEmpresa/${id}` , this.headers);
   }
 
 }

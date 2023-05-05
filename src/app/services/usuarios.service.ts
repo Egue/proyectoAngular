@@ -80,6 +80,11 @@ export class UsuariosService {
         })
     );
   }
+  //buscar por empresa y nombre
+  findByNameAndEmpresa(data:any)
+  {
+    return this.http.post(`${base_url}usuarios/findnameempresa` , data , this.headers);
+  }
 
   deleteById(usuario:Usuario)
   {

@@ -1,0 +1,109 @@
+<p-toast></p-toast>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+               <div class="row">
+                <div class="col-md-6 col-xs-12 col-sm-6 no-padding" *ngIf="infoPermiso"> 
+                        <h2 class="text-center">{{infoPermiso.prefijo}} {{infoPermiso.indicativo}}</h2>
+                        <div class="text-center">
+                            <i class="mdi mdi-google-maps"></i>{{infoPermiso.lugar_de_trabajo}} /
+                            <i class="mdi mdi-timer"></i>{{infoPermiso.fecha_inicio}} {{infoPermiso.hora_inicio}}
+                        </div>
+                        <div class="text-center">
+                            <i class="mdi mdi-account"></i>{{infoPermiso.user}} / <i class="mdi mdi-format-list-bulleted-type"></i>{{infoPermiso.tipo_trabajo}}
+                        </div>
+                        <p-accordion>
+                            <p-accordionTab header="Empleados">
+                               <ul>
+                                <li *ngFor="let empleado of infoPermiso.empleados; let i = index" (click)="verPreoperacional(i)">
+                                    {{empleado.documento}} / {{empleado.user}}
+                                    <!--<ul class="feeds">
+                                        <li *ngFor="let preoperacional of empleado.preoperacional" [ngClass]="{'hidden-ul': i !== selectedPreoperacional}">
+                                            <div style="width: 100%;">{{preoperacional.nombre}}</div>
+                                            <span class="label label-success label-rounded">Low</span>
+                                        </li>
+                                    </ul>-->
+                                    <table class="table vm font-14 m-b-0">
+                                        <tbody>
+                                            <tr *ngFor="let preoperacional of empleado.preoperacional" [ngClass]="{'hidden-ul': i !== selectedPreoperacional}">
+                                            <td>{{preoperacional.nombre}}</td>
+                                            <td class="text-right font-medium">
+                                                <button pButton pRipple type="button" label="{{preoperacional.inspeccion}}"   [ngClass]="{'p-button-success': preoperacional.inspeccion ==='Bueno', 'p-button-danger':preoperacional.inspeccion !=='Bueno'}"></button>
+                                            </td>
+                                        </tr>
+                                        
+                                         
+                                    </tbody></table>
+                                </li>
+                               </ul>
+                            </p-accordionTab>
+                            <p-accordionTab header="Peligros">
+                               <ul>
+                                    <li *ngFor="let peligros of infoPermiso.peligros; let i = index" (click)="selectedOptionPeligro(i)">
+                                        {{peligros.nombre}}
+                                        
+                                        <ul>
+                                            <li *ngFor="let control of peligros.controles">
+                                              {{control.nombre}}
+                                            </li>
+                                        </ul>
+                                    </li>
+                               </ul>
+                            </p-accordionTab>
+                            <p-accordionTab header="Vehiculos">
+                               <ul>
+                                    <li *ngFor="let vehiculo of infoPermiso.vehiculos; let i = index">
+                                        {{vehiculo.marca_nombre}}/{{vehiculo.vehiculo_placa}}
+
+                                        <table class="table vm font-14 m-b-0">
+                                            <tbody>
+                                                <tr *ngFor="let item of vehiculo.inspeccion">
+                                                <td>{{item.item}}</td>
+                                                <td>{{item.nombre}}</td>
+                                                <td class="text-right font-medium">
+                                                    <button pButton pRipple type="button" label="{{item.inspeccion}}"   [ngClass]="{'p-button-success': item.inspeccion ==='Bueno', 'p-button-danger': item.inspeccion !=='Bueno'}"></button>
+                                                </td>
+                                            </tr>
+                                            
+                                             
+                                        </tbody></table>
+                                    </li>
+                               </ul>
+                            </p-accordionTab>
+                        </p-accordion>
+                </div>
+                <div class="col-md-6 col-xs-12 col-sm-6 no-padding">
+                    
+                    <!--tocar para activar y enviar token-->
+                     <p-toolbar styleClass="mb-4" *ngIf="!firmar">
+                        <ng-template pTemplate="left">
+                            <button pButton pRipple label="Firmar" icon="pi pi-pencil" class="p-button-success mr-2"  (click)="generateToken()"></button>
+                        </ng-template>
+                
+                         
+                    </p-toolbar> 
+                    <!--FORM DE TOKEN-->
+                    <form class="form-control-line m-t-40" *ngIf="firmar">
+                        <div class="form-group has-success">
+                            <label class="form-control-label" for="success">Ingrese token enviado a {{authService.usuario.email}}</label>
+                            <input type="text" class="form-control form-control-success" id="success" [(ngModel)]="token" [ngModelOptions]="{ standalone: true }">
+                        </div>  
+                        <div class="form-group row">
+                            <label class="form-control-label" >{{timeLeftString}}</label>
+                        </div>       
+                        <div class="form-group m-b-0">
+                            <div class="offset-sm-3 col-sm-9">
+                                
+                                <button type="submit" class="btn btn-info waves-effect waves-light m-t-10" [disabled]="!token" (click)="validarToken()">Validar</button>
+                            </div>
+                        </div>               
+                    </form>
+                    <!---->
+                </div>
+                
+               </div>
+            </div>
+        </div>
+    </div>
+</div>

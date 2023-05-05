@@ -118,17 +118,17 @@ export class PermisosComponent implements OnInit {
     if(this.authService.usuario.id === usuario)
     {
       this.items = [
-        {label :'Integrantes' , icon:'pi pi-users' , url:'../../../../assets/images/seguridad/add.png' , status:'true', link:'/dashboard/integrantes',idpermiso:this.permisosActivos.id_permiso , router:'add'},
-        {label:'Peligros' , icon:'pi pi-bolt' , url:'../../../../assets/images/seguridad/peligro.png', status:'true', link:'/dashboard/permisoPeligros',idpermiso:this.permisosActivos.id_permiso , router:'add'},
-        {label:'Preoperacional' , icon:'pi pi-bookmark-fill' , url:'../../../../assets/images/seguridad/preoperacionl.png', status:'false', link:'/dashboard/elementos-epp' , idpermiso:this.permisosActivos.id_permiso ,router:'add'},
-        {label:'Inspección' , icon:'pi pi-check-circle' , url:'../../../../assets/images/seguridad/inspeccion.png',status:'false', link:'/dashboard/permisoInspeccion', idpermiso:this.permisosActivos.id_permiso , router:'add'},
-        {label:'firmar' , icon:'pi pi-pencil' , url:'../../../../assets/images/seguridad/firma.png',status:'false', link:'/dashboard/firmas' , idpermiso:this.permisosActivos.id_permiso, router:'empleado'}
+        {label :'Integrantes' , icon:'pi pi-users' , url:'./assets/images/seguridad/add.png' , status:'true', link:'/dashboard/integrantes',idpermiso:this.permisosActivos.id_permiso , router:'add'},
+        {label:'Peligros' , icon:'pi pi-bolt' , url:'./assets/images/seguridad/peligro.png', status:'true', link:'/dashboard/permisoPeligros',idpermiso:this.permisosActivos.id_permiso , router:'add'},
+        {label:'Preoperacional' , icon:'pi pi-bookmark-fill' , url:'./assets/images/seguridad/preoperacionl.png', status:'false', link:'/dashboard/elementos-epp' , idpermiso:this.permisosActivos.id_permiso ,router:'add'},
+        {label:'Inspección' , icon:'pi pi-check-circle' , url:'./assets/images/seguridad/inspeccion.png',status:'false', link:'/dashboard/permisoInspeccion', idpermiso:this.permisosActivos.id_permiso , router:'add'},
+        {label:'firmar' , icon:'pi pi-pencil' , url:'./assets/images/seguridad/firma.png',status:'false', link:'/dashboard/firmas' , idpermiso:this.permisosActivos.id_permiso, router:'empleado'}
       ];
     }else{
       this.items = [
-           {label:'Preoperacional' , icon:'pi pi-bookmark-fill' , url:'../../../../assets/images/seguridad/preoperacionl.png', status:'false', link:'/dashboard/elementos-epp' , idpermiso:this.permisosActivos.id_permiso ,router:'add'},
-        {label:'Inspección' , icon:'pi pi-check-circle' , url:'../../../../assets/images/seguridad/inspeccion.png',status:'false', link:'/dashboard/permisoInspeccion', idpermiso:this.permisosActivos.id_permiso , router:'add'},
-      ];
+           {label:'Preoperacional' , icon:'pi pi-bookmark-fill' , url:'./assets/images/seguridad/preoperacionl.png', status:'false', link:'/dashboard/elementos-epp' , idpermiso:this.permisosActivos.id_permiso ,router:'add'},
+           {label:'firmar' , icon:'pi pi-pencil' , url:'./assets/images/seguridad/firma.png',status:'false', link:'/dashboard/firmas' , idpermiso:this.permisosActivos.id_permiso, router:'empleado'}
+          ];
     }
   }
 

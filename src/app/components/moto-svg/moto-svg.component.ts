@@ -22,6 +22,8 @@ export class MotoSvgComponent implements OnInit {
  @Input() public lugarTrabajo:string = "";
  @Input() public permiso:any = 0;
  
+ public vehiculoSelect:any;
+
  public loading:boolean = false;
  public modalgeneralidades:boolean = true;
 
@@ -126,7 +128,8 @@ editPreoperacion(item:any)
 {
   this.listInspeccion = [];
   this.loading = true;
-  console.log(item);
+  this.vehiculoSelect = item;
+  //console.log(item);
   this.vehiculoService.disctGeneralidades(item.permiso_vehiculo_id).subscribe((resp:any) => {
         this.listDict = resp.response;
         this.loading = false;
@@ -136,7 +139,11 @@ editPreoperacion(item:any)
 addgeneralidad(item:any)
 {
    this.loading = true;
+   //console.log(item);
+   item.id_vehiculo = this.vehiculoSelect.permiso_vehiculo_id
+   console.log(item);
    this.vehiculoService.findByNameGeneralidadesVehiculos(item).subscribe((resp:any) => {
+    console.log(resp.response);
     this.listInspeccion = resp.response; 
      this.loading = false;
    })
@@ -146,7 +153,7 @@ onInspeccion(item:any ,estado:any)
 {
      
   this.modalgeneralidades = false;
-
+  console.log(item);
   item.inspeccion = estado;
 
       this.vehiculoService.editVehiculoGeneralides(item).subscribe((resp:any)=> {

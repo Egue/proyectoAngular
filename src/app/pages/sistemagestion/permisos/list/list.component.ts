@@ -16,6 +16,10 @@ import { PermisoService } from '../services/permiso.service';
 })
 export class ListComponent implements OnInit {
 
+  public value2:number = 50;
+ 
+  
+
   public loading:boolean = false;
   public listPermisos:any[] = [];
 
@@ -43,7 +47,7 @@ export class ListComponent implements OnInit {
 
 
 
-  constructor(private authService:AuthService , 
+  constructor(public authService:AuthService , 
     private permisoService:PermisoService , 
     private fb:FormBuilder ,
     private sistemaGestionService:SistemaGestionService , 
@@ -64,6 +68,9 @@ export class ListComponent implements OnInit {
       this.permisoService.findByIdEmpresa(this.authService.usuario.id_empresa).subscribe((resp:any) => {
         this.listPermisos = resp.response;
         this.loading = false;
+        //console.log(resp);
+      } , error => {
+        console.log(error);
       })
       
     }else{
@@ -182,5 +189,7 @@ export class ListComponent implements OnInit {
   }
 
 
+
+   
 
 }

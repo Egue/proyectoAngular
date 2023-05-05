@@ -10,17 +10,20 @@
                     
                      
                 </div>
+                 
+            
 
                 <p-table #dtlistPermiso 
-                [value]="listPermisos" 
+                [value]="listPermisos"  
                 [rows]="10" 
                 [loading]="loading"
                 [paginator]="true" 
-                responsiveLayout="scroll"
+                responsiveLayout="stack"
                 currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} registros" 
                 [showCurrentPageReport]="true">
                     <ng-template pTemplate="header">
                         <tr>
+                             
                             <th># Permiso</th>                            
                             <th>Fecha apertura</th>
                             <th>Fecha Cierre</th>
@@ -29,17 +32,20 @@
                             <th>Lugar</th>
                             <th>Estado</th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-permiso>
-                        <tr>
-                            <td>{{permiso.prefijo}}-{{permiso.indicativo}}</td>
-                            <td>{{permiso.fecha_inicio}}-{{permiso.hora_inicio}}</td>
-                            <td>{{permiso.fecha_cierre}}-{{permiso.hora_cierre}}</td>
-                            <td>{{permiso.user}}</td>
-                            <td>{{permiso.nombre_tipo}}</td>
-                            <td>{{permiso.lugar_de_trabajo}}</td>
-                            <td>
+                        <tr> 
+                            <td><span class="p-column-title"><strong># Permiso</strong></span>{{permiso.prefijo}}-{{permiso.indicativo}}</td>
+                            <td><span class="p-column-title"><strong>Fecha apertura</strong></span>{{permiso.fecha_inicio}}-{{permiso.hora_inicio}}</td>
+                            <td><span class="p-column-title"><strong>Fecha cierre</strong></span>{{permiso.fecha_cierre}}-{{permiso.hora_cierre}}</td>
+                            <td><span class="p-column-title"><strong>Creado por</strong></span>{{permiso.user}}</td>
+                            <td><span class="p-column-title"><strong>Tipo Trabajo</strong></span>{{permiso.nombre_tipo}}</td>
+                            
+                            <td><span class="p-column-title"><strong>Lugar</strong></span>{{permiso.lugar_de_trabajo}}</td>
+                            
+                            <td><span class="p-column-title"><strong>Estado</strong></span>
                                 <ng-container *ngIf="permiso.estado==1">
                                     <span class="badge badge-success">Abierto</span>
                                 </ng-container>
@@ -52,11 +58,14 @@
                                 
                                 
                             </td>
-                            <td>
+                            <td><span class="p-column-title"><strong>Avance</strong></span>
+                                <p-knob [(ngModel)]="permiso.avance" [readonly]="true" [size]="50"></p-knob></td>
+                            <td><span class="p-column-title"><strong>Acciones</strong></span>
                                 <button pButton pRipple icon="pi pi-list" [hidden]="permiso.estado!=1" class="p-button-rounded p-button-primary mr2" [routerLink]="['/dashboard/permisoTrabajo' , permiso.id_permiso! , 'permiso']" [loading]="loading"></button>
                                 <!--<button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"  ></button>-->
                                 <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" [hidden]="permiso.estado!=1" (click)="inactive(permiso)" ></button>
-                                <button pButton pRipple icon="pi pi-file-pdf" class="p-button-rounded p-button-danger" [routerLink]="['/dashboard/generate-pdf' , permiso.id_permiso! , 'pdf']"></button>
+                                <button pButton pRipple icon="pi pi-file-pdf" class="p-button-rounded p-button-danger" [routerLink]="['/dashboard/generate-pdf' , permiso.id_permiso! , 'pdf']" [hidden]="permiso.estado != 1"></button>
+                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success" [routerLink]="['/dashboard/firmas' , permiso.id_permiso! , 'supervisor']" [hidden]="authService.usuario.role == 'TECNICO_ST' || permiso.estado != 1"></button>
                             </td>
                         </tr>
                     </ng-template>

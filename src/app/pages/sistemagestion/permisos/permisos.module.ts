@@ -9,8 +9,9 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
 import { ToastModule } from 'primeng/toast';
-
-
+import { ToolbarModule } from 'primeng/toolbar';
+import {RadioButtonModule} from 'primeng/radiobutton';
+import {KnobModule} from 'primeng/knob';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,10 @@ import { ToastModule } from 'primeng/toast';
     DropdownModule,
     CalendarModule,
     CardModule,
-    ToastModule
+    ToastModule,
+    ToolbarModule,
+    RadioButtonModule,
+    KnobModule,
   ]
 })
 export class PermisosModule { }
