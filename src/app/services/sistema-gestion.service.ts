@@ -6,7 +6,7 @@ import {map } from 'rxjs/operators'
 import { SGPermisoEmpleado } from '../models/sgPermisoEmpleado';
 import { SGPermisoActivo } from '../models/sgPermisoActivo.model'; 
 import { Observable } from 'rxjs';
-// const url_base = environment.base_url;
+//const url_base = environment.base_url;
 const url_base = '/repositories/backend_jwt_3_slim/public/';
 @Injectable({
   providedIn: 'root'
@@ -15,49 +15,37 @@ export class SistemaGestionService {
 
   constructor(private http:HttpClient) { }
 
-
-  get token():string
-  {
-    return localStorage.getItem('jwt') || '';
-  }
-
-  get headers()
-  {
-    return { 
-      headers: {'Authorization' : 'Bearer ' + this.token}
-    }
-  }
-
+ 
   generalidadesDisct(usuario:any)
   {
     const url = `${url_base}seguridad/generalidades/disct/${usuario}`;
 
-    return this.http.get(url , this.headers);
+    return this.http.get(url );
   }
   generalidadesFindByTipo(tipo:any)
   {
 
     const url = `${url_base}seguridad/generalidades/findByTipo`;
 
-    return this.http.post(url , tipo , this.headers);
+    return this.http.post(url , tipo );
   }
   generalidadesSave(data:any)
   {
-    return this.http.post(`${url_base}seguridad/generalidades/save` , data , this.headers);
+    return this.http.post(`${url_base}seguridad/generalidades/save` , data );
   }
 
   savePermiso(data:any)
   {
     //const url = '/repositories/backend_jwt_3_slim/public/';
 
-    return this.http.post(`${url_base}seguridad/permiso/save` , data ,this.headers);
+    return this.http.post(`${url_base}seguridad/permiso/save` , data  );
   }
 
   getListPermisoOpen(id:any)
   {
     //const  url = '/repositories/backend_jwt_3_slim/public/';
 
-    return this.http.get<any>(`${url_base}seguridad/permiso/findByUsuarioOpen/${id}` , this.headers)
+    return this.http.get<any>(`${url_base}seguridad/permiso/findByUsuarioOpen/${id}` )
                 .pipe(
                   map( resp => {
                     const sgPermisoOpen = resp.response.map(
@@ -73,14 +61,14 @@ export class SistemaGestionService {
   {
     //const url = '/repositories/backend_jwt_3_slim/public/';
 
-    return this.http.get(`${url_base}seguridad/tipoTrabajo/${id}` , this.headers);
+    return this.http.get(`${url_base}seguridad/tipoTrabajo/${id}` );
   }
 
-  getListEmpleados(id:any)
+  getListEmpleados(find:any)
   {
     //const url = '/repositories/backend_jwt_3_slim/public/';
-
-    return this.http.get<any>(`${url_base}usuarios/findByIdempresa/${id}` , this.headers)
+     
+    return this.http.post<any>(`${url_base}usuarios/find/name/empresa` , find)
     .pipe(
       map( resp => {
         const sgEmpleado = resp.response.map(
@@ -97,7 +85,7 @@ export class SistemaGestionService {
   {  
     //const url = '/repositories/backend_jwt_3_slim/public/';
 
-    return this.http.get<any>(`${url_base}seguridad/permisosEmpleados/list/${idpermiso}` , this.headers)
+    return this.http.get<any>(`${url_base}seguridad/permisosEmpleados/list/${idpermiso}` )
         .pipe(
           map( resp => {
             const permisoEmpleado = resp.response.map(
@@ -111,19 +99,19 @@ export class SistemaGestionService {
   {
    // const url = '/repositories/backend_jwt_3_slim/public/';
 
-    return this.http.delete(`${url_base}seguridad/permisosEmpleados/deleteById/${id_permiso_empleado}` , this.headers);
+    return this.http.delete(`${url_base}seguridad/permisosEmpleados/deleteById/${id_permiso_empleado}` );
   }
 
   savePermisoEmpleado(empleado:any)
   {
     //const url = '/repositories/backend_jwt_3_slim/public/';
 
-    return this.http.post(`${url_base}seguridad/permisosEmpleados/save` , empleado , this.headers);
+    return this.http.post(`${url_base}seguridad/permisosEmpleados/save` , empleado );
   }
 
   getInfoPermisoEmpleado(idEmpleado:any)
   {
-    return this.http.get(`${url_base}seguridad/permisosEmpleados/findByEmpleado/${idEmpleado}` , this.headers);
+    return this.http.get(`${url_base}seguridad/permisosEmpleados/findByEmpleado/${idEmpleado}` );
   }
 
   /* 
@@ -131,42 +119,42 @@ export class SistemaGestionService {
   */
   createEmpleadoGeneralidades(data:any)
   {
-    return this.http.post(`${url_base}seguridad/empleadoGeneralidades/create` , data , this.headers);
+    return this.http.post(`${url_base}seguridad/empleadoGeneralidades/create` , data );
   }
   /**
    * enpoint post trae informa de los empleados generalidades filtrado por el tipo epp, epcc
    */
   getEmpleadoGeneralidadesFilterType(data:any)
   { 
-    return this.http.post(`${url_base}seguridad/empleadoGeneralidades/findByEmpleadoAndPermisoAndTipo` , data , this.headers);
+    return this.http.post(`${url_base}seguridad/empleadoGeneralidades/findByEmpleadoAndPermisoAndTipo` , data );
   }
 
   getEmpleadoGeneralidadesFilterTypeIsNotNull(data:any):Observable<any[]>
   {
-    return this.http.post<any[]>(`${url_base}seguridad/empleadoGeneralidades/findByEmpleadoPermisoTrabajoIsNotNull` , data , this.headers);
+    return this.http.post<any[]>(`${url_base}seguridad/empleadoGeneralidades/findByEmpleadoPermisoTrabajoIsNotNull` , data );
   }
 
   getfirmaFindByIdPermisoAndIdUser(data:any)
   {
-    return this.http.post(`${url_base}seguridad/permisosEmpleados/findByIdPermisoAndIdUser`,data , this.headers);
+    return this.http.post(`${url_base}seguridad/permisosEmpleados/findByIdPermisoAndIdUser`,data );
   }
  /**
   *  edita el estado active de empleadogeneralidades
   */
   editEmpleadoGeneralidades(data:any)
   {
-    return this.http.patch(`${url_base}seguridad/empleadoGeneralidades/editActive/${data.empleado_generalidades_id}` , data , this.headers);
+    return this.http.patch(`${url_base}seguridad/empleadoGeneralidades/editActive/${data.empleado_generalidades_id}` , data );
   }
   /***
    * ENDPOINT POST Firmar electronicamente el permiso de trabajo
    */
   firmarElectronicamente(data:any)
   {
-    return this.http.post(`${url_base}seguridad/permisosEmpleados/firmarEmpleado`, data , this.headers);
+    return this.http.post(`${url_base}seguridad/permisosEmpleados/firmarEmpleado`, data );
   }
 
   getInforForFirma(idPermiso:number){
-    return this.http.get(`${url_base}seguridad/permiso/final/${idPermiso}` , this.headers);
+    return this.http.get(`${url_base}seguridad/permiso/final/${idPermiso}` );
   }
 
   /**
@@ -174,28 +162,28 @@ export class SistemaGestionService {
    */
   getlistEmpresa()
   {
-    return this.http.get(`${url_base}seguridad/empresa/list` , this.headers);
+    return this.http.get(`${url_base}seguridad/empresa/list` );
   }
 
   updatedEmpresa(empresa:any)
   { 
-    return this.http.patch(`${url_base}seguridad/empresa/updated/${empresa.id_empresa}` , empresa , this.headers);
+    return this.http.patch(`${url_base}seguridad/empresa/updated/${empresa.id_empresa}` , empresa );
   }
 
   /**Toke  */
   generateTokenFirma(data:any)
   {
-    return this.http.post(`${url_base}seguridad/sendMail/tokenFirma` , data , this.headers);
+    return this.http.post(`${url_base}seguridad/sendMail/tokenFirma` , data );
   }
   validarTokenMail(data:any)
   {
 
-    return this.http.post(`${url_base}seguridad/tokenFirma/validate` , data , this.headers);
+    return this.http.post(`${url_base}seguridad/tokenFirma/validate` , data );
   }
 
   getVehiculosFindByIdusuario(id_usuario:any)
   {
-    return this.http.get(`${url_base}seguridad/vehiculo/listFindByIdUsuario/${id_usuario}` , this.headers);
+    return this.http.get(`${url_base}seguridad/vehiculo/listFindByIdUsuario/${id_usuario}` );
   }
 
   /***
@@ -203,39 +191,39 @@ export class SistemaGestionService {
    */
   getListPermisoPeligro(id_permiso:any)
   {
-    return this.http.get(`${url_base}seguridad/permisosPeligros/listByPermiso/${id_permiso}` , this.headers);
+    return this.http.get(`${url_base}seguridad/permisosPeligros/listByPermiso/${id_permiso}` );
   }
   deletePermisoPeligro(id_permiso_peligro:any)
   {
-    return this.http.delete(`${url_base}seguridad/permisosPeligros/delete/${id_permiso_peligro}` , this.headers);
+    return this.http.delete(`${url_base}seguridad/permisosPeligros/delete/${id_permiso_peligro}` );
   }
 
   savePermisoPeligro(data:any)
   {
-    return this.http.post(`${url_base}seguridad/permisosPeligros/save` , data , this.headers);
+    return this.http.post(`${url_base}seguridad/permisosPeligros/save` , data );
   }
 
   permisoTrabajoFindById(id:any)
   {
-    return this.http.get(`${url_base}seguridad/permiso/findById/${id}` , this.headers);
+    return this.http.get(`${url_base}seguridad/permiso/findById/${id}` );
   }
 
   //generar pdf buscar empleados
   pdfEmpleados(id:any)
   {
-    return this.http.get(`${url_base}pdf/permisosEmpleados/${id}` , this.headers);
+    return this.http.get(`${url_base}pdf/permisosEmpleados/${id}` );
   }
 
 
   //firma empresa
   firmarPermisosSave(data:any)
   {
-    return this.http.post(`${url_base}seguridad/firmas/save` , data , this.headers);
+    return this.http.post(`${url_base}seguridad/firmas/save` , data );
   }
 
   firmasGetFindByEmpresa(id:any)
   {
-    return this.http.get(`${url_base}seguridad/firmas/findByIdEmpresa/${id}` , this.headers);
+    return this.http.get(`${url_base}seguridad/firmas/findByIdEmpresa/${id}` );
   }
 
 }

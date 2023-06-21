@@ -1,4 +1,6 @@
+<p-toast></p-toast>
 <div class="row">
+
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
@@ -47,7 +49,17 @@
                     <button type="button" class="close"  (click)="cerrarModalEmpleado()" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    <p-table
+                   <form [formGroup]="formEmpleado">
+                    <span class="p-fluid">
+                        <p-autoComplete   
+                         [suggestions]="listEmpleados" 
+                         (completeMethod)="findEmpleadoQuery($event)" 
+                         field="user" [minLength]="3" 
+                         formControlName="empleado"
+                         (onSelect)="seleccionarEmpleado()"
+                         ></p-autoComplete></span>
+                   </form>
+                    <!--<p-table
                         #dt1
                         [value] ="listEmpleados"
                         dataKey="id"
@@ -86,7 +98,7 @@
                     </ng-template>
                                       
 
-                    </p-table>
+                    </p-table>-->
                 </div>
             </div>
         </div>

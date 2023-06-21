@@ -10,30 +10,19 @@ const base_url = '/repositories/backend_jwt_3_slim/public/';
 export class SupergirosService {
 
   constructor(private http: HttpClient) { }
-
-  get token():string
-  {
-    return localStorage.getItem('jwt') || '';
-  }
-
-  get headers()
-  {
-    return { 
-      headers: {'Authorization' : 'Bearer ' + this.token}
-    }
-  }
+ 
 
   getListPagosBetween(data:any)
   {
     const url = `${base_url}pagos/findByBetween`;
 
-    return this.http.post(url , data , this.headers);
+    return this.http.post(url , data );
   }
 
   async uploadFile(file:File , data:any)
   {
     //data.file_uploads = file;  
-    //return this.http.post(`${base_url}uploads/origin` , data, this.headers);
+    //return this.http.post(`${base_url}uploads/origin` , data);
 
     const {categoria , fecha} = data;
 
@@ -52,9 +41,7 @@ export class SupergirosService {
       const resp = await fetch( url , {
         method: 'POST',
 
-        headers: {
-          'Authorization' : 'Bearer ' + this.token
-        },
+         
 
         body: formData
       });
@@ -72,14 +59,14 @@ export class SupergirosService {
   {
     const {count , categoria} = data;
     
-    return this.http.get(`${base_url}uploads/listCategoria/${count}/${categoria}` , this.headers);
+    return this.http.get(`${base_url}uploads/listCategoria/${count}/${categoria}` );
   }
 
   cargueFileDataBase(item:any)
   {
     const {id , titulo} = item;
 
-    return this.http.get(`${base_url}uploads/supergiros/cargue/${id}/${titulo}` , this.headers);
+    return this.http.get(`${base_url}uploads/supergiros/cargue/${id}/${titulo}` );
 
   }
 

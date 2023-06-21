@@ -15,8 +15,7 @@ import { ActivatedRoute } from '@angular/router';
   ]
 })
 export class ElementosProteccionComponent implements OnInit {
- //fondo para validar
-  public modalgeneralidades:boolean = false;
+ 
 
   public cargando:boolean = false;
   //validar si esta firmado
@@ -125,15 +124,10 @@ onTabOpen(event:any)
                                 { 
                                   //this.getInfoPermiso()
                                   
-                                  Swal.fire({
-                                    icon: 'success',
-                                    title: 'Lista cargada con exito',
-                                    showConfirmButton: false,
-                                      timer: 1500
-                                  })
                                   if(tipo ==="EPP")
                                   {
                                     this.getlistEpp(this.idPermiso);
+                                    
                                   }else if(tipo === "EPCC")
                                   {
                                     this.getlistEpcc(this.idPermiso);
@@ -208,19 +202,21 @@ onTabOpen(event:any)
   }
   statusActive(epp:any)
   {
-    this.modalgeneralidades = true;
+     
     if(epp.item.active == 'Y')
     {
-      epp.item.active = 'N'
+      epp.item.active = 'N';
+      epp.item.inspeccion = null;
     }else{
       epp.item.active = 'Y'
+      epp.item.inspeccion = 'Bueno'
     }
     
     this.sistemaGestionServices.editEmpleadoGeneralidades(epp.item)
                                 .subscribe((resp:any) => { 
-                                  this.modalgeneralidades = false;
+                                   
                                 } , (err) => {
-                                  this.modalgeneralidades = false;
+                                    
                                   Swal.fire({
                                     title:'Oops..',
                                     text:'error actualizando',
@@ -372,21 +368,31 @@ modalBuenoMalo(item:any)
 }
 
 buenoMalo(item:any , estado:string)
-{
-  this.modalgeneralidades = true;
-  item.inspeccion = estado;
-  
+{ 
+   
+    //en caso que el checbox esta activado
+    if(item.inspeccion === estado)
+    {
+     item.inspeccion = null;
+     item.active = 'N'
+    }else{
+
+      item.inspeccion = estado;
+      item.active = 'Y'    
+  }
+
   this.sistemaGestionServices.editEmpleadoGeneralidades(item)
                                 .subscribe((resp:any) => { 
-                                  this.modalgeneralidades = false;
+                                   
                                 } , (err) => {
-                                  this.modalgeneralidades = false;
+                                  
                                   Swal.fire({
                                     title:'Oops..',
                                     text:'error actualizando',
                                     icon:'error'
                                   });
                                 });
+  
 }
 
 back()

@@ -26,7 +26,7 @@ export class UsuariosService {
 
   register(user:RegisterForm){
     
-    return this.http.post(`${base_url}auth/register` , user , this.headers);
+    return this.http.post(`${base_url}auth/register` , user );
 
   }
 
@@ -53,7 +53,7 @@ export class UsuariosService {
 
   List(desde:number = 0){
     const url = `${base_url}usuarios/list/${desde}`;
-     return this.http.get<CargarUsuarios>( url , this.headers)
+     return this.http.get<CargarUsuarios>( url )
      .pipe(
        map( resp => {
          const usuarios = resp.response.usuarios.map( 
@@ -72,7 +72,7 @@ export class UsuariosService {
   findByName(letras:string = '')
   {
     const url = `${base_url}usuarios/findByName/${letras}`;
-    return this.http.get<any[]>(url , this.headers)
+    return this.http.get<any[]>(url )
     .pipe(
         map( (resp:any) => {
            //console.log(resp.response)
@@ -83,20 +83,20 @@ export class UsuariosService {
   //buscar por empresa y nombre
   findByNameAndEmpresa(data:any)
   {
-    return this.http.post(`${base_url}usuarios/findnameempresa` , data , this.headers);
+    return this.http.post(`${base_url}usuarios/findnameempresa` , data );
   }
 
   deleteById(usuario:Usuario)
   {
     const url = `${base_url}usuarios/delete/${usuario.id}`;
 
-    return this.http.delete(url , this.headers);
+    return this.http.delete(url );
   }
 
   findByRole()
   {
     const url = `${base_url}roles/list`;
-    return this.http.get<IRole>(url, this.headers)
+    return this.http.get<IRole>(url)
     .pipe(
       map( resp => {
         const roles = resp.response.roles.map(
@@ -110,17 +110,17 @@ export class UsuariosService {
   updateUser(user:Usuario)
   {
     
-    return this.http.patch(`${base_url}usuarios/edit/${user.id}` , user , this.headers);
+    return this.http.patch(`${base_url}usuarios/edit/${user.id}` , user );
   }
 
   findKeyById(user:Usuario)
   {
-    return this.http.get(`${base_url}usuarios/findKeyById/${user.id}` , this.headers);
+    return this.http.get(`${base_url}usuarios/findKeyById/${user.id}` );
   }
 
   generateKeyElectronica(user:Usuario)
   {
-    return this.http.get(`${base_url}usuarios/firmaElectronica/generate/${user.id}` , this.headers);
+    return this.http.get(`${base_url}usuarios/firmaElectronica/generate/${user.id}` );
   }
 
   updatedPassword(usuario:Usuario , password:string)
@@ -128,29 +128,29 @@ export class UsuariosService {
     const data = {
       password : password
     } 
-    return this.http.patch(`${base_url}usuarios/updatedPassword/${usuario.id}` , data , this.headers);
+    return this.http.patch(`${base_url}usuarios/updatedPassword/${usuario.id}` , data );
   }
 
   findByIdempresa(id_empresa:any)
   {
-    return this.http.get(`${base_url}usuarios/findByIdempresa/${id_empresa}` , this.headers );
+    return this.http.get(`${base_url}usuarios/findByIdempresa/${id_empresa}`  );
   }
 
 //recuperar datospersonales
   getfindByIdDatosPersonales(id:any){
-    return this.http.get(`${base_url}usuarios/datospersonales/findbyid/${id}`, this.headers);
+    return this.http.get(`${base_url}usuarios/datospersonales/findbyid/${id}`);
   }
 
   ///guardardatospersonales
 
   saveDatosPersonales(datos:any)
   {
-      return this.http.post(`${base_url}usuarios/datospersonales/save` , datos, this.headers);
+      return this.http.post(`${base_url}usuarios/datospersonales/save` , datos);
   }
   //actualizar
   updatedDatosPersonales(datos:any)
   {
-    return this.http.patch(`${base_url}usuarios/datospersonales/updated/${datos.id}` , datos , this.headers);
+    return this.http.patch(`${base_url}usuarios/datospersonales/updated/${datos.id}` , datos );
   }
   
 }

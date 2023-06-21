@@ -34,14 +34,7 @@ export class AuthService {
 
     return token;
   }
-
-  get header(){
-    return {
-      headers:{
-        'Authorization' : 'Bearer '+ this.token
-      }
-    }
-  }
+ 
 
   get headerRecovery()
   {
@@ -54,7 +47,7 @@ export class AuthService {
   validateToken():Observable<boolean>{
     //const url = `${base_url}/auth/validate/${this.token}`;
       //const url = '/repositories/backend_jwt_3_slim/public/';
-     return this.http.get( `${base_url}auth/validate/${this.token}` , this.header)
+     return this.http.get( `${base_url}auth/validate/${this.token}` )
      .pipe(
       tap(
         (resp:any) => {

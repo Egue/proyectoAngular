@@ -60,7 +60,7 @@ import {CardModule} from 'primeng/card';
     RcControlComponent,
     GeneralidadesComponent, 
     EmpresaComponent,
-    GeolocalizarComponent, 
+    GeolocalizarComponent,  
 
   ],
   exports:[

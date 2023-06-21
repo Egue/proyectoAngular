@@ -102,4 +102,9 @@ export class PerfilComponent implements OnInit {
                       })
   }
 
+  image($event:any)
+  {
+     console.log($event.target.files[0])
+  }
+
 }

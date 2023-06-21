@@ -9,6 +9,10 @@ import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment'; 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { PreloadService } from './components/preload/service/preload.service';
+import { PreloadInterceptor } from './preload.interceptor';
+import { PreloadModule } from './components/preload/preload.module'; 
 
 @NgModule({
   declarations: [
@@ -22,6 +26,7 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     PagesModule,
     AuthModule,
+    PreloadModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable
@@ -29,6 +34,9 @@ import { environment } from '../environments/environment';
       registrationStrategy: 'registerWhenStable:30000'
     }), 
   ], 
+
+  providers:[PreloadService,{provide:HTTP_INTERCEPTORS , useClass:PreloadInterceptor, multi:true}]  
+  ,
   bootstrap: [AppComponent]
 })
 export class AppModule { }

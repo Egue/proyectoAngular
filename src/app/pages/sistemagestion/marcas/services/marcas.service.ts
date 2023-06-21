@@ -13,22 +13,11 @@ const url_base = '/repositories/backend_jwt_3_slim/public/';
 export class MarcasService {
 
   constructor(private http:HttpClient) { }
-
-  get token():string
-  {
-    return localStorage.getItem('jwt') || '';
-  }
-
-  get headers()
-  {
-    return { 
-      headers: {'Authorization' : 'Bearer ' + this.token}
-    }
-  }
+ 
 
   getListMarcas()
   {
-    return this.http.get(`${url_base}marcas/list` , this.headers)
+    return this.http.get(`${url_base}marcas/list` )
             .pipe(
               map( (resp:any) => {
                 const marcas = resp.response.map(

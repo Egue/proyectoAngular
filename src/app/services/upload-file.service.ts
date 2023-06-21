@@ -11,19 +11,7 @@ const base_url = '/repositories/backend_jwt_3_slim/public/';
 export class UploadFileService {
 
   constructor(private http:HttpClient) { }
-
-  get token():string
-  {
-    return localStorage.getItem('jwt') || '';
-  }
-
-  
-  get headers()
-  {
-    return { 
-      headers: {'Authorization' : 'Bearer ' + this.token}
-    }
-  }
+ 
 
   /**carga de Documentos */
   async uploadFile(file:File , data:any)
@@ -48,9 +36,7 @@ export class UploadFileService {
 
       const resp = await fetch( url , {
         method: 'POST',
-        headers: {
-          'Authorization' : `Bearer ${this.token}`
-        },
+        
         body: formData
       });
 
@@ -72,7 +58,7 @@ export class UploadFileService {
 
   //consultar url
   getUrlDocumento(item:any){
-    return this.http.get(`${base_url}seguridad/documento/${item}` , this.headers);
+    return this.http.get(`${base_url}seguridad/documento/${item}` );
   }
 
 

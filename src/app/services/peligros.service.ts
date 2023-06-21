@@ -14,37 +14,26 @@ const url_base = '/repositories/backend_jwt_3_slim/public/';
 export class PeligrosService {
 
   constructor(private http:HttpClient) {}
-
-  get token():string
-  {
-    return localStorage.getItem('jwt') || '';
-  }
-
-  get headers()
-  {
-    return { 
-      headers: {'Authorization' : 'Bearer ' + this.token}
-    }
-  }
+ 
 
   listClasificacion()
   {
     const url = `${url_base}seguridad/clasificacion/list`;
-    return this.http.get(url , this.headers);
+    return this.http.get(url );
   }
 
   saveClasificacion(clasificacion:any)
   {
     const url = `${url_base}seguridad/clasificacion/save`;
 
-    return this.http.post(url ,  clasificacion , this.headers);
+    return this.http.post(url ,  clasificacion );
   }
 
   listPeligros(data:any)
   {
     const url = `${url_base}seguridad/peligro/list`;
 
-    return this.http.post<CargarPeligros>(url , data , this.headers)
+    return this.http.post<CargarPeligros>(url , data )
     .pipe(
       map( resp => {
         const peligro = resp.response.map(
@@ -60,7 +49,7 @@ export class PeligrosService {
   {
      
     const url = `${url_base}seguridad/peligro/save`;
-   return this.http.post(url , peligro , this.headers);
+   return this.http.post(url , peligro );
   }
 
   deletePeligro(peligro:Peligro)
@@ -68,7 +57,7 @@ export class PeligrosService {
 
     const url = `${url_base}seguridad/peligro/deleteById/${peligro.id_peligro}`;
 
-    return this.http.delete(url , this.headers);
+    return this.http.delete(url );
   }
 
 
@@ -76,20 +65,20 @@ export class PeligrosService {
   {
     const url = `${url_base}seguridad/controles/findByPeligro/${idpeligro}`;
 
-    return this.http.get(url, this.headers);
+    return this.http.get(url);
   }
 
   saveControl(control:any)
   {
     const url = `${url_base}seguridad/controles/save`; 
     
-    return this.http.post(url , control, this.headers);
+    return this.http.post(url , control);
   }
 
   deleteControl(id_control:any)
   {
     const url = `${url_base}seguridad/controles/deleteById/${id_control}`;
     
-    return this.http.delete(url , this.headers);
+    return this.http.delete(url );
   }
 }

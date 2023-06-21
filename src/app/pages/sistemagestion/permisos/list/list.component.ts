@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { SistemaGestionService } from 'src/app/services/sistema-gestion.service';
 import Swal from 'sweetalert2';
 import { PermisoService } from '../services/permiso.service';
+import { ErrorHandlingService } from 'src/app/services/error-handling.service';
 
 @Component({
   selector: 'app-list',
@@ -16,9 +17,10 @@ import { PermisoService } from '../services/permiso.service';
 })
 export class ListComponent implements OnInit {
 
+
   public value2:number = 50;
  
-  
+  public dialogFilter:boolean = true;
 
   public loading:boolean = false;
   public listPermisos:any[] = [];
@@ -45,29 +47,39 @@ export class ListComponent implements OnInit {
     {'name':'Urbano y Rural'}
   ];
 
+  public estado:any = [
+    {id : 0 , estado:'Anulado'},
+    {id : 1 , estado:'Activo'},
+    {id : 2 , estado:'Cerrado'}
+  ]
 
-
+  public formSearch = this.fb.group({
+    id_user : '' ,
+      estado : ['' , Validators.required],
+      fecha: ['' , Validators.required]
+  })
   constructor(public authService:AuthService , 
     private permisoService:PermisoService , 
     private fb:FormBuilder ,
     private sistemaGestionService:SistemaGestionService , 
-    private _messageService:MessageService) { }
+    private _messageService:MessageService ,
+    private errorhandlingService : ErrorHandlingService) { }
 
 
   ngOnInit(): void {
      this.getListPermisos();
-     this.getListTipoTrabajo();
+     
   }
 
   getListPermisos()
   {
   //if(this.authService.usuario.role == 'ADMIN_ADMIN' || this.authService.usuario.role =='ADMIN_ST')
-  this.loading = true;
-  if(this.authService.usuario.role == 'ADMIN_ADMIN')
+   
+  /*if(this.authService.usuario.role == 'ADMIN_ADMIN')
     {
       this.permisoService.findByIdEmpresa(this.authService.usuario.id_empresa).subscribe((resp:any) => {
         this.listPermisos = resp.response;
-        this.loading = false;
+         
         //console.log(resp);
       } , error => {
         console.log(error);
@@ -78,15 +90,31 @@ export class ListComponent implements OnInit {
       this.permisoService.findByIdUsuarioActive(this.authService.usuario.id).subscribe((resp:any) => {
         this.listPermisos = resp.response;
          
-        this.loading = false;
+         
       })
+    }*/
+    const filter = {
+      id_user : this.authService.usuario.id,
+      estado : "",
+      fecha: ""
     }
+    this.permisoService.findByIdUsuarioActive(filter).subscribe((resp:any) => {
+      this.listPermisos = resp.response;
+      console.log(resp.response)
+    } , error => {
+        console.log(this.errorhandlingService.error);
+    })
+
+
   }
 
 
 
   //addnew
-  addPermiso(){ this.modalEstado = false; }
+  addPermiso(){ 
+    this.modalEstado = false; 
+    this.getListTipoTrabajo();
+  }
   cerrarModal(){ this.modalEstado = true; }
 
 
@@ -114,8 +142,8 @@ export class ListComponent implements OnInit {
           }
         } , error => {
           this.modalEstado = true;
-          console.log(error)
-          this._messageService.add({severity:'error' , summary:'Error' , detail:error.error.response})
+          
+          this._messageService.add({severity:'error' , summary:'Error' , detail:this.errorhandlingService.error.error.response})
         })
     }
   }
@@ -152,6 +180,13 @@ export class ListComponent implements OnInit {
     this.sistemaGestionService.getListTipoTrabajo(this.authService.usuario.id_empresa)
                           .subscribe((resp:any) => {
                             this.listTipoTrabajo = resp.response;
+                          } , error => {
+                            Swal.fire(
+                              
+                              'Error inesperado',
+                              `${error.error.response}`,
+                              'error'
+                            )
                           })
   }
 
@@ -190,6 +225,36 @@ export class ListComponent implements OnInit {
 
 
 
-   
+   ///////////////////dialog
+   openFilter()
+   {
+    this.dialogFilter = false;
+   }
+
+   closeFilter() {
+    this.dialogFilter = true;
+    }
+
+    searchPermiso() {
+       
+      let fecha = this.pipe.transform(this.formSearch.get('fecha')?.value , 'yyy-MM-dd');
+      this.formSearch.get('fecha')?.setValue(fecha);
+      this.formSearch.get('id_user')?.setValue(this.authService.usuario.id)
+      if(this.formSearch.valid)
+      {
+        this.permisoService.findByIdUsuarioActive(this.formSearch.value).subscribe((resp:any) => {
+          this.listPermisos = resp.response;
+          this.closeFilter();
+          this.formSearch.reset();
+        } , error => {
+            console.log(this.errorhandlingService.error);
+          this.closeFilter();
+          this.formSearch.reset();
+        })
+           
+      }
+      
+    }
+      
 
 }

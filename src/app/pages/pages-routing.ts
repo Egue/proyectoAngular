@@ -69,6 +69,9 @@ const routes:Routes = [
 
       //generate odf
 
+      //ticket
+      {path:'tickets' , loadChildren:()=>import('./tikets/tikets.module').then(m=>m.TiketsModule)},
+
     ]
   
   },

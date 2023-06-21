@@ -22,7 +22,7 @@ import {SelectButtonModule} from 'primeng/selectbutton';
 
 import {ButtonModule} from 'primeng/button';
 import {  RouterModule } from '@angular/router';
-import { DrawComponent } from './draw/draw.component';
+import { DrawComponent } from './draw/draw.component';  
 
 @NgModule({
   declarations: [
@@ -34,7 +34,7 @@ import { DrawComponent } from './draw/draw.component';
     MotoSvgComponent,
     UploadsDocumentoComponent,
     TableDocumentosComponent,
-    DrawComponent
+    DrawComponent,  
   ],
   exports:[
     IncrementadorComponent,
@@ -44,7 +44,7 @@ import { DrawComponent } from './draw/draw.component';
     AddBuenoMaloComponent,
     MotoSvgComponent,
     UploadsDocumentoComponent,
-    TableDocumentosComponent
+    TableDocumentosComponent, 
   ],
   imports: [
     CommonModule,

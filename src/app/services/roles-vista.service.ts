@@ -10,64 +10,52 @@ const url_base = '/repositories/backend_jwt_3_slim/public/';
 export class RolesVistaService {
 
   constructor(private http: HttpClient) { }
-
-  get token():string
-  {
-    return localStorage.getItem('jwt') || '';
-  }
-
-  get headers()
-  {
-    return { 
-      headers: {'Authorization' : 'Bearer ' + this.token}
-    }
-  }
-
+ 
   listGroup()
   {
     const url = `${url_base}roles/group/list`;
 
-    return this.http.get(url , this.headers);
+    return this.http.get(url );
   }
   saveGroup(data:any)
   {
     const url = `${url_base}roles/group/save`;
 
-    return this.http.post(url, data , this.headers);
+    return this.http.post(url, data );
   }
 
   getListViews()
   {
     const url= `${url_base}roles/views/list`;
 
-    return this.http.get(url , this.headers);
+    return this.http.get(url );
   }
 
   saveViews(data:any)
   {
     const url = `${url_base}roles/views/save`;
 
-    return this.http.post(url , data , this.headers);
+    return this.http.post(url , data );
   }
 
   getListRoles()
   {
     const url = `${url_base}roles/list`;
 
-    return this.http.get(url, this.headers);
+    return this.http.get(url);
   }
   
   getListRelations(role:any)
   {
     const url = `${url_base}roles/rol/${role}`;
 
-    return this.http.get(url , this.headers);
+    return this.http.get(url );
   }
   saveRelations(relations:any)
   { 
     const url = `${url_base}roles/relations/save`;
 
-    return this.http.post(url , relations , this.headers);
+    return this.http.post(url , relations );
 
   }
 

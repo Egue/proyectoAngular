@@ -12,10 +12,15 @@ import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import {KnobModule} from 'primeng/knob';
+import { DialogModule } from 'primeng/dialog';
+import { PermisoObservacionComponent } from './permiso-observacion/permiso-observacion.component';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @NgModule({
   declarations: [
-    ListComponent
+    ListComponent,
+    PermisoObservacionComponent
   ],
   imports: [
     CommonModule,
@@ -31,6 +36,9 @@ import {KnobModule} from 'primeng/knob';
     ToolbarModule,
     RadioButtonModule,
     KnobModule,
+    DialogModule,
+    InputTextareaModule
+
   ]
 })
 export class PermisosModule { }

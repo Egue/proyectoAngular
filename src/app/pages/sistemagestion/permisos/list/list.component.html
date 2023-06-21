@@ -1,4 +1,4 @@
-<p-toast></p-toast>
+<p-toast position="top-center"></p-toast>
 <div class="row">
     <div class="col-md-12">
         <div class="card">
@@ -7,6 +7,7 @@
                 <div class="btn-group m-b-10 m-r-10" role="group" aria-label="Button group with nested dropdown">
                     
                     <button type="button" class="btn btn-secondary font-18" (click)="addPermiso()" ><i class="mdi mdi-plus-box"></i></button>
+                    <button type="button" class="btn btn-secondary font-18" (click)="openFilter()" ><i class="fa fa-filter"></i></button>
                     
                      
                 </div>
@@ -63,9 +64,10 @@
                             <td><span class="p-column-title"><strong>Acciones</strong></span>
                                 <button pButton pRipple icon="pi pi-list" [hidden]="permiso.estado!=1" class="p-button-rounded p-button-primary mr2" [routerLink]="['/dashboard/permisoTrabajo' , permiso.id_permiso! , 'permiso']" [loading]="loading"></button>
                                 <!--<button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"  ></button>-->
-                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" [hidden]="permiso.estado!=1" (click)="inactive(permiso)" ></button>
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" [hidden]="permiso.estado!=1 || authService.usuario.id != permiso.id_usuario" (click)="inactive(permiso)" ></button>
                                 <button pButton pRipple icon="pi pi-file-pdf" class="p-button-rounded p-button-danger" [routerLink]="['/dashboard/generate-pdf' , permiso.id_permiso! , 'pdf']" [hidden]="permiso.estado != 1"></button>
                                 <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success" [routerLink]="['/dashboard/firmas' , permiso.id_permiso! , 'supervisor']" [hidden]="authService.usuario.role == 'TECNICO_ST' || permiso.estado != 1"></button>
+                                <button pButton pRipple icon="pi pi-book" class="p-button-rounded p-button-success" [routerLink]="['/dashboard/permisoTrabajo' , permiso.id_permiso! , 'observacion']"></button>
                             </td>
                         </tr>
                     </ng-template>
@@ -119,4 +121,43 @@
 </div>
 </div>
 
+<!--filter-->
  
+<div class="fondo-modal animated fadeIn fast"
+[class.oculto] = "dialogFilter">
+<div class="modal fade none-border show" id="add-new-event" style="display: block; padding-right: 17px;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><strong>Buscar</strong> Permiso</h4>
+                <button type="button" class="close"  (click)="closeFilter()" aria-hidden="true">×</button>
+            </div>
+            <form [formGroup]="formSearch" (submit) = searchPermiso()>
+            <div class="modal-body">
+                
+                <div class="modal-body">
+                    <div class="p-fluid grid">
+                        <div class="field col-12 md:col-4">
+                            <p-calendar inputId="calendar"  formControlName ="fecha" class="ng-invalid ng-dirty" [showIcon]="true"  placeholder="Fecha permiso"></p-calendar>
+                        </div>
+                        <br>
+                        <div class="field col-12 md:col-4">
+                            <p-dropdown inputId="estado" formControlName="estado" [autoDisplayFirst]="false" [options]="estado"  optionLabel="estado" optionValue="id" class="ng-invalid ng-dirty" placeholder="Estado permiso"></p-dropdown>
+                        </div>
+                        <br>
+                       
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                     
+                    <button type="button" class="btn btn-danger waves-effect waves-light save-category" type="submit"  [disabled]="this.formSearch.invalid">Buscar</button>
+                    <button type="button" class="btn btn-secondary waves-effect" (click)="closeFilter()">Cerrar</button>
+                </div> 
+               
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
