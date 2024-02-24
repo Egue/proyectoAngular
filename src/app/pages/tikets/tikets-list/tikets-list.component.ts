@@ -95,7 +95,7 @@ export class TiketsListComponent implements OnInit {
     }
   saveTicket() {
 
-    console.log(this.formTicket.value);
+    //console.log(this.formTicket.value);
    this._ticketsService.saveTiket(this.formTicket.value).subscribe((resp:any) => {
       this.dialogTicket =false;
       this.message({severity:'success' , summary:'Creado' , detail:'Ticket Creado'})
@@ -109,7 +109,7 @@ export class TiketsListComponent implements OnInit {
   getListTicket(estado: number) {
    this._ticketsService.listTicketEstado(estado).subscribe((resp:any) => {
         this.tikects = resp.response;
-        console.log(this.tikects)
+       // console.log(this.tikects)
    } , 
       error => {
         this.message({severity:'error' , summary:'Error' , detail:'Error cargando tickets'})

@@ -55,7 +55,7 @@ export class ListBodegaComponent implements OnInit {
   {
     if(this.editForm.valid)
     {
-      console.log(this.editForm.value);
+      //console.log(this.editForm.value);
     }
   }
 

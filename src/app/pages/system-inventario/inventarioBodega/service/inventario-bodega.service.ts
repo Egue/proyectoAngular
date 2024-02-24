@@ -35,7 +35,7 @@ export class InventarioBodegaService {
 
   public getListTransferencias(data:any):Observable<any>
   {
-    console.log(data);
+    //console.log(data);
     return this.http.post(`${base_url}inventario/transbodega/between` , data, this.headers);
   }
 }

@@ -1,0 +1,71 @@
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card animated fadeInDown">
+            <div class="card-body">
+                <button type="button" class="btn btn-warning m-r-10 m-b-10" (click)="ngOnInit()" ><i class="mdi mdi-refresh"></i></button>
+                <h6 class="card-subtitle">
+                    Esquema organizacional de los permisos de trabajo, del dia de hoy, si desea consultar de tiempo atras use el calendario
+                    y escoja la fecha que desea.
+                </h6>
+                <div class="row">
+                    <div class="col-md-4">
+                        <span class="p-fluid"><p-calendar [(ngModel)]="value" [showIcon]="true" dateFormat="yy.mm.dd" [showButtonBar]="true" (onSelect)="search()"></p-calendar></span>
+                    </div>
+                </div>
+                <hr>
+                <p-organizationChart [value]="data" selectionMode="single" [(selection)]="selectedNode" (onNodeSelect)="onNodeSelect($event)"
+                styleClass="company">
+                <ng-template let-node pTemplate="person">
+                    <div class="node-header">{{node.label}}</div>
+                    <div class="node-content">
+                        <img [src]="node.data.avatar" width="32" height="32">
+                        <div>{{node.data.name}}</div>
+                    </div>
+                </ng-template>
+                <ng-template let-node pTemplate="department">
+                    {{node.label}}
+                </ng-template>
+            </p-organizationChart>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--Lista de vehiculos -->
+<div class="row"> 
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="card-subtitle">Lista de vehiculos usados por permisos de trabajo</h6>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="card-subtitle">Los gráficos de áreas polares son similares a los gráficos circulares, pero cada segmento tiene el mismo ángulo: el radio del segmento difiere según el valor</h6>
+                <form action="">
+                    <div class="field">
+                        <label for="">Fecha</label>
+                        <p-calendar   [showIcon]="true" dateFormat="yy.mm.dd" [showButtonBar]="true"  ></p-calendar>
+                    </div>
+                    <div class="field">
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+
+            </div>
+        </div>
+    </div>
+</div>-->

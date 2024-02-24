@@ -1,16 +1,20 @@
 import { AuthService } from './../auth.service';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { Login } from 'src/app/interfaces/login.interface';
-import Swal from 'sweetalert2';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router'; 
+import { MessageService } from 'primeng/api';
+import { ErrorHandlingService } from 'src/app/services/error-handling.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers:[MessageService]
 })
 export class LoginComponent {
+  @ViewChild('passwordInput') passwordInput:ElementRef | undefined;
+
+  public viewPass:boolean = false;
 
   public formLogin = this.fb.group({
     email:[ localStorage.getItem('email') ||'',[Validators.required,Validators.email]],
@@ -21,7 +25,9 @@ export class LoginComponent {
 
   constructor( private router:Router ,
     private fb:FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private messageService:MessageService,
+    private errorHandlingService:ErrorHandlingService
     ) { }
  
 
@@ -40,15 +46,34 @@ export class LoginComponent {
             localStorage.removeItem('email');
           }
           this.router.navigateByUrl('/');
-    },  (err) => {
-      Swal.fire('Error' , err.error.response , 'error');
+    },  () => {
+
+      this.messageService.add({severity:'warn' , summary:'Datos Errados' , detail:this.errorHandlingService.error.error.response})
+
     })
     
   
   }else{
-      Swal.fire('Error' , 'Todos los campos son obligatorios' , 'error');
+    this.messageService.add({severity:'error' , summary:'Campos Obligatorios' , detail:'Todos los campos son obligatorios'})
+
   } 
 
+  }
+
+
+  viewPassword()
+  {
+    const inputElement: HTMLInputElement = this.passwordInput?.nativeElement;
+    if(this.viewPass)
+    {
+      inputElement.type='password';
+      this.viewPass = false;
+
+    }else{ 
+      this.viewPass = true;
+      inputElement.type = 'text';
+
+    }
   }
 
 }

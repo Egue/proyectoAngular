@@ -4,12 +4,12 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <div class="btn-group m-b-10 m-r-10" role="group" aria-label="Button group with nested dropdown">
-                    <button type="button" class="btn btn-secondary font-18" (click)="back()"><i class="mdi mdi-arrow-left-bold"></i></button>
+                 
+                    <button type="button" class="btn btn-danger m-r-10 m-b-10" (click)="back()"><i class="mdi mdi-arrow-left-bold"></i></button>
                     
-                    <button type="button" class="btn btn-secondary font-18" (click)="openModalEmpleados()"><i class="mdi mdi-plus-box"></i></button>
-                </div>
-                
+                    <button type="button" class="btn btn-primary m-r-10 m-b-10" (click)="openModalEmpleados()"><i class="mdi mdi-plus-box"></i></button>
+                 
+                <h6 class="card-subtitle">Usar <i class="mdi mdi-arrow-left-bold"></i> para regresar , <i class="mdi mdi-plus-box"></i> para agregar nuevo integrante a su permiso de trabajo</h6>
                 <!--tabla de empleados-->
            <p-table 
            [value]="listEmpleadoPermiso" 
@@ -25,9 +25,9 @@
             </ng-template>
             <ng-template pTemplate="body" let-empleado>
                 <tr>
-                    <td>{{empleado.user}}</td> 
-                    <td>{{empleado.email}}</td>
-                    <td><i class="mdi mdi-delete cursor" (click)="deletePermisoEmpleado(empleado)"></i> </td>
+                    <td> {{empleado.user}}</td> 
+                    <td> {{empleado.email}}</td>
+                    <td> <i class="mdi mdi-delete cursor" (click)="deletePermisoEmpleado(empleado)"></i> </td>
                 </tr>
             </ng-template>
            </p-table>

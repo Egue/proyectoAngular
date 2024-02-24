@@ -1,16 +1,15 @@
+<p-toast position="top-center"></p-toast>
 <div class="row">
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
                 <div class="btn-group m-b-10 m-r-10" role="group" aria-label="Button group with nested dropdown">
-                    <button type="button" class="btn btn-secondary font-18" (click)="back()"><i class="mdi mdi-arrow-left-bold"></i></button>
-                    
-                    <!--<button type="button" class="btn btn-secondary font-18"  ><i class="mdi mdi-plus-box"></i></button>-->
+                    <button type="button" class="btn btn-danger font-18" (click)="back()"><i class="mdi mdi-arrow-left-bold"></i></button>
+                     
                 </div>
-
-                <!--<div class="btn-group m-b-10" role="group">
-                    <p-button label="Submit" icon="pi pi-check" iconPos="right"></p-button>
-                </div>-->
+                <h6 class="card-subtitle">Desplegue cada item para seleccionar el preoperacional ,solo elija los elementos que tenga en su poder; <i class="pi pi-ban"></i> en estao malo , <i class="pi pi-check-circle"></i> en estado bueno. 
+                En caso que su trabajo no aplique estos elementos, deberá buscar el item "No aplica" y seleccionarlo</h6>
+                 
             </div>
         </div>
     </div>
@@ -29,40 +28,13 @@
                                 <div class="card-body">
                                     
                                     <h4 class="card-title"><span class="lstick"></span> Elementos de protección</h4>
-                                    <table class="table browser m-t-30  table-striped">
+                                    <table class="table vm font-14">
                                         <tbody>
                                             <tr *ngFor="let item of listEPP">
-                                                <td>
-                                                    <input type="checkbox" id="epp_{{item.empleado_generalidades_id}}"   (change)="statusActive({item})" class="filled-in chk-col-red" [checked]="item.active == 'Y'" >
-                                                     <label for="epp_{{item.empleado_generalidades_id}}">{{item.nombre}}</label>
-                                                </td>
-                                                <td class="text-right">
-                                                    <!--<span class="label label-success label-rounded pull-right" *ngIf="item.inspeccion == null;else inspeccionNull" (click)="buenoMalo(item)">Bueno</span> <br>
-                                                    <ng-template #inspeccionNull>
-                                                        <span class="label label-danger label-rounded pull-right" (click)="buenoMalo(item)">Malo</span> <br>
-                                                    </ng-template>-->
-                                                    <ng-container *ngIf="item.inspeccion==null">
-                                                        <span class="p-buttonset">
-                                                            <button pButton type="button"   icon="pi pi-ban" class="p-button-secondary"  (click)="buenoMalo(item,'Malo')"></button>
-                                                             
-                                                            <button pButton type="button"   icon="pi pi-check-circle" class="p-button-secondary"  (click)="buenoMalo(item,'Bueno')"></button>
-                                                        </span>
-                                                    </ng-container>
-                                                    <ng-container *ngIf="item.inspeccion=='Bueno'">
-                                                        <span class="p-buttonset">
-                                                            <button pButton type="button"   icon="pi pi-ban" class="p-button-secondary"  (click)="buenoMalo(item,'Malo')"></button>
-                                                             
-                                                            <button pButton type="button"  icon="pi pi-check-circle" class="p-button-success"  (click)="buenoMalo(item,'Bueno')"></button>
-                                                        </span>
-                                                    </ng-container>
-                                                    <ng-container *ngIf="item.inspeccion=='Malo'">
-                                                        <span class="p-buttonset">
-                                                            <button pButton type="button"   icon="pi pi-ban" class="p-button-danger"  (click)="buenoMalo(item,'Malo')"></button>
-                                                             
-                                                            <button pButton type="button"   icon="pi pi-check-circle" class="p-button-secondary" (click)="buenoMalo(item,'Bueno')" ></button>
-                                                        </span>
-                                                    </ng-container>
-                                                </td>
+                                                <td class="b-0">{{item.nombre}}</td>
+                                                <td class="text-right font-medium b-0">
+                                                    <button pButton type="button" class="p-button-rounded p-button-sm" [ngClass]="{'p-button-danger':item.inspeccion === 'Malo'}" icon="pi pi-ban" (click)="buenoMalo(item,'Malo' , 'epp')"> </button>
+                                                    <button pButton type="button" class="p-button-rounded p-button-sm" [ngClass]="{'p-button-success':item.inspeccion === 'Bueno'}" icon="pi pi-check-circle" (click)="buenoMalo(item,'Bueno' , 'epp')"></button>  </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -79,47 +51,15 @@
                          
                                 <div class="card">
                                     <div class="card-body">
-                                       <!-- <div class="demo-checkbox">
-                                            <div *ngFor="let item of listEPCC">
-                                                <input type="checkbox" id="epcc_{{item.empleado_generalidades_id}}" class="filled-in chk-col-purple" (change)="statusActive({item})" [checked]="item.active == 'Y'">
-                                                <label for="epcc_{{item.empleado_generalidades_id}}">{{item.nombre}}</label>
-                                            </div>
-                                        </div>-->
+                                        
                                         <h4 class="card-title"><span class="lstick"></span> Elementos de protección contra caidas</h4>
-                                        <table class="table browser m-t-30 no-border table-striped">
+                                        <table class="table vm font-14">
                                             <tbody>
                                                 <tr *ngFor="let item of listEPCC">
-                                                    <td>
-                                                        <input type="checkbox" id="epcc_{{item.empleado_generalidades_id}}"   (change)="statusActive({item})" class="filled-in chk-col-red" [checked]="item.active == 'Y'" >
-                                                         <label for="epcc_{{item.empleado_generalidades_id}}">{{item.nombre}}</label>
-                                                    </td>
-                                                    <td class="text-right">
-                                                        <!--<span class="label label-success label-rounded pull-right" *ngIf="item.inspeccion == null;else inspeccionNull" (click)="buenoMalo(item)">Bueno</span> <br>
-                                                        <ng-template #inspeccionNull>
-                                                            <span class="label label-danger label-rounded pull-right" (click)="buenoMalo(item)">Malo</span> <br>
-                                                        </ng-template> -->
-                                                        <ng-container *ngIf="item.inspeccion==null">
-                                                            <span class="p-buttonset">
-                                                                <button pButton type="button"   icon="pi pi-ban" class="p-button-secondary"  (click)="buenoMalo(item,'Malo')"></button>
-                                                                 
-                                                                <button pButton type="button"   icon="pi pi-check-circle" class="p-button-secondary"  (click)="buenoMalo(item,'Bueno')"></button>
-                                                            </span>
-                                                        </ng-container>
-                                                        <ng-container *ngIf="item.inspeccion=='Bueno'">
-                                                            <span class="p-buttonset">
-                                                                <button pButton type="button"   icon="pi pi-ban" class="p-button-secondary"  (click)="buenoMalo(item,'Malo')"></button>
-                                                                 
-                                                                <button pButton type="button"  icon="pi pi-check-circle" class="p-button-success"  (click)="buenoMalo(item,'Bueno')"></button>
-                                                            </span>
-                                                        </ng-container>
-                                                        <ng-container *ngIf="item.inspeccion=='Malo'">
-                                                            <span class="p-buttonset">
-                                                                <button pButton type="button"   icon="pi pi-ban" class="p-button-danger"  (click)="buenoMalo(item,'Malo')"></button>
-                                                                 
-                                                                <button pButton type="button"   icon="pi pi-check-circle" class="p-button-secondary" (click)="buenoMalo(item,'Bueno')" ></button>
-                                                            </span>
-                                                        </ng-container>
-                                                    </td>
+                                                    <td class="b-0">{{item.nombre}}</td>
+                                                    <td class="text-right font-medium b-0">
+                                                        <button pButton type="button" class="p-button-rounded p-button-sm" [ngClass]="{'p-button-danger':item.inspeccion === 'Malo'}" icon="pi pi-ban" (click)="buenoMalo(item,'Malo' , 'epcc')"> </button>
+                                                        <button pButton type="button" class="p-button-rounded p-button-sm" [ngClass]="{'p-button-success':item.inspeccion === 'Bueno'}" icon="pi pi-check-circle" (click)="buenoMalo(item,'Bueno','epcc')"></button>  </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -134,44 +74,16 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title"><span class="lstick"></span> Herramientas</h4>
-                                        <table class="table browser m-t-30 no-border table-striped">
-                                   <!-- <ng-template pTemplate="caption">
-                                        <div class="flex">
-                                            <button pButton label="Limpiar Filtros" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt1)" ></button>
-                                        </div>
-                                    </ng-template> -->
-                                     
-                                            <tr *ngFor="let item of listHerramienta">
-                                                <td> 
-                                                    <input type="checkbox" id="herramienta_{{item.empleado_generalidades_id}}" class="filled-in chk-col-purple" (change)="statusActive({item})" [checked]="item.active == 'Y'">
-                                                <label for="herramienta_{{item.empleado_generalidades_id}}">{{item.nombre}}</label>
-                                                </td>
-                                                <td class="text-right">
-                                                    <ng-container *ngIf="item.inspeccion==null">
-                                                        <span class="p-buttonset">
-                                                            <button pButton type="button"   icon="pi pi-ban" class="p-button-secondary"  (click)="buenoMalo(item,'Malo')"></button>
-                                                             
-                                                            <button pButton type="button"   icon="pi pi-check-circle" class="p-button-secondary"  (click)="buenoMalo(item,'Bueno')"></button>
-                                                        </span>
-                                                    </ng-container>
-                                                    <ng-container *ngIf="item.inspeccion=='Bueno'">
-                                                        <span class="p-buttonset">
-                                                            <button pButton type="button"   icon="pi pi-ban" class="p-button-secondary"  (click)="buenoMalo(item,'Malo')"></button>
-                                                             
-                                                            <button pButton type="button"  icon="pi pi-check-circle" class="p-button-success"  (click)="buenoMalo(item,'Bueno')"></button>
-                                                        </span>
-                                                    </ng-container>
-                                                    <ng-container *ngIf="item.inspeccion=='Malo'">
-                                                        <span class="p-buttonset">
-                                                            <button pButton type="button"   icon="pi pi-ban" class="p-button-danger"  (click)="buenoMalo(item,'Malo')"></button>
-                                                             
-                                                            <button pButton type="button"   icon="pi pi-check-circle" class="p-button-secondary" (click)="buenoMalo(item,'Bueno')" ></button>
-                                                        </span>
-                                                    </ng-container>
-                                                </td>
-                                            </tr> 
-                                    
-
+                                       
+                                        <table class="table vm font-14">
+                                            <tbody>
+                                                <tr *ngFor="let item of listHerramienta">
+                                                    <td class="b-0">{{item.nombre}}</td>
+                                                    <td class="text-right font-medium b-0">
+                                                        <button pButton type="button" class="p-button-rounded p-button-sm" [ngClass]="{'p-button-danger':item.inspeccion === 'Malo'}" icon="pi pi-ban" (click)="buenoMalo(item,'Malo' , 'herramientas')"> </button>
+                                                        <button pButton type="button" class="p-button-rounded p-button-sm" [ngClass]="{'p-button-success':item.inspeccion === 'Bueno'}" icon="pi pi-check-circle" (click)="buenoMalo(item,'Bueno' , 'herramientas')"></button>  </td>
+                                                </tr>
+                                            </tbody>
                                         </table>
                                 </div>
                             </div>
@@ -187,68 +99,6 @@
     </div>
 </div> 
 
-
-
-<!--modal cargar generar token-->
-<!--<div class="fondo-modal bounceIn animated" [class.oculto] = "modalToken">
-    <div class="modal fade none-border  show" id="add-new-event" style="display: block; padding-right: 17px;">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title"><i class="mdi mdi-barcode"></i><strong>Generar</strong> Código</h4>
-                    <button type="button" class="close"  (click)="cerrarModalToken()" aria-hidden="true">×</button>
-                </div>
-                <div class="modal-body text-center">
-                     <button class="btn btn-lg btn-primary" *ngIf="!estadoToken;else formToken" (click)="generarToken()"><i class="mdi mdi-barcode"></i> Generar código</button>
-                     <ng-template #formToken>
-                        <p class="card-text">
-                            A su correo <strong>{{auth.usuario.email}}</strong> se ha enviado el código generado,
-                            por favor ingreselo aquí.
-
-                        </p>
-                        <h1><time>00:{{minutos}}:{{segundos}}</time></h1>
-                        <form class="row" [formGroup]="formCodigo" (submit)="validarToken()">
-                            <div class="form-group col-2">
-                                 
-                                <input type="text" class="form-control"     formControlName="a" style="padding:0% !important; height:50px" maxlength="1" autofocus="true"> 
-                            </div>
-                            <div class="form-group col-2">
-                                 
-                                <input type="text" class="form-control"  formControlName="b"  style="padding:0% !important; height:50px" maxlength="1"> 
-                            </div>
-                            <div class="form-group col-2">
-                                 
-                                <input type="text" class="form-control" formControlName="c"  style="padding:0% !important; height:50px" maxlength="1"> 
-                            </div>
-                            <div class="form-group col-2">
-                                 
-                                <input type="text" class="form-control"   formControlName="d" style="padding:0% !important; height:50px" maxlength="1"> 
-                            </div>
-                            <div class="form-group col-2">
-                                 
-                                <input type="text" class="form-control"  formControlName="e" style="padding:0% !important; height:50px" maxlength="1"> 
-                            </div>
-                            <div class="form-group col-2">
-                                 
-                                <input type="text" class="form-control"   formControlName="f" style="padding:0% !important; height:50px" maxlength="1"> 
-                            </div>
-                            <div class="form-group col-md-12 m-t-20" *ngIf="!respValidacion">
-                                <div class="alert alert-warning">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
-                                    <h3 class="text-warning"><i class="fa fa-exclamation-triangle"></i> Error</h3> {{msmToken}}
-                                </div>
-                            </div>
-                            <div class="form-group col-md-12 m-t-20">
-                                 
-                                <button class="btn btn-lg btn-primary" type="submit" [disabled]="this.formCodigo.invalid"><i class="mdi mdi-auto-fix" ></i> Validar</button>
-                          </div>
-                        </form>
-                     </ng-template>
-                     
-                </div>
-            </div>
-        </div>
-    </div>
-</div>-->
+ 
  
  

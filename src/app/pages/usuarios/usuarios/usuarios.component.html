@@ -1,147 +1,4 @@
-<!--<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Contact Emplyee list</h4>
-                <h6 class="card-subtitle"></h6>
-                <div class="table-responsive">
-                    <div id="add-contact" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                <h4 class="modal-title" id="myModalLabel">Nuevo Usuario</h4> </div>
-                                            <div class="modal-body">
-                                                <from class="form-horizontal form-material"> 
-                                                    <div class="form-group">
-                                                        <div class="col-md-12 m-b-20">
-                                                            <input type="text" class="form-control" placeholder="Nombre Usuario"> </div>
-                                                        <div class="col-md-12 m-b-20">
-                                                            <input type="email" class="form-control" placeholder="Email"> </div>
-                                                         
-                                                        
-                                                         
-                                                         
-                                                        
-                                                        
-                                                    </div>
-                                                 </from> 
-
-                                                 <form 
-                                                 class="form-horizontal form-material" 
-                                                 id="loginform"
-                                                 (ngSubmit) = "crearUsuario()" 
-                                                 [formGroup] = "formRegister" 
-                                                    autocomplete="off">
-                                                    <i class="mdi mdi-account-circle"></i> 
-                     
-                     
-                    <div class="form-group m-t-20">
-                        <div class="col-xs-12">
-                            <input 
-                            class="form-control" 
-                            type="text"  
-                            placeholder="Nombres" 
-                            id="user"
-                            formControlName="user"
-                            >
-                        </div>
-                        <div class="col-xs-12">
-                            <div class="col text-danger">
-                                <p *ngIf="validateCampo('user')">nombre es obligatorio y minimo 4 caracteres</p>
-                            </div>
-                            
-                        </div>
-                    </div>
-                    <div class="form-group ">
-                        <div class="col-xs-12">
-                            <input 
-                            class="form-control" 
-                            type="text"  
-                            placeholder="Email" 
-                            formControlName="email"
-
-                            >
-                        </div>
-                        <div class="col-xs-12">
-                            <div class="col text-danger">
-                                 <p *ngIf="validateCampo('email')">Email no es valido</p>
-                            </div>
-                            
-                        </div>
-                    </div>
-                    <div class="align-content-right">
-                    <button type="submit" class="btn btn-info waves-effect">Guardar</button>
-                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancelar</button>
-                    </div>
-                </form>
-                                            </div>
-                                             
-                                        </div>
-                                         /.modal-content 
-                                    </div>
-                                     /.modal-dialog 
-                                </div><table id="demo-foo-addrow" class="table m-t-30 table-hover contact-list footable-loaded footable" data-page-size="10">
-                        <thead>
-                            <tr>
-                                <th class="footable-sortable">No<span class="footable-sort-indicator"></span></th>
-                                <th class="footable-sortable">Nombre<span class="footable-sort-indicator"></span></th>
-                                <th class="footable-sortable">Email<span class="footable-sort-indicator"></span></th>
-                                <th class="footable-sortable">Telefóno<span class="footable-sort-indicator"></span></th>
-                               <th class="footable-sortable">Edad<span class="footable-sort-indicator"></span></th>
-                                <th class="footable-sortable">Estado<span class="footable-sort-indicator"></span></th>
-                                <th class="footable-sortable">Acción<span class="footable-sort-indicator"></span></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="footable-even" style="" *ngFor = "let item of listUsuario">
-                                <td><span class="footable-toggle">{{item.id}}</span></td>
-                                <td>{{item.user}}</td>
-                                <td>{{item.email}}</td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <div *ngIf="item.active; else Desactivado">
-                                        <span class="label label-success">Activado</span>
-                                    </div>
-                                    <ng-template #Desactivado>
-                                        <span class="label label-danger">Desactivado</span>
-                                    </ng-template>
-                                </td>
-                                <td></td>
-                                
-                                <td><span class="footable-toggle"></span>1</td>
-                                <td>
-                                    <a href="javascript:void(0)"><img src="../assets/images/users/4.jpg" alt="user" width="40" class="img-circle"> Genelia Deshmukh</a>
-                                </td>
-                                <td>genelia@gmail.com</td>
-                                <td>+123 456 789</td>
-                                <td>23</td>
-                                <td><span class="label label-success">Activo</span></td>
-                                <td>
-                                    <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button>
-                                </td>
-                            </tr>   
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="2">
-                                    <button type="button" class="btn btn-info btn-rounded" data-toggle="modal" data-target="#add-contact">Nuevo usuario</button>
-                                </td>
-                                
-                                <td colspan="7">
-                                    <div class="text-right">
-                                        <ul class="pagination"> <li class="footable-page-arrow disabled"><a data-page="first" href="#first">«</a></li><li class="footable-page-arrow disabled"><a data-page="prev" href="#prev">‹</a></li><li class="footable-page active"><a data-page="0" href="#">1</a></li><li class="footable-page"><a data-page="1" href="#">2</a></li><li class="footable-page-arrow"><a data-page="next" href="#next">›</a></li><li class="footable-page-arrow"><a data-page="last" href="#last">»</a></li></ul>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>  -->
+<p-toast ></p-toast> 
 
 <div class="row animated fadeIn fast">
     <div class="col-12">
@@ -188,7 +45,7 @@
                         <tbody>
                             <tr *ngFor ="let usuario of listUsuario">
                                 <td class="text-center"><img [src]="usuario.imagenUrl" alt="" class="w100 avatar" /> </td>
-                                <td>{{usuario.email}}</td>
+                                <td><div class="cursor" (click)="editUSer(usuario)">{{usuario.email}}</div></td>
                                 <td>{{usuario.user}}</td>
                                 <td>
                                     <select class="form-control" [(ngModel)]="usuario.role"
@@ -241,3 +98,28 @@
     [usuario]="seletedUser">
 </app-datos-personales>
 </ng-container>
+
+
+<!--EditUSer-->
+<p-dialog position="top" [(visible)]="dialogEdit" header="Editar usuario" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body" *ngIf="userSelectedDialog!">
+                    <div class="form-group">
+                        <label for="email">Correo electronico</label>
+                        <input type="text" class="form-control" id="email" [(ngModel)]="userSelectedDialog.email" required autofocus />
+                        <small class="p-error">Campo Requerido</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <input type="text" class="form-control" id="email" [(ngModel)]="userSelectedDialog.password" />
+
+                    </div>
+                    <hr>
+                    <button type="submit" class="btn btn-primary float-right"  (click)="actualizarUser()">Actualizar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</p-dialog>

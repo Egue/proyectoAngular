@@ -4,6 +4,7 @@ import { AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators
 import { Route, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AuthService } from '../auth.service';
+import { ErrorHandlingService } from 'src/app/services/error-handling.service';
 
 @Component({
   selector: 'app-recovery',
@@ -45,7 +46,7 @@ export class RecoveryComponent implements OnInit {
   } , {
     validator : this.passwordMathValidator
   })
-  constructor(private fb:FormBuilder, private authService: AuthService , private router:Router) { }
+  constructor(private fb:FormBuilder, private authService: AuthService , private router:Router , private errorHandleService:ErrorHandlingService) { }
 
   ngOnInit(): void {
   }
@@ -63,7 +64,7 @@ export class RecoveryComponent implements OnInit {
         this.mail = this.editRecovery.get('email')?.value;
       } , error => {
         this.validando = false;
-        this.msmCorreo = error.error.response;
+        this.msmCorreo = this.errorHandleService.error.error.response;//error.error.response;
       })
     }
   }
@@ -79,7 +80,7 @@ export class RecoveryComponent implements OnInit {
           this.validando = false;
       } , error => {
         this.validando = false;
-        this.msmToken = error.error.response;
+        this.msmToken = this.errorHandleService.error.error.response;
       })
      }
 

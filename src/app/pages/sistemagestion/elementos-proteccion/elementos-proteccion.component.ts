@@ -8,13 +8,16 @@ import Swal from 'sweetalert2';
 import {map} from 'rxjs/operators';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { MenuItem, MessageService } from 'primeng/api';
 @Component({
   selector: 'app-elementos-proteccion',
   templateUrl: './elementos-proteccion.component.html',
   styles: [
-  ]
+  ],
+  providers:[MessageService]
 })
 export class ElementosProteccionComponent implements OnInit {
+ 
  
 
   public cargando:boolean = false;
@@ -60,7 +63,7 @@ export class ElementosProteccionComponent implements OnInit {
 
 
   constructor(private sistemaGestionServices:SistemaGestionService , public auth:AuthService , private fb:FormBuilder,
-    private activatedRoute:ActivatedRoute) { }
+    private activatedRoute:ActivatedRoute , private messageService:MessageService) { }
 
   ngOnInit(): void {
   //this.getInfoPermiso();
@@ -69,7 +72,8 @@ export class ElementosProteccionComponent implements OnInit {
       this.idPermiso = permiso;
       
     }
-   })
+   });
+ 
   }
 
 //**abrir accordion */
@@ -88,23 +92,11 @@ onTabOpen(event:any)
 }
   getInfoPermiso()
   {
-    this.cargando = true;
-    /*this.sistemaGestionServices.getInfoPermisoEmpleado(this.auth.usuario.id)
-                                .subscribe((resp:any) => {
-                                  this.permiso = resp.response;  
-                                  this.cargando = false;
-                                  console.log(this.permiso);
-                                  if(this.permiso.length > 0)
-                                  { 
-                                    this.getlistEpp(this.permiso[0].id_permiso);
-                                    this.getlistEpcc(this.permiso[0].id_permiso);
-                                    this.getlistHerramientas(this.permiso[0].id_permiso);
-                                  }
-                                });*/
+    
       this.getlistEpcc(this.idPermiso);
       
       this.getlistHerramientas(this.idPermiso);
-      this.cargando = false;
+       
   }
 
   crearEmpleadoGeneralidades(tipo:string)
@@ -148,7 +140,7 @@ onTabOpen(event:any)
 
   getlistEpp(permiso_id:any)
   {
-    this.cargando = true;
+     
       const epp = {
         empleado_id : this.auth.usuario.id,
         permiso_id : permiso_id,
@@ -163,12 +155,14 @@ onTabOpen(event:any)
                                       this.crearEmpleadoGeneralidades('EPP');
                                       
                                     }
-                                    this.cargando = false;
+                                     
                                   } , error => {
-                                    this.cargando = false;
+                                     
                                   })
 
   }
+
+  
   getlistEpcc(permiso_id:any)
   {
     const epcc = {
@@ -200,188 +194,154 @@ onTabOpen(event:any)
                                   }
                                 })
   }
-  statusActive(epp:any)
+  //**mensaje de alerta */
+  showMessage()
   {
-     
-    if(epp.item.active == 'Y')
+    this.messageService.add({severity:'warn' , summary:'Alerta' , detail:'para seleccionar No aplica, no debe existir un item seleccionado'})
+   
+  }
+
+  /**validar si estan todos activos */
+  validarList(list:any) 
+  {
+      let count = 0;
+      
+      list.forEach((element: { active: string; }) => {
+         
+            if(element.active == "Y")
+            {
+              
+              count++;
+            }
+      });
+      if(count > 0)
+      {
+        return true;
+      }
+
+      return false;
+  }
+
+  validarNoAplica(list:any)
+  {
+    let count = 0;
+
+    list.forEach((element: { nombre: string; active: string; }) => {
+      if(element.nombre ==='No aplica' || element.nombre ==='No aplica' || element.nombre === 'no aplica')
+      {
+          if(element.active === 'Y')
+          {
+            count++;
+          }
+      }
+    })
+
+    if(count > 0)
     {
-      epp.item.active = 'N';
-      epp.item.inspeccion = null;
+      return true;
     }else{
-      epp.item.active = 'Y'
-      epp.item.inspeccion = 'Bueno'
+      return false;
     }
     
-    this.sistemaGestionServices.editEmpleadoGeneralidades(epp.item)
-                                .subscribe((resp:any) => { 
-                                   
-                                } , (err) => {
-                                    
-                                  Swal.fire({
-                                    title:'Oops..',
-                                    text:'error actualizando',
-                                    icon:'error'
-                                  });
-                                });
-    //this.modalBuenoMalo(epp); 
- 
   }
 
 
-/*
-* Tabla prime
-*/
-//functiojn primeng
-next()
-{
-  this.first = this.first + this.rows;
-}
-prev()
-{
-  this.first = this.first - this.rows;
-}
-reset() {
-  this.first = 0;
-}
-isLastPage():boolean{
-  return this.listHerramienta ? this.first === (this.listHerramienta.length - this.rows):true;
-}
-isFirstPage():boolean{
-  return this.listHerramienta ? this.first === 0 : true;
-}
-clear(table:any)
-{
-  table.clear();
-}
-/*fin tabla */
 
-cerrarModalToken()
-{
-  this.modalToken = true;
-}
-OpenModal()
-{
-  this.modalToken = false;
-}
-generarToken()
-{
-  this.estadoToken = true; 
-  this.sendInfoGenerateToken();
-  this.intervalSegSusb = this.intervalsegundos().subscribe(
-          valor => { 
-            this.segundos = this.segundos - 1;
-
-            if(valor==60)
+buenoMalo(item:any , estado:string , tipo:string)
+{  
+    if(item.nombre === 'No aplica' || item.nombre === 'no aplica' || item.nombre === 'No Aplica')
+    {  
+       
+      if(item.active == 'Y')
+      {
+        this.changeItem(item, estado);
+      }else{
+        switch (tipo){
+          case 'epp':{
+            if(this.validarList(this.listEPP))
             {
-              this.minutos = "00";
-              this.segundos = 59;
+              this.showMessage();
+            }else{
+               this.changeItem(item , estado);
             }
-            if(valor == 120)
-            { 
-              this.estadoToken = false; 
-              this.minutos = '1';
-              this.segundos = 59;
-              this.formCodigo.reset();
-              this.intervalSegSusb?.unsubscribe();
-            }
+            break;
           }
-  );
-}
-sendInfoGenerateToken()
-{
-  const data = {
-    id_user: this.auth.usuario.id,
-    email: this.auth.usuario.email,
-    user: this.auth.usuario.user,
-    id_permiso: this.permiso[0].id_permiso,
-    id_empresa: this.auth.usuario.id_empresa
-  }
-  this.sistemaGestionServices.generateTokenFirma(data)
-                      .subscribe();
-}
-
-intervalsegundos():Observable<number>
-{
-  return interval(1000)
-    .pipe(
-      map(valor => {return valor + 1})
-    )
-}
-
-validarToken()
-{
+          case 'epcc': {
+              if(this.validarList(this.listEPCC))
+            {
+              this.showMessage();
+            }else{
+              this.changeItem(item , estado);
+            }
+            break;
+          }
+          case 'herramientas' : {
+              if(this.validarList(this.listHerramienta))
+            {
+              this.showMessage();
+            }else{
+              this.changeItem(item , estado);
+            }
+            break;
+          }
   
-  const {a ,b,c,d,e,f} = this.formCodigo.value;
+        }
+      }
+      //en caso que el checbox esta activado
+    
 
-  const data = {
-    token : a+b+c+d+e+f,
-    id_user: this.auth.usuario.id
-  } 
-  this.sistemaGestionServices.validarTokenMail(data)
-                              .subscribe((resp:any) => {
-                                this.tokenValidado = true;
-                                //cuando se valide correctamento
-                                this.estadoToken = false; 
-                                this.minutos = '1';
-                                this.segundos = 59;
-                                this.formCodigo.reset();
-                                this.intervalSegSusb?.unsubscribe();
-                                this.cerrarModalToken();
-
-                              } , (error) => {
-                                this.respValidacion = false;
-                                this.msmToken = 'token no valido';
-                              })
-}
-
-firmarPermiso()
-{
-  const data = {
-    id_permiso : this.permiso[0].id_permiso,
-    id_empleado: this.auth.usuario.id
-  }
-  this.sistemaGestionServices.firmarElectronicamente(data)
-                              .subscribe((resp:any) => {
-                                if(resp.success)
-                                {
-                                  Swal.fire({
-                                    icon:'success',
-                                    text:'Firmado exitosamente',
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                  })
-                                }
-                              } , (error) => {
-                                Swal.fire({
-                                  title:'Oops..',
-                                  text: 'Error al firmar consulte con el administrador',
-                                  icon: 'error'
-                                })
-                              })
-  
-}
-
-modalBuenoMalo(item:any)
-{
-  this.item = item;
-  this.estadoModalBuenoMalo = false;
-}
-
-buenoMalo(item:any , estado:string)
-{ 
-   
-    //en caso que el checbox esta activado
-    if(item.inspeccion === estado)
-    {
-     item.inspeccion = null;
-     item.active = 'N'
     }else{
+      switch(tipo){
+        case 'epp':{
+          if(this.validarNoAplica(this.listEPP))
+          {
+            this.messageService.add({severity:'warn' , summary:'No aplica' , detail:'Tiene activo no aplica, deshabilite No aplica'})
+          }else{
+            this.changeItem(item , estado);
+          }
 
-      item.inspeccion = estado;
-      item.active = 'Y'    
-  }
+          break;
+        }
+        case 'epcc':{
+          if(this.validarNoAplica(this.listEPCC))
+          {
+            this.messageService.add({severity:'warn' , summary:'No aplica' , detail:'Tiene activo no aplica, deshabilite No aplica'})
+          }else{
+            this.changeItem(item , estado);
+          }
 
-  this.sistemaGestionServices.editEmpleadoGeneralidades(item)
+          break;
+        }
+        case 'herramientas':{
+          if(this.validarNoAplica(this.listHerramienta))
+          {
+            this.messageService.add({severity:'warn' , summary:'No aplica' , detail:'Tiene activo no aplica, deshabilite No aplica'})
+          }else{
+            this.changeItem(item , estado);
+          }
+
+          break;
+        }
+      }
+      
+    }
+  
+}
+
+changeItem(item:any , estado:string)
+{
+  if(item.inspeccion === estado)
+  {
+   item.inspeccion = null;
+   item.active = 'N'
+  }else{
+
+    item.inspeccion = estado;
+    item.active = 'Y'    
+    
+}
+
+this.sistemaGestionServices.editEmpleadoGeneralidades(item)
                                 .subscribe((resp:any) => { 
                                    
                                 } , (err) => {
@@ -392,8 +352,10 @@ buenoMalo(item:any , estado:string)
                                     icon:'error'
                                   });
                                 });
-  
+
 }
+
+ 
 
 back()
 {

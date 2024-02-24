@@ -12,7 +12,7 @@ export class PromesasComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsuarios().then(usuarios=>{
-      console.log(usuarios);
+      //console.log(usuarios);
     });
    /* const promesa = new Promise((resolve , reject)=>{
       if(false){
@@ -23,12 +23,12 @@ export class PromesasComponent implements OnInit {
     });
 
     promesa.then((data)=>{
-      console.log(data);
+      //console.log(data);
     })
     .catch(error=> {
-      console.log('error den la promgesa' + error);
+      //console.log('error den la promgesa' + error);
     });
-    console.log('fin init');*/
+    //console.log('fin init');*/
   }
 
   getUsuarios(){

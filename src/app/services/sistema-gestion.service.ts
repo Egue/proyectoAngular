@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { SGEmpleado } from '../models/sgEmpleado.model';
@@ -12,6 +12,9 @@ const url_base = '/repositories/backend_jwt_3_slim/public/';
   providedIn: 'root'
 })
 export class SistemaGestionService {
+
+  private headers = new HttpHeaders().set('X-Skip-Loading', 'true');
+  private options = { headers: this.headers };
 
   constructor(private http:HttpClient) { }
 
@@ -68,7 +71,7 @@ export class SistemaGestionService {
   {
     //const url = '/repositories/backend_jwt_3_slim/public/';
      
-    return this.http.post<any>(`${url_base}usuarios/find/name/empresa` , find)
+    return this.http.post<any>(`${url_base}usuarios/find/name/empresa` , find , this.options)
     .pipe(
       map( resp => {
         const sgEmpleado = resp.response.map(
@@ -89,7 +92,7 @@ export class SistemaGestionService {
         .pipe(
           map( resp => {
             const permisoEmpleado = resp.response.map(
-              (peSel: { id_permisos_empleado: string; user: string; email: string; }) => new SGPermisoEmpleado(peSel.id_permisos_empleado , peSel.user, peSel.email)
+              (peSel: { id_permisos_empleado: string; user: string; email: string; firma:string ; id_user:string}) => new SGPermisoEmpleado(peSel.id_permisos_empleado , peSel.user, peSel.email , peSel.firma , peSel.id_user)
             );
             return permisoEmpleado;
           })
@@ -113,6 +116,7 @@ export class SistemaGestionService {
   {
     return this.http.get(`${url_base}seguridad/permisosEmpleados/findByEmpleado/${idEmpleado}` );
   }
+
 
   /* 
   *crea de la tabla generalidades los item filtrados epp, epcc , etc en la tabla empleadogeneralidades
@@ -157,6 +161,17 @@ export class SistemaGestionService {
     return this.http.get(`${url_base}seguridad/permiso/final/${idPermiso}` );
   }
 
+  //lista de empleados para firmar
+  getListDetalleFirma(idPermiso:number)
+  {
+    return this.http.get(`${url_base}seguridad/detalle/firmas/${idPermiso}`);
+  }
+
+  createDetalleFirmaEmpresa(data:any)
+  {
+    return this.http.post(`${url_base}seguridad/detalle/firmas` , data);
+  }
+
   /**
    * configurar empresas
    */
@@ -179,6 +194,11 @@ export class SistemaGestionService {
   {
 
     return this.http.post(`${url_base}seguridad/tokenFirma/validate` , data );
+  }
+  /**firma por parte de los jefes */
+  firmarPermisoJefes(data:any)
+  {
+    return this.http.post(`${url_base}seguridad/detalle/firmar` , data);
   }
 
   getVehiculosFindByIdusuario(id_usuario:any)
@@ -224,6 +244,17 @@ export class SistemaGestionService {
   firmasGetFindByEmpresa(id:any)
   {
     return this.http.get(`${url_base}seguridad/firmas/findByIdEmpresa/${id}` );
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////*///
+  /**reportes 
+   * 
+   * 
+   * 
+   */
+  reporte_tree_node(fecha:any)
+  {
+    return this.http.post(`${url_base}seguridad/reportes/treeNode` , fecha);
   }
 
 }

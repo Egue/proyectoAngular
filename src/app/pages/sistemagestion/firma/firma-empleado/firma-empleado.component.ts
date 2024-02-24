@@ -7,6 +7,8 @@ import { ActivatedRoute } from '@angular/router';
 import { PermisoService } from '../../permisos/services/permiso.service';
 import { SistemaGestionService } from 'src/app/services/sistema-gestion.service';
 import { interval, map, Observable, Subscription, take } from 'rxjs';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ErrorHandlingService } from 'src/app/services/error-handling.service';
 @Component({
   selector: 'app-firma-empleado',
   templateUrl: './firma-empleado.component.html',
@@ -16,56 +18,67 @@ import { interval, map, Observable, Subscription, take } from 'rxjs';
 })
 export class FirmaEmpleadoComponent implements OnInit {
 
-  public token?:string;
-
-  public generateToken:boolean = false;
-
-  public conteo:any = "Generar Token";
+ 
 
   public timeLeft:number = 120;
   public intervalSusb:Subscription | undefined;
 ///
-public list:any[] = [];
-
-public buttonFirma:boolean =  false;
-
-  private _firma:any = {
-    public_key:null,
-    private_key:null
-  };
+public infoPermiso:any;
+ 
+   
   private _idPermiso:any;
   private _permiso:any;
-
-  public sinFirma:boolean = false;
+ 
   public msgs:Message[] = [];
-  constructor(private _authService:AuthService , 
+
+  public item:any = "" ;
+
+  public listFirmas:any[] =[];
+
+  public form = this.fb.group({
+    token : ['' , [Validators.required , Validators.maxLength(4)]]
+  })
+
+  constructor(public _authService:AuthService , 
     private _usuariosService:UsuariosService ,
      private _route:ActivatedRoute ,
      private _permisoService:PermisoService,
      private _sistemaGestionService:SistemaGestionService ,
-     private messageService:MessageService) {
+     private messageService:MessageService ,
+     private fb:FormBuilder , private errorHandlingService:ErrorHandlingService) {
         this._idPermiso = this._route.snapshot.params["id"];
         //console.log(this._idPermiso);
      }
 
-  ngOnInit(): void {
-    this.getListFirma();
+  ngOnInit(): void { 
     this.getPermiso();
-    this.getListElementos('EPP');
-    this.getListElementos('EPCC');
-    this.getListElementos('Herramientas');
-    this.getPermisoEmpleado();
+    this.getListEmpleadoPermiso();
+    this.item = {step_1 : true ,step_2: false , step_3 : false}
+  }
+  getInfoParaFirma() {
+    const data = {
+      id_user : this._authService.usuario.id,
+      id_permiso : this._idPermiso
+    }
+     if(this._authService.usuario.id == this.permiso.id_usuario)
+     {
+      this._permisoService.infoParaFirmarCreadorEmpleado(data).subscribe((resp:any) => {
+          this.infoPermiso = resp.response;  
+        //console.log(resp.response);
+      } , () => {
+        //console.log(this.errorHandlingService.error);
+      })  
+     }else{
+
+       this._permisoService.inforParaFirmaEmpleado(data).subscribe((resp:any) => {
+        this.infoPermiso = resp.response;  
+          //console.log(resp.response);
+      } , () => {
+        //console.log(this.errorHandlingService.error);
+      })  
+     }
   }
   
-  set firma(value:any)
-  {
-    this._firma = value
-  }
-
-  get firma()
-  {
-    return this._firma;
-  }
 
   get permiso()
   {
@@ -78,76 +91,23 @@ public buttonFirma:boolean =  false;
   }
 
   ///////////////////////////
-  getListFirma()
-  {
-    this._usuariosService.findKeyById(this._authService.usuario).subscribe((resp:any) => {
-          this.firma = resp.response[0];
-          if(!this.firma.public_key)
-          {
-            this.sinFirma = true; 
-            this.msgs=[
-              {severity:'error', summary:'Error', detail:`No se encontrato firma,  dirijase a su perfil y cree su firma digital`}
-            ]
-          }
-    })
-  }
+   
 
   getPermiso()
   {
       this._permisoService.findById(this._idPermiso).subscribe((resp:any) => {
-        this.permiso = resp.response[0];
-        console.log(resp.response);
+        this.permiso = resp.response[0]; 
+        this.getInfoParaFirma();
       })
   }
 
-  getListElementos(tipo:any)
-  {
-    const data = {
-      empleado_id : this._authService.usuario.id,
-			permiso_id : this._idPermiso,
-			tipo   : tipo
-    }
-    let listrenor =[];
-    this._sistemaGestionService.getEmpleadoGeneralidadesFilterTypeIsNotNull(data).subscribe((resp:any) => {
-      if(tipo === 'EPP')
-      {
-        listrenor = resp.response;
-         listrenor.forEach((element: { nombre: any; inspeccion: any; }) => {
-                    this.list.push({nombre: element.nombre , inspeccion: element.inspeccion})
-         });
-      }else if(tipo === 'EPCC')
-      {
-        listrenor = resp.response;
-         listrenor.forEach((element: { nombre: any; inspeccion: any; }) => {
-                    this.list.push({nombre: element.nombre , inspeccion: element.inspeccion})
-         });
-      }else if(tipo ==='Herramientas')
-      {
-        listrenor = resp.response;
-         listrenor.forEach((element: { nombre: any; inspeccion: any; }) => {
-                    this.list.push({nombre: element.nombre , inspeccion: element.inspeccion})
-         });
-      }
-      
+  getListEmpleadoPermiso(){
+    this._sistemaGestionService.getListPermisoEmpleado(this._idPermiso).subscribe((resp:any) => {
+        this.listFirmas = resp;
     })
   }
-
-  getPermisoEmpleado()
-  {
-    const data = {
-      id_permiso : this._idPermiso,
-      id_user : this._authService.usuario.id
-    }
-    this._sistemaGestionService.getfirmaFindByIdPermisoAndIdUser(data).subscribe((resp:any) => {
-      
-      if(resp.response[0].firma === null && this.sinFirma != true)
-      {
-        this.buttonFirma = true;
-
-      }
-    })
-  }
-
+ 
+   
   generarToken()
   {  
     this.timeLeft = 120;
@@ -159,36 +119,40 @@ public buttonFirma:boolean =  false;
         id_empresa: this._authService.usuario.id_empresa
     }
     this._sistemaGestionService.generateTokenFirma(data).subscribe((resp:any) => {
-        this.generateToken = true; 
-
-
+   
         //mensage
           this.messageService.add({severity:'success' ,summary:'Confirmación' , detail:'Correo enviado con éxito' });
           /**intervalor 2 minutos */
           this.intervalSusb = this.returnConteo().subscribe((valor) => {
             
              this.timeLeft--;
+
+             if (this.timeLeft === 0) {
+              this.intervalSusb?.unsubscribe();
+              this.item.step_2  = false;
+              this.item.step_1 = true;
+           }
           })
           //
     } , error => {
-      this.messageService.add({severity:'error', summary: 'Error', detail: 'Error enviando token'});
+      this.messageService.add({severity:'error', summary: 'Error', detail: this.errorHandlingService.error.error.response});
     })
   }
 
   validarToken()
   {
     const data = {
-      token : this.token,
+      token : this.form.get('token')?.value,
       id_user : this._authService.usuario.id
     }
     this._sistemaGestionService.validarTokenMail(data).subscribe((resp:any) => {
         this.intervalSusb?.unsubscribe();
-          setTimeout(() => {
+           
             
               this.firmarElectronicamente();
-          }, 2000);
+           
     } , error => {
-      this.messageService.add({severity:'error', summary: 'Error', detail: error.error.response});
+      this.messageService.add({severity:'error', summary: 'Error', detail: this.errorHandlingService.error.error.response});
     })
   }
 
@@ -199,10 +163,25 @@ public buttonFirma:boolean =  false;
       id_empleado : this._authService.usuario.id
     }
     this._sistemaGestionService.firmarElectronicamente(data).subscribe((resp:any) => {
+
       this.messageService.add({severity:'success' ,summary:'Confirmación' , detail: resp.response });
-      this.getPermisoEmpleado();
+
+      this.getListEmpleadoPermiso();
+      this.item.step_1 = false;
+      this.item.step_2 = false;
+      this.item.step_3 = true;
+
+      setTimeout(() => {
+        this.item.step_1 = true;
+        this.item.step_2 = false;
+        this.item.step_3 = false;
+      }, 2000)
+     
     } , error => {
-      this.messageService.add({severity:'error', summary: 'Error', detail: error.error.response});
+      this.item.step_1 = true;
+      this.item.step_2 = false;
+      this.item.step_3 = false;
+      this.messageService.add({severity:'error', summary: 'Error', detail: this.errorHandlingService.error.error.response});
     })
   }
 /////////////////////////
@@ -227,5 +206,25 @@ public buttonFirma:boolean =  false;
       take(120),
       map(valor => {return valor + 1}))
   }
+
+  back() {
+    window.history.back();
+    }
+
+
+    actualizar() {
+      this.getPermiso();
+      this.getListEmpleadoPermiso();
+      this.item = {step_1 : true ,step_2: false , step_3 : false}
+      }
+
+    beningFirmar(_t52: any) {
+
+      this.item.step_1 = false;
+      this.item.step_2 = true;
+
+      this.generarToken();
+      }
+      
 
 }

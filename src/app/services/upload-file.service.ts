@@ -14,10 +14,10 @@ export class UploadFileService {
  
 
   /**carga de Documentos */
-  async uploadFile(file:File , data:any)
+  uploadFile(file:File , data:any)
   {
     const {documento_poliza , documento_fin , documento_inicio,documento_tipo , referencia_id} = data;
-     try {
+      
       const url = `${base_url}seguridad/documento/save`;
 
       const formData = new FormData();
@@ -33,27 +33,10 @@ export class UploadFileService {
       formData.append('referencia_id' , referencia_id);
 
       formData.append('file_uploads' , file);
+ 
+      return this.http.post(url , formData);
 
-      const resp = await fetch( url , {
-        method: 'POST',
-        
-        body: formData
-      });
-
-       if(resp.ok)
-       {
-        return true;
-
-       }else{
-        
-        return false;
-       
-      }
-
-     }catch(error)
-     {
-      return false;
-     }
+      
   }
 
   //consultar url
@@ -84,11 +67,11 @@ export class UploadFileService {
 
       const data = await resp.json();
 
-      console.log(data);
+     // console.log(data);
       return 'hola';
 
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       return false;
     }
   }*/

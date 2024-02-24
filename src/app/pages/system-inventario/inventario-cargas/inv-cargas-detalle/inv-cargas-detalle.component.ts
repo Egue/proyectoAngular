@@ -112,7 +112,7 @@ export class InvCargasDetalleComponent implements OnInit {
 
   delete(item:any)
   {
-    console.log(item);
+    //console.log(item);
   }
 
 }

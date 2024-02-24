@@ -7,6 +7,7 @@ import { UsuariosService } from '../../../services/usuarios.service';
 import { Usuario } from 'src/app/models/usuario.model';
 import { IRole } from 'src/app/interfaces/role.interface';
 import { Rol } from 'src/app/models/role.model';
+import { MessageService } from 'primeng/api';
 
 
 
@@ -14,9 +15,13 @@ import { Rol } from 'src/app/models/role.model';
   selector: 'app-usuarios',
   templateUrl: './usuarios.component.html',
   styles: [
-  ]
+  ],
+  providers:[MessageService]
 })
 export class UsuariosComponent  implements OnInit  {
+  public dialogEdit:boolean = false;
+  public userSelectedDialog :any;
+
   public listUsuario:Usuario[] = [];
   public listUsuarioTemp:Usuario[] = [];
   public total:number = 0;
@@ -29,7 +34,8 @@ export class UsuariosComponent  implements OnInit  {
   
   constructor(
     private usuarioService:UsuariosService,
-    public authService: AuthService
+    public authService: AuthService,
+    private _messageService:MessageService
     ) {
       
     this.cargarRoles();
@@ -148,6 +154,27 @@ export class UsuariosComponent  implements OnInit  {
   {
       this.seletedUser = item.id;
       this.activateEdit = true;
+  }
+
+/////////////////////////////////////////////////////////////////////////////////**** */
+  editUSer(user:any){ 
+    this.dialogEdit = true;
+    this.userSelectedDialog = user;
+
+  }
+
+  actualizarUser()
+  {
+    //console.log(this.userSelectedDialog);
+    this.usuarioService.actualizarUser(this.userSelectedDialog).subscribe((resp:any) => {
+      this.dialogEdit = false;
+      this.userSelectedDialog = "";
+      this._messageService.add({severity:'success' , summary:'Actualizado' , detail:'Actualizado con éxito'})
+    } , (error) => {
+      this.dialogEdit = false,
+      this.userSelectedDialog  = "";
+      this._messageService.add({severity:'error' , summary:'Error' , detail:'Error inesperado'})
+    })
   }
 
 }

@@ -1,8 +1,13 @@
-<p-toast></p-toast>
+<p-toast position="top-center"></p-toast>
 <div class="row">
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
+                 
+                    <button type="button" class="btn btn-danger m-r-10 m-b-10 font-18"  (click)="back()"><i class="mdi mdi-arrow-left-bold"></i></button>
+                    <button type="button" class="btn btn-warning m-r-10 m-b-10" (click)="actualizar()" ><i class="mdi mdi-refresh"></i></button>
+                
+                
                <div class="row">
                 <div class="col-md-6 col-xs-12 col-sm-6 no-padding" *ngIf="infoPermiso"> 
                         <h2 class="text-center">{{infoPermiso.prefijo}} {{infoPermiso.indicativo}}</h2>
@@ -15,28 +20,30 @@
                         </div>
                         <p-accordion>
                             <p-accordionTab header="Empleados">
-                               <ul>
-                                <li *ngFor="let empleado of infoPermiso.empleados; let i = index" (click)="verPreoperacional(i)">
-                                    {{empleado.documento}} / {{empleado.user}}
-                                    <!--<ul class="feeds">
-                                        <li *ngFor="let preoperacional of empleado.preoperacional" [ngClass]="{'hidden-ul': i !== selectedPreoperacional}">
-                                            <div style="width: 100%;">{{preoperacional.nombre}}</div>
-                                            <span class="label label-success label-rounded">Low</span>
-                                        </li>
-                                    </ul>-->
-                                    <table class="table vm font-14 m-b-0">
-                                        <tbody>
-                                            <tr *ngFor="let preoperacional of empleado.preoperacional" [ngClass]="{'hidden-ul': i !== selectedPreoperacional}">
-                                            <td>{{preoperacional.nombre}}</td>
-                                            <td class="text-right font-medium">
-                                                <button pButton pRipple type="button" label="{{preoperacional.inspeccion}}"   [ngClass]="{'p-button-success': preoperacional.inspeccion ==='Bueno', 'p-button-danger':preoperacional.inspeccion !=='Bueno'}"></button>
-                                            </td>
-                                        </tr>
-                                        
-                                         
-                                    </tbody></table>
-                                </li>
-                               </ul>
+                               <div class="card">
+                                <div class="card-body" *ngFor="let empleado of infoPermiso.empleados">
+                                    <div class="d-flex no-block">
+                                        <div>
+                                            <h4 class="card-title"><span class="lstick"></span>{{empleado.user}}</h4>
+                                            <h6 class="card-subtitle">{{empleado.cargo}}</h6></div>
+                                        <div class="ml-auto">
+                                            <button class="pull-right btn   btn-rounded" [ngClass]="{'btn-danger': empleado.firma === null, 'btn-success': empleado.firma != null}"></button>
+                                        </div>
+                                    </div>
+                                    <div class="to-do-widget m-t-20">
+                                        <ul class="list-task todo-list list-group m-b-0">
+                                            <li class="list-group-item" *ngFor = "let preoperacional of empleado.preoperacional">
+                                                <div class="checkbox checkbox-info">
+                                                     
+                                                    <label   class=""> <span>{{preoperacional.nombre}}</span> 
+                                                        <span class="label label-rounded   pull-right" [ngClass]="{'label-success': preoperacional.inspeccion ==='Bueno', 'label-danger':preoperacional.inspeccion !=='Bueno'}">{{preoperacional.tipo}}</span></label>
+                                                </div> 
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                               </div>
+                             
                             </p-accordionTab>
                             <p-accordionTab header="Peligros">
                                <ul>
@@ -52,54 +59,105 @@
                                </ul>
                             </p-accordionTab>
                             <p-accordionTab header="Vehiculos">
-                               <ul>
-                                    <li *ngFor="let vehiculo of infoPermiso.vehiculos; let i = index">
-                                        {{vehiculo.marca_nombre}}/{{vehiculo.vehiculo_placa}}
+                                
+                                   <div class="card">
+                                    <div class="card-body" *ngFor="let vehiculo of infoPermiso.vehiculos">
+                                        <span class="lstick"></span>  {{vehiculo.marca_nombre}}/{{vehiculo.vehiculo_placa}}
 
                                         <table class="table vm font-14 m-b-0">
                                             <tbody>
-                                                <tr *ngFor="let item of vehiculo.inspeccion">
+                                                <tr *ngFor="let item of vehiculo.inspeccion" [ngClass]="{'table-success': item.inspeccion ==='Bueno','table-danger': item.inspeccion != 'Bueno'}">
                                                 <td>{{item.item}}</td>
                                                 <td>{{item.nombre}}</td>
-                                                <td class="text-right font-medium">
-                                                    <button pButton pRipple type="button" label="{{item.inspeccion}}"   [ngClass]="{'p-button-success': item.inspeccion ==='Bueno', 'p-button-danger': item.inspeccion !=='Bueno'}"></button>
-                                                </td>
+                                               
                                             </tr>
                                             
                                              
                                         </tbody></table>
-                                    </li>
-                               </ul>
+                                    </div>
+                                   </div>
+                              
                             </p-accordionTab>
                         </p-accordion>
                 </div>
                 <div class="col-md-6 col-xs-12 col-sm-6 no-padding">
-                    
-                    <!--tocar para activar y enviar token-->
-                     <p-toolbar styleClass="mb-4" *ngIf="!firmar">
-                        <ng-template pTemplate="left">
-                            <button pButton pRipple label="Firmar" icon="pi pi-pencil" class="p-button-success mr-2"  (click)="generateToken()"></button>
-                        </ng-template>
-                
-                         
-                    </p-toolbar> 
-                    <!--FORM DE TOKEN-->
-                    <form class="form-control-line m-t-40" *ngIf="firmar">
-                        <div class="form-group has-success">
-                            <label class="form-control-label" for="success">Ingrese token enviado a {{authService.usuario.email}}</label>
-                            <input type="text" class="form-control form-control-success" id="success" [(ngModel)]="token" [ngModelOptions]="{ standalone: true }">
-                        </div>  
-                        <div class="form-group row">
-                            <label class="form-control-label" >{{timeLeftString}}</label>
-                        </div>       
-                        <div class="form-group m-b-0">
-                            <div class="offset-sm-3 col-sm-9">
-                                
-                                <button type="submit" class="btn btn-info waves-effect waves-light m-t-10" [disabled]="!token" (click)="validarToken()">Validar</button>
+
+                    <div class="card fadeInDown animated" *ngIf="step.step_1">
+                        <div class="card-body">
+                            <div class="d-flex">
+                                <div>
+                                    <h4 class="card-title"><span class="lstick"></span>Firmas permiso</h4>
+                                </div>
+                                <div class="ml-auto">
+                                    <button pButton type="button" label="Cargar" *ngIf="!listFirmas.length" (click)="createDetalleFirmaEmpresa()"></button>
+                                </div>
                             </div>
-                        </div>               
-                    </form>
-                    <!---->
+
+                            <div class="table-responsive m-t-20">
+                                <table class="table vm no-th-brd no-wrap pro-of-month">
+                                    
+                                        <tr *ngFor="let item of listFirmas">
+                                            <td style="width:50px;"><span class="round"><img [src]="item.url_img" alt="user" width="50"></span></td>
+                                            <td>
+                                                <h6>{{item.user}}</h6><small class="text-muted">{{item.updated_at}}</small></td>
+                                             
+                                            <td>
+                                                <div class="" *ngIf="!item.url_firma; else firmado">
+                                                    <button pButton type="button" label="Firmar" (click)="beningFirmar(item)" *ngIf="item.id_user == authService.usuario.id"></button><!---->
+                                                    <span class="label label-warning label-rounded" *ngIf="item.id_user != authService.usuario.id">Pendiente</span>
+                                                </div>
+                                                <ng-template #firmado>
+                                                    
+                                                    <span class="label label-success label-rounded">Firmado</span>
+                               
+                                                </ng-template>
+                                            </td>
+                                        </tr>
+                                         
+                                     
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                     <!--Step 2-->
+                     <div class="card  fadeInDown animated" *ngIf="step.step_2">
+                        <div class="card-body">
+                            <div class="d-flex">
+                                <div>
+                                    <h4 class="card-title"><span class="lstick"></span>Validar Token</h4>
+                                </div>
+                              
+                            </div>
+
+                            <form   class="form-material m-t-40" [formGroup]="formToken" (submit)="validarToken()">
+                                <div class="form-group">
+                                  <span class="help-block text-muted"> <small >Revise su correo para validar el token</small></span>
+                                </div>
+                                 
+                                <div class="form-group"> 
+                                    <input type="text"  class="form-control" placeholder="Token" formControlName="token">
+                                    <span class="help-block text-muted"><small>{{timeLeftString}} , si no llego el token espera que finalice el tiempo y genera uno de nuevo</small></span>
+                                
+                                </div>
+                                <div class="form-group">
+                                    <p-button label="validar" type="submit" icon="pi pi-qrcode" iconPos="right" [disabled]="!this.formToken.valid"></p-button>
+                                </div>
+                                     
+                            </form>
+                        </div>
+                     </div>
+                     <div class="card-fadeInDown animated" *ngIf="step.step_3">
+                        <div class="card-body bg-success">
+                            <div class="d-flex">
+                                <div class="stats">
+                                    <h1 class="text-white">Permiso firmado</h1>
+                                    <h6 class="text-white">ha logrado firmar el permiso electrónicamente, espere hasta que la pantalla cambie</h6>
+                                     
+                                </div>
+                            </div>
+                        </div>
+                     </div>
                 </div>
                 
                </div>

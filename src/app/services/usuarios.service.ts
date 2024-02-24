@@ -152,5 +152,19 @@ export class UsuariosService {
   {
     return this.http.patch(`${base_url}usuarios/datospersonales/updated/${datos.id}` , datos );
   }
+
+  changeImage(imagen:any , idUser:any)
+  {
+    const formData = new FormData();
+
+    formData.append("img" , imagen);
+    formData.append("id_usuario" , idUser);
+
+    return this.http.post(`${base_url}usuarios/imagen/update` , formData);
+  }
+
+  actualizarUser(user:any){
+    return this.http.patch(`${base_url}usuarios/updatedUser/${user.id}` , user);
+  }
   
 }

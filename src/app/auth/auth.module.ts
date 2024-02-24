@@ -6,8 +6,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import { RecoveryComponent } from './recovery/recovery.component';
-
-
+import { ToastModule } from 'primeng/toast'; 
+import {PasswordModule} from 'primeng/password';
+import {InputTextModule} from 'primeng/inputtext';
 @NgModule({
   declarations: [    
     LoginComponent,
@@ -23,7 +24,10 @@ import { RecoveryComponent } from './recovery/recovery.component';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastModule,
+    PasswordModule,
+    InputTextModule
   ]
 })
 export class AuthModule { }

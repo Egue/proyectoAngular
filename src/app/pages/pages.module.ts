@@ -41,6 +41,7 @@ import { EmpresaComponent } from './sistemagestion/empresa/empresa.component';
 import { GeolocalizarComponent } from './contratos/geolocalizar/geolocalizar.component'; 
 import { MessageModule } from 'primeng/message';
 import {CardModule} from 'primeng/card'; 
+import { ToastModule } from 'primeng/toast'; 
 
 @NgModule({
   declarations: [
@@ -60,7 +61,7 @@ import {CardModule} from 'primeng/card';
     RcControlComponent,
     GeneralidadesComponent, 
     EmpresaComponent,
-    GeolocalizarComponent,  
+    GeolocalizarComponent, 
 
   ],
   exports:[
@@ -98,7 +99,8 @@ import {CardModule} from 'primeng/card';
     TabViewModule,
     FieldsetModule, 
     MessageModule, 
-    CardModule
+    CardModule,
+    ToastModule
   ]
 })
 export class PagesModule { }

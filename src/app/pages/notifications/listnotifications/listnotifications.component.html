@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Notificaciones Recientes</h4>
+            </div>
+            <!-- ============================================================== -->
+            <!-- Comment widgets -->
+            <!-- ============================================================== -->
+            <div class="comment-widgets m-b-20">
+                <!-- Comment Row -->
+                <div class="d-flex flex-row comment-row" *ngFor="let item of notifications">
+                    <div class="btn btn-danger btn-circle"><i class="{{item.icon}}"></i></div>
+                    <div class="comment-text w-100">
+                        <h5>{{item.title}}</h5>
+                        <div class="comment-footer">
+                            <span class="date">{{newDate(item)}}</span>
+                            <span class="label label-info cursor" *ngIf="item.estado ==1" (click)="viajara(item)">Pendiente</span> <!--<span class="action-icons"></span>-->
+                            <span class="label label-success" *ngIf="item.estado != 1">visto</span> <!--<span class="action-icons"></span>-->
+                                
+                                    
+                        </div>
+                        <p class="m-b-5 m-t-10">{{item.comentario}}</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>

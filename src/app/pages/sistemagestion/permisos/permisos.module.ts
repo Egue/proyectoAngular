@@ -16,7 +16,9 @@ import { DialogModule } from 'primeng/dialog';
 import { PermisoObservacionComponent } from './permiso-observacion/permiso-observacion.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-
+import {FileUploadModule} from 'primeng/fileupload';
+import {ImageModule} from 'primeng/image';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 @NgModule({
   declarations: [
     ListComponent,
@@ -37,7 +39,10 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     RadioButtonModule,
     KnobModule,
     DialogModule,
-    InputTextareaModule
+    InputTextareaModule,
+    FileUploadModule,
+    ImageModule,
+    ConfirmDialogModule
 
   ]
 })

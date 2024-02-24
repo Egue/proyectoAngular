@@ -7,8 +7,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AccordionModule } from 'primeng/accordion';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
-
-
+import { ToastModule } from 'primeng/toast';
+import {SlideMenuModule} from 'primeng/slidemenu';
 
 @NgModule({
     declarations: [
@@ -22,7 +22,9 @@ import { ButtonModule } from 'primeng/button';
         FormsModule,
         AccordionModule,
         TableModule,
-        ButtonModule
+        ButtonModule,
+        ToastModule, 
+        SlideMenuModule, 
     ]
 })
 export class ElementosProteccionModule { }

@@ -3,19 +3,20 @@
         <div class="card">
             <div class="card-body">
 
-                <div class="btn-group m-b-10 m-r-10" role="group" aria-label="Button group with nested dropdown">
-                    <button type="button" class="btn btn-secondary font-18" (click)="toback()"><i class="mdi mdi-arrow-left-bold"></i></button> 
+                <!--<div class="btn-group m-b-10 m-r-10" role="group" aria-label="Button group with nested dropdown">-->
+                    <button type="button" class="btn btn-danger m-r-10 m-b-10" (click)="toback()"><i class="mdi mdi-arrow-left-bold"></i></button> 
 
-                    <button type="button" class="btn btn-secondary font-18" (click)="openDialog()"><i class="mdi mdi-plus-box"></i></button>
+                    <button type="button" class="btn btn-primary m-r-10 m-b-10" (click)="openDialog()"><i class="mdi mdi-plus-box"></i></button>
+                    <button type="button" class="btn btn-warning m-r-10 m-b-10" (click)="refresh()"><i class="mdi mdi-refresh"></i></button>
                     
                     <!--<button type="button" class="btn btn-secondary font-18"><i class="mdi mdi-delete"></i></button> -->
-                </div> 
+                
                 <!--<button type="button " class="btn btn-secondary m-r-10 m-b-10"><i class="mdi mdi-reload font-18"></i></button>-->
                 <!--<div class="btn-group m-b-10" role="group">
                     <button id="btnGroupDrop1" type="button" class="btn m-b-10 btn-secondary font-18 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> More </button>
                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;"> <a class="dropdown-item" href="#">Mark as all read</a> <a class="dropdown-item" href="#">Dropdown link</a> </div>
                 </div>-->
-            
+            <h6 class="card-subtitle">Usar <i class="mdi mdi-plus-box"></i> para agregar un vehiculo y adicionar el conductor, si desea agregar mas integrantes dirijase a integrantes en las opciones del permiso</h6>
             </div>
 
 
@@ -149,7 +150,8 @@
             </div>
             <div class="field">
                 <label for="conductor">Conductor</label>
-                <p-autoComplete [suggestions]="listConductor" (completeMethod)="searchConductor($event)" field="user" [minLength]="3" (onSelect)="onChangeCoductor($event)"></p-autoComplete>
+                <!--<p-autoComplete [suggestions]="listConductor" (completeMethod)="searchConductor($event)" field="user" [minLength]="3" (onSelect)="onChangeCoductor($event)"></p-autoComplete>-->
+                <p-dropdown [options]="listConductor"   optionLabel="user" optionValue="id"  placeholder="Seleccione el conductor" (onChange)="onChangeCoductor($event)"></p-dropdown>
             </div>
         </form>
               <br><br>

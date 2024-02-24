@@ -5,14 +5,20 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 import Swal from 'sweetalert2';
 import {AccordionModule} from 'primeng/accordion';
 import { SistemaGestionService } from 'src/app/services/sistema-gestion.service';
+import { ErrorHandlingService } from 'src/app/services/error-handling.service';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.component.html',
   styles: [
-  ]
+  ],
+  providers:[MessageService]
 })
 export class PerfilComponent implements OnInit {
  
+  public imgTemp:any = "";
+
+  public imagen?:any;
 
   public formKeys = this.fb.group({
     public_key:['' , Validators.required],
@@ -23,7 +29,12 @@ export class PerfilComponent implements OnInit {
     password: ['' , [Validators.required , Validators.minLength(8)]]
   });
 
-  constructor(public auth:AuthService , private usuarioService:UsuariosService , public fb:FormBuilder , private sistemaGestionService:SistemaGestionService) { }
+  constructor(public auth:AuthService , 
+    private usuarioService:UsuariosService , 
+    public fb:FormBuilder , 
+    private sistemaGestionService:SistemaGestionService , 
+    private errorHandlingService:ErrorHandlingService , 
+    private messageService: MessageService) { }
 
   ngOnInit(): void { 
     this.getFindKeyById();
@@ -98,13 +109,37 @@ export class PerfilComponent implements OnInit {
   { 
       this.sistemaGestionService.getVehiculosFindByIdusuario(this.auth.usuario.id)
                       .subscribe((resp:any) => {
-                        console.log(resp);
+                       // console.log(resp);
                       })
   }
 
-  image($event:any)
+  imageChange(file:any)
   {
-     console.log($event.target.files[0])
+     //console.log($event.target.files[0])
+     
+     if(!file.target.files[0]){
+        this.imgTemp = null;
+     }else
+     { 
+     this.imagen =  file.target.files[0];
+     const reader = new FileReader();
+
+     const url64 = reader.readAsDataURL(this.imagen);
+
+     reader.onload = () => {
+      this.imgTemp = reader.result
+     }
+    }
   }
+
+  uploadImagen()
+  {
+      this.usuarioService.changeImage(this.imagen , this.auth.usuario.id).subscribe( () => {
+
+      }  , () => {
+        this.messageService.add({severity:'error' , summary:'Actualizando imagen' , detail: this.errorHandlingService.error.error.response})
+      });
+  }
+
 
 }

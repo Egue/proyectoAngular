@@ -136,10 +136,8 @@ export class EmpleadosComponent implements OnInit {
   {
     if(this.permiso > 0)
     {
-      this.loading = true;
       this.sistemaGestionService.getListPermisoEmpleado(this.permiso)
                 .subscribe(resp => {
-                  this.loading = false;
                   this.listEmpleadoPermiso = resp;
                 })
     }

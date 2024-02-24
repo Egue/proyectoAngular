@@ -2,20 +2,51 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <div class="btn-group m-b-10 m-r-10" role="group" aria-label="Button group with nested dropdown">
+                
                     
-                    <button type="button" class="btn btn-secondary font-18"   ><i class="mdi mdi-plus-box"></i></button>
-                     
+                    <button type="button" class="btn btn-danger m-r-10 m-b-10" (click)="back()"  ><i class="mdi mdi-arrow-left-bold"></i></button>
+                    <button type="button" class="btn btn-warning m-r-10 m-b-10" (click)="actualizar()" ><i class="mdi mdi-refresh"></i></button>
+                    
                   
-                </div>
-                <ul class="list-unstyled mt-5">
+                
+                <h6 class="card-subtitle">Usar <i class="pi pi-image"></i> para cargar imagenes al permiso de trabajo, <i class="pi pi-send"></i> agregar observaciones, se activa cuando empieza a escribir en la caja de texto.</h6>
+                <!--<ul class="list-unstyled mt-5">
                     <li class="d-flex align-items-start" *ngFor="let item of listObservaciones">
                         <div class="media-body">
                             <h5 class="mt-0 mb-1">{{item.user}}</h5>
                             <span class="badge bg-danger">{{item.created_at}}</span> 
-                            {{item.observacion}} 
+                            <div *ngIf="item.observacion==null;else observacion">
+                                    <img [src]="url(item)" alt="">
+                            </div>
+                            <ng-template #observacion>
+                                {{item.observacion}}
+                            </ng-template>
+                            
+                            
                         </div>
                         <hr>
+                    </li>
+                </ul>-->
+                <ul class="timeline">
+                    <li *ngFor="let item of listObservaciones" [ngClass]="class(item)">
+                        <div class="timeline-badge success">
+                            <img class="img-responsive" alt="user" [src]="img(item)"> 
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="timeline-title">{{item.user}}</h4>
+                                <p><small class="text-muted"><i class="fa fa-clock-o"></i> <span class="badge bg-danger">{{item.created_at}}</span> </small> </p>
+                            </div>
+                            <div class="timeline-body" >
+                                <div *ngIf="item.observacion==null;else observacion">
+                                     
+                                    <p-image [src]="url(item)" alt="Image" width="100%" [preview]="true"></p-image>
+                                </div>
+                                <ng-template #observacion>
+                                   <p> {{item.observacion}}</p>
+                                </ng-template>
+                            </div>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -35,7 +66,8 @@
                           <div class="ml-auto">
                             <!--<button class="pull-right btn btn-circle btn-success" data-toggle="modal" data-target="#myModal"><i class="ti-plus"></i></button>-->
                             <button pButton pRipple icon="pi pi-send" class="pull-right p-button-rounded p-button-primary" [disabled]="!text.length" (click)="validar()"></button>
-                            <button pButton pRipple icon="pi pi-image" class="p-button-rounded p-button-secondary" (click)="tomarFoto()"></button>
+                            <!--<button pButton pRipple icon="pi pi-image" class="p-button-rounded p-button-secondary" (click)="tomarFoto()"></button>-->
+                            <p-fileUpload #fubauto   mode="basic" name="demo[]" [customUpload]="true"  accept="image/*"   (onSelect)="onBasicUploadAuto($event.files[0] , fubauto)" [auto]="true" chooseIcon ="pi pi-image"></p-fileUpload>
                         </div>
                     </div>
                   
@@ -45,6 +77,4 @@
     </div>
 </div>
 
-
-<video #videoElement></video>
-<canvas #canvasElement></canvas>
+ 

@@ -30,7 +30,8 @@ export class FirmaConfiguracionComponent implements OnInit {
 
   _tipo:any[] = [
     {tipo : "APROBÓ" , value:'aprobo'},
-    {tipo : "REVISIÓN SST" , value: 'revisostt'}
+    {tipo : "REVISIÓN SST" , value: 'revisostt'},
+    {tipo: "COORDINADOR ALTURAS" , value: 'coordaltura'}
   ];
 
   _usuarios:any[] = [];
@@ -142,7 +143,7 @@ formFirma = this.fb.group({
       this.loading = true;
       this._sistemgestionService.firmasGetFindByEmpresa(this.selectedEmpresa.id_empresa).subscribe((resp:any) => {
         this.listFirmas = resp.response;
-        console.log(resp.response)
+       // console.log(resp.response)
         this.loading = false;
       } , error => {
         this.loading =  false;

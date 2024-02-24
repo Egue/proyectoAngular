@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="row">
     <div class="col-md-6">
         <div class="card">
@@ -30,10 +31,20 @@
             <div class="card-body">
                 <h4 class="card-title">Avatar</h4>
                 <h6 class="card-subtitle">Imagen de usuario</h6>
-                <img src="" alt="">
-                <input type="file" (change)="image($event)">
+                <div class="little-profile text-center">
+                    <div class="pro-img m-t-20">
+                        <img [src]="auth.usuario.imagenUrl" alt="" *ngIf="!imgTemp">
+                        <img [src]="imgTemp" alt="" *ngIf="imgTemp">
+                    </div>
+                </div>
+                
+                <input type="file" (change)="imageChange($event)" />
                 <br>
-                <button type="button" class="btn btn-success btn-block waves-effect waves-light m-r-10"><i class="fa fa-save"></i> Cambiar imagen</button>
+                <button type="button" 
+                class="btn btn-success btn-block waves-effect waves-light m-r-10"
+                *ngIf="imgTemp"
+                (click) ="uploadImagen()"
+                ><i class="fa fa-save"></i> Cambiar imagen</button>
                   
             </div>
         </div>

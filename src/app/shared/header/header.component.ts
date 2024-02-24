@@ -13,6 +13,7 @@ export class HeaderComponent {
   public nameUser:string | null;
   public emailUser:string | null;*/
   public usuario:Usuario;
+  public notifications:boolean = false;
 
   constructor(private authService:AuthService) { 
     /*this.imgUrl = authService.usuario?.imagenUrl  || `https://apps.internetinalambrico.com.co/Files/usuarios/${sessionStorage.getItem('img')}`;

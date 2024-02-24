@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Select } from '../../common/select-models';
@@ -12,49 +12,42 @@ const url_base = '/repositories/backend_jwt_3_slim/public/';
 })
 export class VehiculoServiceService {
 
+  private headers = new HttpHeaders().set('X-Skip-Loading', 'true');
+  private options = { headers: this.headers };
+
   constructor(private http:HttpClient) { }
-
-  get token():string
-  {
-    return localStorage.getItem('jwt') || '';
-  }
-
-  get headers()
-  {
-    return { 
-      headers: {'Authorization' : 'Bearer ' + this.token}
-    }
-  }
+ 
+ 
 
   vehiculoList(id_empresa: number)
   {
-    return this.http.get(`${url_base}seguridad/vehiculo/listFindByEmpresa/${id_empresa}` , this.headers);
+    return this.http.get(`${url_base}seguridad/vehiculo/listFindByEmpresa/${id_empresa}`  );
   }
 
   save(vehiculo:any)
   {
-    return this.http.post(`${url_base}seguridad/vehiculo/save` , vehiculo , this.headers);
+    return this.http.post(`${url_base}seguridad/vehiculo/save` , vehiculo  );
   }
 
   updated(vehiculo:any)
   {
      
-    return this.http.patch(`${url_base}seguridad/vehiculo/updated/${vehiculo.vehiculo_id}` , vehiculo , this.headers);
+    return this.http.patch(`${url_base}seguridad/vehiculo/updated/${vehiculo.vehiculo_id}` , vehiculo  );
   }
 
   delete(id_vehiculo:any)
   {
-    return this.http.delete(`${url_base}seguridad/vehiculo/delete/${id_vehiculo}` , this.headers);
+    return this.http.delete(`${url_base}seguridad/vehiculo/delete/${id_vehiculo}`  );
   }
 
   findById(id:any)
   {
-    return this.http.get(`${url_base}seguridad/vehiculo/findById/${id}` , this.headers);
+    return this.http.get(`${url_base}seguridad/vehiculo/findById/${id}`  );
   }
 
   usuarioSelect(id:number)
   {
-    return this.http.get(`${url_base}usuarios/findByIdempresa/${id}` , this.headers)
+    return this.http.get(`${url_base}usuarios/findByIdempresa/${id}`  )
               .pipe(
                 map( (resp:any) => {
                   const usuarios = resp.response.map(
@@ -67,12 +60,12 @@ export class VehiculoServiceService {
 
   listDocumentoTipo(data:any)
   {
-      return this.http.post(`${url_base}seguridad/documento/findByTipo` , data , this.headers);
+      return this.http.post(`${url_base}seguridad/documento/findByTipo` , data  );
   }
 
   findByEmpresaAndPlaca(data:any)
   {
-    return this.http.post<any>(`${url_base}seguridad/vehiculo/findByEmpresaAndPlaca` , data ,  this.headers)
+    return this.http.post<any>(`${url_base}seguridad/vehiculo/findByEmpresaAndPlaca` , data , this.options )
     .pipe(
        map(resp => {
           const vehiculos = resp.response.map(
@@ -94,23 +87,27 @@ export class VehiculoServiceService {
 
   disctGeneralidades(item:any)
   {
-    return this.http.get(`${url_base}seguridad/vehiculoGeneralidades/disctItem/${item}` , this.headers);
+    return this.http.get(`${url_base}seguridad/vehiculoGeneralidades/disctItem/${item}`  );
   }
 
   findByNameGeneralidadesVehiculos(item:any)
   {
-    return this.http.post(`${url_base}seguridad/vehiculoGeneralidades/findByNameGeneralidadesVehiculos` , item , this.headers);
+    return this.http.post(`${url_base}seguridad/vehiculoGeneralidades/findByNameGeneralidadesVehiculos` , item  );
   }
 
   editVehiculoGeneralides(item:any)
   {
-    return this.http.patch(`${url_base}seguridad/vehiculoGeneralidades/editInspeccion/${item.vehiculo_generalidades_id}` , item , this.headers);
+    return this.http.patch(`${url_base}seguridad/vehiculoGeneralidades/editInspeccion/${item.vehiculo_generalidades_id}` , item  );
   }
 
   deletePermisosVehiculos(item:any)
   {
-    return this.http.delete(`${url_base}seguridad/permisosVehiculos/delete/${item.permiso_vehiculo_id}` , this.headers);
+    return this.http.delete(`${url_base}seguridad/permisosVehiculos/delete/${item.permiso_vehiculo_id}`  );
   }
+
+
+  //buscar empleados para manejar por permiso de trabajo
+  
 
  
 

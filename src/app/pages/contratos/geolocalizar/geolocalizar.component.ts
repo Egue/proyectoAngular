@@ -42,11 +42,11 @@ export class GeolocalizarComponent implements OnInit {
  whatchPosition()
  {
     let id = navigator.geolocation.watchPosition((position) => {
-      console.log(`Lat: ${position.coords.latitude} , long: ${position.coords.longitude}`);
+      //console.log(`Lat: ${position.coords.latitude} , long: ${position.coords.longitude}`);
       this.latitud = position.coords.latitude;
       this.longitud = position.coords.longitude;
     }, (err) => {
-      console.log(err);
+      //console.log(err);
     } , {
       enableHighAccuracy: true,
       timeout: 5000,
@@ -172,7 +172,7 @@ export class GeolocalizarComponent implements OnInit {
                               })
                             }
                           } , (error) => {
-                            console.log(error)
+                            //console.log(error)
                             Swal.fire({
                               icon: 'error',
                               title: 'Oops...',

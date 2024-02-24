@@ -38,7 +38,7 @@ export class InvCargasListComponent implements OnInit {
  
     this.inventarioCargaService.inventarioCargaFindBetween(data).subscribe((resp:any) => {
       this.listIngreso = resp.response;
-      console.log(this.listIngreso);
+      //console.log(this.listIngreso);
       this.loading = false;
     }, error => {
       this.loading = false;

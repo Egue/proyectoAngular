@@ -1,15 +1,20 @@
 <div class="row">
     
     <div class="col-md-12">
-        <div class="card"> <div class="btn-group m-b-10 m-r-10" role="group" aria-label="Button group with nested dropdown">
-            <button type="button" class="btn btn-secondary font-18" (click)="back()"><i class="mdi mdi-arrow-left-bold"></i></button>
+        <div class="card"> 
+            <div class="card-body">
+                <button type="button" class="btn btn-danger m-r-10 m-b-10" (click)="back()"><i class="mdi mdi-arrow-left-bold"></i></button>
             
-            <button type="button" class="btn btn-secondary font-18" (click)="openModalPeligros()"><i class="mdi mdi-plus-box"></i></button>
-        </div> 
+                <button type="button" class="btn btn-primary m-r-10 m-b-10" (click)="openModalPeligros()"><i class="mdi mdi-plus-box"></i></button>
+         
+                <h6 class="card-subtitle">Usar <i class="mdi mdi-arrow-left-bold"></i> para regresar  , <i class="mdi mdi-plus-box"></i> permite visualizar las categorias de peligros , elija la que considere va encontrar en su labor </h6>
+                
+            </div>
+            
            
             <div class="card-body" *ngFor="let item of listPermisoPeligro">
                 
-                <h4 class="card-title">
+               <h4 class="card-title">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="deletePermisoPeligro(item)"> <span aria-hidden="true">×</span> </button>
                     <span class="lstick"></span>
                     {{item.peligro_nombre}}

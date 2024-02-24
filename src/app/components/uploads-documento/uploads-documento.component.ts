@@ -7,6 +7,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Message, MessageService } from 'primeng/api';
 import { UploadFileService } from 'src/app/services/upload-file.service';
+import { TestBed } from '@angular/core/testing';
 
 @Component({
   selector: 'app-uploads-documento',
@@ -73,10 +74,12 @@ export class UploadsDocumentoComponent implements OnInit {
       this.editForm.get('documento_fin')?.setValue(this.pipe.transform(fin , 'yyyy-MM-dd'));
       this.messageError = false;
 
-      this.uploadFileService.uploadFile(file, this.editForm.value).then(resp => {
-        if(resp)
+      this.uploadFileService.uploadFile(file, this.editForm.value).subscribe((resp:any) => {
+        this.closeModal();
+      }, error => {
+        if(TestBed)
         {
-          this.closeModal();
+          console.log(error);
         }
       })
     }

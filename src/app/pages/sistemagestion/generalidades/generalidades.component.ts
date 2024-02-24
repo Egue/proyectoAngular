@@ -54,14 +54,14 @@ export class GeneralidadesComponent implements OnInit {
   {
     this.sistemaGestionService.getlistEmpresa().subscribe((resp:any) => {
       this.listEmpresa = resp.response;
-      console.log(this.listEmpresa);
+      //console.log(this.listEmpresa);
     })
   }
   save()
   {
     //this.formGeneralidad.get("id_empresa")?.setValue(this.authService.usuario.id_empresa); 
     if(this.formGeneralidad.valid){
-      console.log(this.formGeneralidad.value);
+      //console.log(this.formGeneralidad.value);
       this.sistemaGestionService.generalidadesSave(this.formGeneralidad.value)
                                           .subscribe((resp:any) => {
                                             if(resp.success)

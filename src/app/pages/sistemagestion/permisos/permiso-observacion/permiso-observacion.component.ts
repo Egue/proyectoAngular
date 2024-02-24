@@ -1,9 +1,9 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component,  ElementRef,  OnInit,     } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { PermisoService } from '../services/permiso.service';
 import { DatePipe } from '@angular/common';
-import { stream } from 'xlsx';
+import { ErrorHandlingService } from 'src/app/services/error-handling.service';
 
 @Component({
   selector: 'app-permiso-observacion',
@@ -13,9 +13,10 @@ import { stream } from 'xlsx';
 })
 export class PermisoObservacionComponent implements OnInit {
 
-  @ViewChild('videElement') videoElement:ElementRef | undefined;
-  @ViewChild('canvasElement') canvasElement:ElementRef | undefined;
 
+
+
+   
 
   public text:any = "";
 
@@ -25,9 +26,11 @@ export class PermisoObservacionComponent implements OnInit {
 
   public listObservaciones:any[] = [];
 
+  public error:any = "";
+ 
 
-
-  constructor(private authService:AuthService , private activateRoute:ActivatedRoute , private permisoService:PermisoService) { }
+  constructor( 
+    private authService:AuthService , private activateRoute:ActivatedRoute , private permisoService:PermisoService , private errorHandlingService:ErrorHandlingService) { }
 
   ngOnInit(): void {
       this.activateRoute.data.subscribe(({observacion}) => {
@@ -49,6 +52,7 @@ export class PermisoObservacionComponent implements OnInit {
       }
       this.permisoService.observacionSave(obs).subscribe((resp:any) => {
         this.text = "";
+        this.getObservaciones();
       })
     }
   }
@@ -65,27 +69,51 @@ export class PermisoObservacionComponent implements OnInit {
 
       })
 
-      console.log(this.listObservaciones);
+      
+ 
     })
   }
 
 
-  tomarFoto()
+  onBasicUploadAuto(file:File , form:any) {
+           
+      form.clear();
+      const data = {
+        id_permiso : this._idPermiso,
+        id_usuario : this.authService.usuario.id
+      }
+      this.permisoService.observacionImage(data ,file  ).subscribe((resp:any) => {
+        this.getObservaciones();
+      }, error => {
+          //console.log(this.errorHandlingService.error.error.response)
+      })
+    }
+
+  url(item:any):string
   {
-    const video = this.videoElement?.nativeElement;
-    
-    const canvas = this.canvasElement?.nativeElement;
-
-    navigator.mediaDevices.getUserMedia({video:true}).then((stream) => {
-      video.srcObject = stream
-      video.play();
-
-      const context = canvas.getContext('2d');
-      context.drawImage(video , 0 , 0 , canvas.width , canvas.height);
-    })
-    .catch((error) => {
-      console.log('Error al acceder a la cámara' , error)
-    })
+    return `https://internetinalambrico.com.co/apps/Files/permisos/${item.id_permiso}/${item.url_img}`
   }
 
+  class(item:any):string
+  {
+    if(item.observacion == null)
+    {
+      return `timeline-inverted`;
+    }
+    return "";
+  }
+
+  img(item:any):string
+  {
+    return `https://apps.internetinalambrico.com.co/Files/profile/${item.photo}`
+  }
+
+ 
+  back() {
+   window.history.back();
+    }
+
+    actualizar() {
+      this.getObservaciones();
+      }
 }

@@ -17,7 +17,7 @@ export class Usuario {
 
     get imagenUrl()
     {
-        const base = 'https://apps.internetinalambrico.com.co/Files/usuarios';
+        const base = 'https://apps.internetinalambrico.com.co/Files/profile';
         return `${base}/${this.url_img}`;
     }
 }

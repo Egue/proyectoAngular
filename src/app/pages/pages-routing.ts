@@ -49,6 +49,8 @@ const routes:Routes = [
     {path:'permisoInspeccion' , loadChildren:()=>import('./sistemagestion/permiso-vehiculo/permiso-vehiculo.module').then(m=>m.PermisoVehiculoModule)},
     {path:'generate-pdf' , loadChildren:()=>import('./sistemagestion/generate-pdf/generate-pdf.module').then(m=>m.GeneratePdfModule)},
     {path:'firmas' , loadChildren:()=>import('./sistemagestion/firma/firma.module').then(m=>m.FirmaModule)},
+    {path:'permisoReportes' , loadChildren:()=>import('./sistemagestion/permiso-reportes/permiso-reportes.module').then(m=>m.PermisoReportesModule)},
+
     {path:'usuarios'    , loadChildren:() => import('./usuarios/usuarios.module').then(m => m.UsuariosModule)},     
 
     {path: 'geolocalizacion' , component: GeolocalizacionComponent , data:{titulo:'Geolocalizacion'}},
@@ -57,6 +59,9 @@ const routes:Routes = [
     {path: 'sprecaudo' , component: SpRecaudoComponent , data:{titulo:'Recaudo Supergiros'}},
 
     {path: 'merkasrc' , component:RcControlComponent , data:{titulo: 'Recibos Caja -> Merkas'}},
+
+    //notifications
+    {path: 'notifications' , loadChildren:() => import('./notifications/notifications.module').then(m => m.NotificationsModule)},
     
     //system de archivo
 

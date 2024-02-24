@@ -23,6 +23,7 @@ import {SelectButtonModule} from 'primeng/selectbutton';
 import {ButtonModule} from 'primeng/button';
 import {  RouterModule } from '@angular/router';
 import { DrawComponent } from './draw/draw.component';  
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { DrawComponent } from './draw/draw.component';
     AutoCompleteModule,
     SelectButtonModule,
     ButtonModule,
-    RouterModule
+    RouterModule,
+    DropdownModule
   ]
 })
 export class ComponetsModule { }

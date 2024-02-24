@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/auth/auth.service';
 import { SistemaGestionService } from 'src/app/services/sistema-gestion.service';
 import Swal from 'sweetalert2';
@@ -13,9 +13,11 @@ import { ErrorHandlingService } from 'src/app/services/error-handling.service';
   templateUrl: './list.component.html',
   styles: [
   ],
-  providers: [MessageService]
+  providers: [MessageService , ConfirmationService]
 })
 export class ListComponent implements OnInit {
+
+
 
 
   public value2:number = 50;
@@ -63,7 +65,8 @@ export class ListComponent implements OnInit {
     private fb:FormBuilder ,
     private sistemaGestionService:SistemaGestionService , 
     private _messageService:MessageService ,
-    private errorhandlingService : ErrorHandlingService) { }
+    private errorhandlingService : ErrorHandlingService ,
+    private confirmationService:ConfirmationService) { }
 
 
   ngOnInit(): void {
@@ -73,26 +76,7 @@ export class ListComponent implements OnInit {
 
   getListPermisos()
   {
-  //if(this.authService.usuario.role == 'ADMIN_ADMIN' || this.authService.usuario.role =='ADMIN_ST')
-   
-  /*if(this.authService.usuario.role == 'ADMIN_ADMIN')
-    {
-      this.permisoService.findByIdEmpresa(this.authService.usuario.id_empresa).subscribe((resp:any) => {
-        this.listPermisos = resp.response;
-         
-        //console.log(resp);
-      } , error => {
-        console.log(error);
-      })
-      
-    }else{
-      //consultar por id de usuario
-      this.permisoService.findByIdUsuarioActive(this.authService.usuario.id).subscribe((resp:any) => {
-        this.listPermisos = resp.response;
-         
-         
-      })
-    }*/
+  
     const filter = {
       id_user : this.authService.usuario.id,
       estado : "",
@@ -100,9 +84,10 @@ export class ListComponent implements OnInit {
     }
     this.permisoService.findByIdUsuarioActive(filter).subscribe((resp:any) => {
       this.listPermisos = resp.response;
-      console.log(resp.response)
+      //console.log(resp.response)
+       
     } , error => {
-        console.log(this.errorhandlingService.error);
+        //console.log(this.errorhandlingService.error);
     })
 
 
@@ -163,7 +148,7 @@ export class ListComponent implements OnInit {
                     this.getListPermisos();
 
         } , error => {
-                  this._messageService.add({severity:'error' , summary:'Error' , detail:error.error.response})
+          this._messageService.add({severity:'error' , summary:'Error' , detail:this.errorhandlingService.error.error.response})
         })
       }
   }
@@ -181,12 +166,7 @@ export class ListComponent implements OnInit {
                           .subscribe((resp:any) => {
                             this.listTipoTrabajo = resp.response;
                           } , error => {
-                            Swal.fire(
-                              
-                              'Error inesperado',
-                              `${error.error.response}`,
-                              'error'
-                            )
+                            this._messageService.add({severity:'error' , summary:'Error' , detail:this.errorhandlingService.error.error.response})
                           })
   }
 
@@ -211,11 +191,7 @@ export class ListComponent implements OnInit {
           )
         }, error => {
 
-          Swal.fire(
-            'Error inesperado',
-            `${error.error.response}`,
-            'error'
-          )
+          this._messageService.add({severity:'error' , summary:'Error' , detail:this.errorhandlingService.error.error.response})
 
         })
        
@@ -247,7 +223,7 @@ export class ListComponent implements OnInit {
           this.closeFilter();
           this.formSearch.reset();
         } , error => {
-            console.log(this.errorhandlingService.error);
+          this._messageService.add({severity:'error' , summary:'Error' , detail:this.errorhandlingService.error.error.response})
           this.closeFilter();
           this.formSearch.reset();
         })
@@ -255,6 +231,51 @@ export class ListComponent implements OnInit {
       }
       
     }
+
+    validarLlenado(permiso: any) {
+
+          const empleados:any[] = permiso.empleados;
+
+          let deshabilitar = true;
+
+          empleados.forEach(element => {
+
+              if(element.id_user == this.authService.usuario.id)
+              {
+                deshabilitar = false;
+              }
+          });
+
+          return deshabilitar;
+      }
+
+
+      actualizar() {
+        this.getListPermisos();
+        }
       
+
+        cerrarPermiso(permiso: any) {
+          console.log(permiso);
+            this.confirmationService.confirm({
+              message: 'Desea cerrar el permiso de trabajo?',
+              header:'Eliminar Permiso' , 
+              acceptLabel: 'Si' ,
+              accept: () => {
+                  this.cerrar(permiso.id_permiso);
+
+              }
+            })
+          }
+
+          cerrar(id:any)
+          { 
+              this.permisoService.cerrarPermiso(id).subscribe(() => {
+                this.actualizar();
+              } , () => {
+                console.log(this.errorhandlingService.error.error)
+              })
+          }
+
 
 }

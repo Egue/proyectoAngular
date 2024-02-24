@@ -15,6 +15,7 @@ import {DropdownModule} from 'primeng/dropdown';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {InputTextModule} from 'primeng/inputtext';
 import {ToastModule} from 'primeng/toast';
+import { DialogModule } from 'primeng/dialog';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import {ToastModule} from 'primeng/toast';
     DropdownModule,
     InputNumberModule,
     InputTextModule,
-    ToastModule
+    ToastModule,
+    DialogModule
 
   ]
 })

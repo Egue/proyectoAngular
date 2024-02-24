@@ -11,7 +11,7 @@ const elementosRoute:Routes = [
         resolve: {
             permiso: ProteccionRoutingResolveService,
         },
-        data:{titulo: 'Elementos de protección'}
+        data:{titulo: 'Preoperacional'}
 
     }
 ];

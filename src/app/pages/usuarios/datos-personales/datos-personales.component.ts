@@ -35,7 +35,8 @@ export class DatosPersonalesComponent   {
     id_user:'',
     tipo_documento:['', Validators.required],
     documento: ['' , [Validators.required , Validators.minLength(8)]],
-    cargo:['', [Validators.required  , Validators.minLength(5)]]
+    cargo:['', [Validators.required  , Validators.minLength(5)]],
+    celular:''
   });
   constructor(private usuariosService:UsuariosService, private fb:FormBuilder , private messageService:MessageService) {
     //this.idUser =  this.route.snapshot.params['id'];
@@ -57,34 +58,41 @@ export class DatosPersonalesComponent   {
           this.updatedForm(resp.response[0]); 
          }
       }, error => {
-        console.log(error.error['trace'])
+        //console.log(error.error['trace'])
       })
   }
 
   onSave()
   {
+    //console.log(this.formDatos.value);
     if(this.formDatos.get('id')?.value)
     {
-      this.usuariosService.updatedDatosPersonales(this.formDatos.value).subscribe((resp:any) => {
-        this.messageService.add({severity:'success' , summary:'Guardar' , detail:'Datos actualizados'})
-              this.getDatosFindById();
-      }, error => {
-        this.messageService.add({severity:'error' , summary:'Error' , detail:error.error})
-      } )
+      this.usuariosService.updatedDatosPersonales(this.formDatos.value).subscribe({
+        next: () =>{
+          this.messageService.add({severity:'success' , summary:'Guardar' , detail:'Datos actualizados'});
+          this.getDatosFindById();
+        },
+        error:(error) => {
+          this.messageService.add({severity:'error' , summary:'Error' , detail:error.error});
+        }
+      })
+      
     }else{
       this.formDatos.get('id_user')?.setValue(this.usuario);
     
       if(this.formDatos.valid)
       {
-        this.usuariosService.saveDatosPersonales(this.formDatos.value).subscribe((resp:any) =>{
-
-              this.messageService.add({severity:'success' , summary:'Guardar' , detail:'Datos almacenados'})
-              this.getDatosFindById();
-        },  error => {
-          this.messageService.add({severity:'error' , summary:'Error' , detail:error.error})
-        }
-
-        )}
+        this.usuariosService.saveDatosPersonales(this.formDatos.value).subscribe({
+          next: () => {
+            this.messageService.add({severity:'success' , summary:'Guardar' , detail:'Datos almacenados'})
+             this.getDatosFindById();
+          },
+          error : (error) => {
+            this.messageService.add({severity:'error' , summary:'Error' , detail:error.error})
+          }
+        })
+        
+      }
     }
   }
 

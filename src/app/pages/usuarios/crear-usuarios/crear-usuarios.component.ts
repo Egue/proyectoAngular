@@ -28,8 +28,8 @@ public listEmpresa:any[] = [];
   }
 
   register(){
-    console.log(this.registerFormUsuario.value)
-    /*this.usuarioService.register(this.registerFormUsuario.value)
+    //console.log(this.registerFormUsuario.value)
+    this.usuarioService.register(this.registerFormUsuario.value)
                         .subscribe((response) => {
                           //Swal.fire('Creado con Éxito' , response.response , 'success');
                           //if(response?.success)
@@ -41,7 +41,7 @@ public listEmpresa:any[] = [];
                     
                         },  (err) => {
                           Swal.fire('Error' , err.error.response , 'error');
-                        });*/
+                        });
   }
 
   getEmpresa()

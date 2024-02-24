@@ -3,10 +3,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/auth/auth.service';
 import { PermisoVehiculoService } from 'src/app/pages/sistemagestion/permisos/services/permiso-vehiculo.service';
-import { VehiculoServiceService } from 'src/app/pages/sistemagestion/vehiculos/services/vehiculo-service.service';
-import {UsuariosService} from 'src/app/services/usuarios.service';
-import Swal from 'sweetalert2';
+import { VehiculoServiceService } from 'src/app/pages/sistemagestion/vehiculos/services/vehiculo-service.service'; 
 import { IVehiculoDrop } from './vehiculoQuery.model';
+import { MessageService } from 'primeng/api';
 
  
 
@@ -14,10 +13,11 @@ import { IVehiculoDrop } from './vehiculoQuery.model';
   selector: 'app-moto-svg',
   templateUrl: './moto-svg.component.html',
   styles: [
-  ]
+  ],
+  providers:[MessageService]
 })
 export class MotoSvgComponent implements OnInit {
- 
+
 
  @Input() public lugarTrabajo:string = "";
  @Input() public permiso:any = 0;
@@ -36,6 +36,7 @@ export class MotoSvgComponent implements OnInit {
  public listVehiculos:IVehiculoDrop[] = []; 
 //conductor
 public listConductor:any[] = [];
+
  public editForm = this.fb.group({
     id_empresa:['' , Validators.required],
     permiso_id:['', Validators.required],
@@ -56,27 +57,30 @@ public listConductor:any[] = [];
     private fb:FormBuilder, 
     private authService:AuthService, 
     private permisoVehiculoService:PermisoVehiculoService , 
-    private vehiculoService:VehiculoServiceService,
-    private usuariosService:UsuariosService) { 
+    private vehiculoService:VehiculoServiceService, 
+    private messageService:MessageService) { 
    
   }
 
-  ngOnInit(): void { 
-    this.loading = true;
+  ngOnInit(): void {  
     this.searchPermisoVehiculo();
   }
 
   searchPermisoVehiculo()
   {
+    //console.log(this.permiso)
     this.permisoVehiculoService.findByPermiso(this.permiso).subscribe((resp:any) => {
           this.listPermisoVehiculo = resp.response;
-          this.loading = false;
+          
+    } , () => {
+      this.messageService.add({severity:'error' , summary:'Error inesperado' , detail:'Consulte con administración'})
     })
   }
 
   openDialog()
   {
       this.dialog = true;
+      this.searchConductor();
   }
 
   closeDialog()
@@ -101,16 +105,13 @@ onSubmit()
 {
   if(this.editForm.valid)
   {
+    //console.log(this.editForm.value)
     this.permisoVehiculoService.permisoVehiculoSave(this.editForm.value).subscribe((resp:any) => {
       this.closeDialog();
       this.searchPermisoVehiculo();
     }, error => {
       this.closeDialog();
-      Swal.fire({
-        title:'Oops..',
-        text: error.error.response,
-        icon:'error'
-      })
+      this.messageService.add({severity:'error' , summary:'Error inesperado' , detail:'Consulte con administración'})
   })
   }
 }
@@ -126,45 +127,40 @@ onChangeSelect(event:any)
 
 editPreoperacion(item:any)
 {
-  this.listInspeccion = [];
-  this.loading = true;
+  this.listInspeccion = []; 
   this.vehiculoSelect = item;
   //console.log(item);
   this.vehiculoService.disctGeneralidades(item.permiso_vehiculo_id).subscribe((resp:any) => {
-        this.listDict = resp.response;
-        this.loading = false;
+        this.listDict = resp.response; 
+  } , () => {
+    this.messageService.add({severity:'error' , summary:'Error inesperado' , detail:'Consulte con administración'})
   })
 }
 
 addgeneralidad(item:any)
-{
-   this.loading = true;
+{ 
    //console.log(item);
    item.id_vehiculo = this.vehiculoSelect.permiso_vehiculo_id
-   console.log(item);
+   //console.log(item);
    this.vehiculoService.findByNameGeneralidadesVehiculos(item).subscribe((resp:any) => {
-    console.log(resp.response);
-    this.listInspeccion = resp.response; 
-     this.loading = false;
+   // console.log(resp.response);
+    this.listInspeccion = resp.response;  
+   } , () => {
+    this.messageService.add({severity:'error' , summary:'Error inesperado' , detail:'Consulte con administración'})
    })
 }
 
 onInspeccion(item:any ,estado:any)
 {
      
-  this.modalgeneralidades = false;
-  console.log(item);
+  this.modalgeneralidades = false; 
   item.inspeccion = estado;
 
       this.vehiculoService.editVehiculoGeneralides(item).subscribe((resp:any)=> {
         this.modalgeneralidades = true;
 
-      } , error => {
-        Swal.fire({
-          text:'Error inesperado',
-          title:'Oops..',
-          icon:'error'
-        })
+      } , () => {
+        this.messageService.add({severity:'error' , summary:'Error inesperado' , detail:'Consulte con administración'})
       })
 }
 
@@ -175,28 +171,41 @@ delete(item:any):void
       this.searchPermisoVehiculo();
       this.listDict = [];
       this.listInspeccion = [];
+    } , () => {
+      this.messageService.add({severity:'error' , summary:'Error inesperado' , detail:'Consulte con administración'})
     })
 }
 
  
 //buscar conductor
-searchConductor(string:any)
+searchConductor()
 {
-  this.usuariosService.findByName(string.query).subscribe((resp:any) => {
+  /*this.usuariosService.findByName(string.query).subscribe((resp:any) => {
     this.listConductor = resp;
+    console.log(resp);
+  })*/
+  this.permisoVehiculoService.getListEmpleadoActivePermiso(this.permiso).subscribe((resp:any) => {
+      this.listConductor = resp.response;
+  } , () => {
+    this.messageService.add({severity:'error' , summary:'Error inesperado' , detail:'Consulte con administración'})
   })
 }
 
 onChangeCoductor(event:any)
-{
-
-  this.editForm.get('conductor_id')?.setValue(event.id);
+{ 
+  this.editForm.get('conductor_id')?.setValue(event.value);
 }
 
 toback()
 {
   history.back();
 }
+
+
+refresh() {
+ this.searchPermisoVehiculo();
+  }
+   
 
 
 }

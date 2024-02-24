@@ -27,7 +27,11 @@ export class PreloadInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    this.preloadService.show();
+    
+    if(!request.headers.has('X-Skip-Loading'))
+    {
+      this.preloadService.show();
+    }
 
     const headers = new HttpHeaders({
       'Authorization' : `Bearer ${this.token}`

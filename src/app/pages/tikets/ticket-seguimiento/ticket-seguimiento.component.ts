@@ -27,7 +27,7 @@ export class TicketSeguimientoComponent implements OnInit {
   getlisSeguimiento()
   {
       this._tickerService.seguimientoByTicket(this.idTicket).subscribe((resp:any) => {
-        console.log(resp.response);
+        //console.log(resp.response);
         this.seguimiento = resp.response;
       })
   }
