@@ -4,8 +4,8 @@ import { environment } from 'src/environments/environment';
 import { Select } from '../../common/select-models';
 import {map , tap} from 'rxjs/operators';
 import { VehiculoQuery } from 'src/app/components/moto-svg/vehiculoQuery.model';
-//const url_base = environment.base_url;
-const url_base = '/repositories/backend_jwt_3_slim/public/';
+const url_base = environment.base_url;
+//const url_base = '/repositories/backend_jwt_3_slim/public/';
 
 @Injectable({
   providedIn: 'root'

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 import { catchError, map } from 'rxjs';
 
-//const base_url = environment.base_url;
-const base_url = '/repositories/backend_jwt_3_slim/public/';
+const base_url = environment.base_url;
+//const base_url = '/repositories/backend_jwt_3_slim/public/';
 @Injectable({
   providedIn: 'root'
 })

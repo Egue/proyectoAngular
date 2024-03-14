@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment.prod';
-//const url_base = environment.base_url;
-const url_base = '/repositories/backend_jwt_3_slim/public/';
+import { environment } from '../../environments/environment';
+const url_base = environment.base_url;
+//const url_base = '/repositories/backend_jwt_3_slim/public/';
 
 @Injectable({
   providedIn: 'root'

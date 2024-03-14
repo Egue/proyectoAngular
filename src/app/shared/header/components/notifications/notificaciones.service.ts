@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-const base_url = '/repositories/backend_jwt_3_slim/public/';
+import { environment } from 'src/environments/environment';
+
+const base_url = environment.base_url;
 @Injectable({
   providedIn: 'root'
 })

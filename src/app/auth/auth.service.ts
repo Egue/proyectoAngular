@@ -8,8 +8,8 @@ import { tap  ,map , catchError, timeout} from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 
-//const base_url = environment.base_url;
-const base_url = '/repositories/backend_jwt_3_slim/public/';
+const base_url = environment.base_url;
+//const base_url = '/repositories/backend_jwt_3_slim/public/';
 
 @Injectable({
   providedIn: 'root'
