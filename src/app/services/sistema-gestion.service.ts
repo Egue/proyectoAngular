@@ -6,8 +6,8 @@ import {map } from 'rxjs/operators'
 import { SGPermisoEmpleado } from '../models/sgPermisoEmpleado';
 import { SGPermisoActivo } from '../models/sgPermisoActivo.model'; 
 import { Observable } from 'rxjs';
-//const url_base = environment.base_url;
-const url_base = '/repositories/backend_jwt_3_slim/public/';
+const url_base = environment.base_url;
+//const url_base = '/repositories/backend_jwt_3_slim/public/';
 @Injectable({
   providedIn: 'root'
 })
@@ -255,6 +255,17 @@ export class SistemaGestionService {
   reporte_tree_node(fecha:any)
   {
     return this.http.post(`${url_base}seguridad/reportes/treeNode` , fecha);
+  }
+
+  /**PDF GENERATE */
+  generate_pdf_permiso(id:any)
+  {
+    return this.http.get(`${url_base}pdf/permiso/${id}` ,{ responseType: 'blob' });
+  }
+
+  generate_pdf_preoperacional(id:any)
+  {
+    return this.http.get(`${url_base}pdf/preoperacional/${id}` ,{ responseType: 'blob' });
   }
 
 }

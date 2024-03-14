@@ -5,8 +5,8 @@ import { map } from 'rxjs/operators';
 import { Peligro } from '../models/peligro.model';
 import { CargarPeligros } from '../interfaces/cargar-peligros.interface';
 
-//const url_base = environment.base_url;
-const url_base = '/repositories/backend_jwt_3_slim/public/';
+const url_base = environment.base_url;
+//const url_base = '/repositories/backend_jwt_3_slim/public/';
 
 @Injectable({
   providedIn: 'root'

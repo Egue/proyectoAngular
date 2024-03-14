@@ -8,8 +8,8 @@ import { of, Observable } from 'rxjs';
 import { Usuario } from '../models/usuario.model';
 import { IRole } from '../interfaces/role.interface';
 import { Rol } from '../models/role.model';
-//const base_url = environment.base_url;
-const base_url = '/repositories/backend_jwt_3_slim/public/';
+const base_url = environment.base_url;
+//const base_url = '/repositories/backend_jwt_3_slim/public/';
 @Injectable({
   providedIn: 'root'
 })
