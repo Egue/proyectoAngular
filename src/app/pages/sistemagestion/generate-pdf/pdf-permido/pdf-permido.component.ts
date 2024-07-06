@@ -47,11 +47,7 @@ export class PdfPermidoComponent implements OnInit {
       })
     }
   }
-
-  saveAs(name:string , pdf:Blob)
-  {
-    FileSaver.saveAs(pdf , name +'_export_' + new Date().getTime());
-  }
+ 
 
   error_pdf()
   {
@@ -60,5 +56,29 @@ export class PdfPermidoComponent implements OnInit {
       summary:'Error ',
       detail:'Error generando el Pdf'
     })
+  }
+  saveAs(name:string , pdf:Blob)
+  {
+    const fileName = this.generateFileName(name);
+
+    const blob = new Blob([pdf] , {type:'application/pdf'});
+
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+
+    a.href  = url;
+
+    a.download = fileName;
+
+    a.click();
+
+    window.URL.revokeObjectURL(url);
+  }
+
+  private generateFileName(baseName: string): string {
+    const now = new Date();
+    const formattedDate = now.toISOString().replace(/[:.]/g, '-');
+    return `${baseName}_${formattedDate}.pdf`;
   }
 }

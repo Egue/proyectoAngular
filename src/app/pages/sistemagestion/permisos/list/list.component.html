@@ -67,9 +67,9 @@
                                 <button pButton pRipple icon="pi pi-list" [hidden]="permiso.estado!=1" [disabled]="validarLlenado(permiso)" class="p-button-rounded p-button-primary mr2" [routerLink]="['/dashboard/permisoTrabajo' , permiso.id_permiso! , 'permiso']" [loading]="loading"></button>
                                 <!--<button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"  ></button>-->
                                 <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" [hidden]="permiso.estado!=1 || authService.usuario.id != permiso.id_usuario" (click)="inactive(permiso)"></button>
-                                <button pButton pRipple icon="pi pi-file-pdf" class="p-button-rounded p-button-danger" [routerLink]="['/dashboard/generate-pdf' , permiso.id_permiso! , 'pdf']" [hidden]="permiso.estado != 1"></button>
+                                <button pButton pRipple icon="pi pi-file-pdf" class="p-button-rounded p-button-danger" [routerLink]="['/dashboard/generate-pdf' , permiso.id_permiso! , 'pdf']"></button>
                                 <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success" [routerLink]="['/dashboard/firmas' , permiso.id_permiso! , 'supervisor']" [hidden]="authService.usuario.role == 'TECNICO_ST' || permiso.estado != 1"></button>
-                                <button pButton pRipple icon="pi pi-book" class="p-button-rounded p-button-success" [routerLink]="['/dashboard/permisoTrabajo' , permiso.id_permiso! , 'observacion']"></button>
+                                <button pButton pRipple icon="pi pi-book" class="p-button-rounded p-button-success" [routerLink]="['/dashboard/permisoTrabajo' , permiso.id_permiso! , 'observacion']" [hidden]="permiso.estado != 1" ></button>
                                 <button pButton pRipple icon="pi pi-times-circle" class="p-button-rounded p-button-danger" (click)="cerrarPermiso(permiso)" *ngif="permiso.estado != 2"></button>
                                 
                             </td>
