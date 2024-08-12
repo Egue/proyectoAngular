@@ -34,22 +34,7 @@
                 <h6 class="card-subtitle">Valide la información antes de firmar electrónicamente, ya que una vez firmada si realiza un cambio
                     la firma se invalida.
                 </h6>
-                <!--<p-table #dt [value]="list"   >
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Inspección</th>
-                        </tr>
-                    </ng-template>
-                    
-                    <ng-template pTemplate="body" let-item>
-                        <tr>
-                            <td>{{item.nombre}}</td>
-                            <td class="text-right"><span [class]="'product-badge status-'+(item.inspeccion ? item.inspeccion.toLowerCase():'')">{{item.inspeccion}}</span></td>
-                        </tr>
-                    </ng-template>
-
-                </p-table>-->
+                
                 <p-accordion *ngFor ="let empleado of infoPermiso">
                     <p-accordionTab  header="Generalidades">
                         <div class="to-do-widget m-t-20">
@@ -84,7 +69,7 @@
 
                                 <table class="table vm font-14 m-b-0">
                                     <tbody>
-                                        <tr *ngFor="let item of vehiculo.inspeccion" [ngClass]="{'table-success': item.inspeccion ==='Bueno','table-danger': item.inspeccion != 'Bueno'}">
+                                        <tr *ngFor="let item of vehiculo.inspeccion" [ngClass]="{'table-success': item.inspeccion ==='Bueno','table-danger': item.inspeccion === 'Malo'}">
                                         <td>{{item.item}}</td>
                                         <td>{{item.nombre}}</td>
                                        

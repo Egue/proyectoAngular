@@ -99,6 +99,11 @@ export class VehiculoServiceService {
   {
     return this.http.patch(`${url_base}seguridad/vehiculoGeneralidades/editInspeccion/${item.vehiculo_generalidades_id}` , item  );
   }
+  editDisctTrailer(item:any)
+  {
+    return this.http.patch(`${url_base}seguridad/vehiculoGeneralidades/editDisctTrailer/${item.id_vehiculo}` , item);
+  }
+
 
   deletePermisosVehiculos(item:any)
   {
