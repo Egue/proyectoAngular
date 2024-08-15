@@ -5,18 +5,47 @@
                 <h4 class="card-title"><i class="mdi mdi-format-list-bulleted-type"></i>Motos y Carros</h4>
                 <h6 class="card-subtitile">Registrados por la empresa y asociados a un empleado</h6>
                 <div>
-                    <h2 id="page-heading"  >
-                      <button pButton label="Limpiar Filtros" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(listVehiculos)" ></button>
-                        <p-button
+
+                   
+                      <p-toolbar>
+                        <div class="p-toolbar-group-left">
+                          <button pButton label="Listar Vehiculos" class="p-button-help mr-2  mb-2" icon="pi pi-list" (click)="get_vehiculos()" ></button>
+
+                          <button pButton label="Reporte por vehiculos" class="p-button-success mr-2 mb-2" icon="pi pi-chart-bar" (click)="show_reporte()" ></button>
+                          
+                          <button pButton label="Reporte pero permisos" class="p-button-warning mb-2" icon="pi pi-chart-pie" (click)="show_reporte_permiso()" ></button>
+                          
+                          
+                        </div>
+                        
+                        <div class="p-toolbar-group-right">
+                          <p-button
                           class="float-right jh-create-entity create-contacto"
                           [routerLink]="['/dashboard/vehiculo/new']"
                           icon="pi pi-plus"
                           iconPos="left"
                         >
                         </p-button>
-                      </h2>
+                        </div>
+                    </p-toolbar>
                       <br />
-                      <p-table
+                      
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="row animated fadeInDown" *ngIf="card.list">
+    <div class="col-md-12">
+      <div class="card">
+         <div class="card-body">
+          <p-table
+                        
                         #listVehiculos
                         [value]="listVehiculo"
                         [paginator] = "true"
@@ -26,6 +55,12 @@
                         currentPageReportTemplate ="Mostrando {first} de {last} de {totalRecords} resultados"
                         [rowsPerPageOptions]="[10,25,50]"
                       >
+                      <ng-template pTemplate="caption">
+                        <div class="flex align-items-center justify-content-between">
+                          <button pButton label="Limpiar Filtros" class="p-button-outlined mb-2" icon="pi pi-filter-slash" (click)="clear(listVehiculos)" ></button>
+                         
+                        </div>
+                    </ng-template>
                       <ng-template pTemplate="header">
                             <tr><th>Usuario Vinculado</th>
                                 <th>Nombre de tarjeta</th>
@@ -87,9 +122,64 @@
                                       
 
                       </p-table>
-                </div>
-
-            </div>
-        </div>
+         </div>
+      </div>
     </div>
 </div>
+
+
+
+<div class="row animated flip" *ngIf="card.report">
+  <div class="col-md-12">
+     <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4">
+            <label for="">Lista de Vehiculos</label>
+            <span class="p-fluid">
+              <p-dropdown [options]="listVehiculo" [(ngModel)]="selectedVehiculo" optionLabel="name_all"></p-dropdown>
+            </span>
+          </div>
+          <div class="col-md-6">
+            <label for="range">Rango Fechas</label>
+            <span class="p-fluid">
+              <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" inputId="range" dateFormat="yy-mm-dd" [showIcon]="true"></p-calendar>
+      
+            </span>
+          </div>
+          <div class="col-md-2  "> 
+            <label for="" class="text-white">search</label>
+             <span class="p-fluid">
+              <button pButton label="Buscar" class="p-button-success mb-2" icon="pi pi-chart-bar" (click)="search_reporte_kilometros()"  ></button>
+                          
+             </span>
+           
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-subtitle">
+                  Reporte  acumulado vehiculo {{selectedVehiculo.vehiculo_placa}}
+                </h4>
+                <p-chart type="bar" [data]="dataKilometrajeAcumulado" [options]="basicOptions"></p-chart>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-subtitle">
+                  Reporte  acumulado vehiculo {{selectedVehiculo.vehiculo_placa}}
+                </h4>
+                <p-chart type="bar" [data]="dataKilometrajeIndividual" [options]="basicOptions"></p-chart>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     </div>
+  </div>
+</div>
+<app-reportexdia *ngIf="card.reportday"></app-reportexdia>

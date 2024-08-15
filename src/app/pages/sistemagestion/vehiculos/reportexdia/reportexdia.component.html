@@ -1,0 +1,60 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-subtitle">Reporte diario por permisos</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="">Seleccione fecha</label>
+                        <span class="p-fluid">
+                            <p-calendar [(ngModel)]="value"></p-calendar>
+                        </span>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="" class="text-white">buscar</label>
+                        <span class="p-fluid">
+                            <button pButton label="Buscar" class="p-button-help mb-2" icon="pi pi-chart-bar" [disabled]="!value" (click)="search()"></button>
+                        </span>
+             
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <p-table
+                        *ngIf="listVehiculo.length"
+                        #listVehiculosReporte   
+                        [value]="listVehiculo"
+                        [paginator] = "true" 
+                        [rows]      =   "10"
+                        [showCurrentPageReport] = "true"
+                        currentPageReportTemplate ="Mostrando {first} de {last} de {totalRecords} resultados"
+                        [rowsPerPageOptions]="[10,25,50]"
+                      >
+                      <ng-template pTemplate="header">
+                        <tr>
+                            <th>Item</th>
+                            <th>Número Permiso</th>
+                            <th>Lugar</th>
+                            <th>Conductor</th>
+                            <th>Vehiculo</th>
+                            <th>Kilometraje</th>
+                        </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-vehi>
+                        <tr>
+                            <td>{{vehi.id_permiso}}</td>
+                            <td>{{vehi.prefijo}} {{vehi.indicativo}}</td>
+                            <td>{{vehi.lugar_de_trabajo}}</td>
+                            <td>{{vehi.user}}</td>
+                            <td>{{vehi.vehiculo_placa}} / Modelo: {{vehi.vehiculo_modelo}} / Cilindraje: {{vehi.vehiculo_cilindraje}}</td>
+                            <td>{{vehi.kilometro}}</td>
+                        </tr>
+                      </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
