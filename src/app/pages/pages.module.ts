@@ -6,79 +6,53 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
  
 
 import { SharedModule } from './../shared/shared.module';
-import { PagesComponent } from './pages.component';
-import { Grafica1Component } from './grafica1/grafica1.component';
-import { ProgressComponent } from './progress/progress.component';
+import { PagesComponent } from './pages.component'; 
 import { DashboardComponent } from './dashboard/dashboard.component'; 
-import { AccountSetthingsComponent } from './account-setthings/account-setthings.component';
-import { PromesasComponent } from './promesas/promesas.component';
-import { RxjsComponent } from './rxjs/rxjs.component';
+import { AccountSetthingsComponent } from './account-setthings/account-setthings.component'; 
 import { PermisosComponent } from './sistemagestion/permisos/permisos.component';
 import { RegistroEmpleadosComponent } from './sistemagestion/registro-empleados/registro-empleados.component';
- 
-import { UsuariosComponent } from './usuarios/usuarios/usuarios.component';
-import { CrearUsuariosComponent } from './usuarios/crear-usuarios/crear-usuarios.component';
-import { GeolocalizacionComponent } from './contratos/geolocalizacion/geolocalizacion.component';
+  
 import { PeligrosComponent } from './sistemagestion/peligros/peligros.component'; 
-import { CalendarModule } from 'primeng/calendar';
-import { RolesComponent } from './usuarios/roles/roles.component';
+import { CalendarModule } from 'primeng/calendar'; 
 
 //primeng
 import { AccordionModule } from 'primeng/accordion';  
 import { ButtonModule } from 'primeng/button';
 import { PaginatorModule } from 'primeng/paginator';
 import { TableModule} from 'primeng/table';
-import {ToolbarModule} from 'primeng/toolbar';
-import { SpRecaudoComponent } from './supergiros/sp-recaudo/sp-recaudo.component';
-import { PerfilComponent } from './usuarios/perfil/perfil.component';
-import { RcControlComponent } from './merkas/rc-control/rc-control.component';
+import {ToolbarModule} from 'primeng/toolbar'; 
+import { PerfilComponent } from './usuarios/perfil/perfil.component'; 
 import { FileUploadModule } from 'primeng/fileupload';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { GeneralidadesComponent } from './sistemagestion/generalidades/generalidades.component';
 import { TabViewModule } from 'primeng/tabview';
 import { FieldsetModule } from 'primeng/fieldset'; 
-import { EmpresaComponent } from './sistemagestion/empresa/empresa.component';
-import { GeolocalizarComponent } from './contratos/geolocalizar/geolocalizar.component'; 
+import { EmpresaComponent } from './sistemagestion/empresa/empresa.component'; 
 import { MessageModule } from 'primeng/message';
 import {CardModule} from 'primeng/card'; 
 import { ToastModule } from 'primeng/toast'; 
 
 @NgModule({
   declarations: [
-    DashboardComponent,
-    ProgressComponent,
-    Grafica1Component,
+    DashboardComponent, 
     PagesComponent,
-    AccountSetthingsComponent,
-    PromesasComponent,
-    RxjsComponent,
+    AccountSetthingsComponent, 
     PermisosComponent,
-    RegistroEmpleadosComponent,  
-    GeolocalizacionComponent,
-    PeligrosComponent, 
-    SpRecaudoComponent,
-    PerfilComponent,
-    RcControlComponent,
+    RegistroEmpleadosComponent,   
+    PeligrosComponent,  
+    PerfilComponent, 
     GeneralidadesComponent, 
-    EmpresaComponent,
-    GeolocalizarComponent, 
+    EmpresaComponent, 
 
   ],
   exports:[
-    DashboardComponent,
-    ProgressComponent,
-    Grafica1Component,
+    DashboardComponent,  
     PagesComponent,
-    AccountSetthingsComponent,
-    PromesasComponent,
-    RxjsComponent,
+    AccountSetthingsComponent,  
     PermisosComponent,
-    RegistroEmpleadosComponent,  
-    GeolocalizacionComponent,
-    PeligrosComponent, 
-    SpRecaudoComponent,
-    PerfilComponent,
-    RcControlComponent,
+    RegistroEmpleadosComponent,   
+    PeligrosComponent,  
+    PerfilComponent, 
     GeneralidadesComponent,
   ],
   imports: [
