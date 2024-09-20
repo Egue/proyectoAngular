@@ -13,6 +13,11 @@ import { AccordionModule } from "primeng/accordion";
 import { ProgressBarModule } from "primeng/progressbar";
 import { ComponetsModule } from "src/app/components/componets.module";
 
+import {ToolbarModule} from 'primeng/toolbar';
+import {ChartModule} from 'primeng/chart';
+import {CalendarModule} from 'primeng/calendar';
+import { ReportexdiaComponent } from './reportexdia/reportexdia.component';
+
 @NgModule({
     imports:[
         VehiculoRoutingModule , 
@@ -25,9 +30,12 @@ import { ComponetsModule } from "src/app/components/componets.module";
         DropdownModule,
         AccordionModule,
         ProgressBarModule,
-        ComponetsModule    
+        ComponetsModule    ,
+        ToolbarModule,
+        ChartModule,
+        CalendarModule
     ],
-    declarations: [ListComponent, VehiculoNewComponent, VehiculosAdjuntosComponent],
+    declarations: [ListComponent, VehiculoNewComponent, VehiculosAdjuntosComponent, ReportexdiaComponent],
     exports:[ListComponent , VehiculoNewComponent]
 })
 export class VehiculoModule{}

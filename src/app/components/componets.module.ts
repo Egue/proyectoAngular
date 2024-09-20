@@ -20,10 +20,18 @@ import { DialogModule} from 'primeng/dialog';
 import {   AutoCompleteModule } from 'primeng/autocomplete';
 import {SelectButtonModule} from 'primeng/selectbutton';
 
+import {InputNumberModule} from 'primeng/inputnumber';
+import {SpeedDialModule} from 'primeng/speeddial';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+
 import {ButtonModule} from 'primeng/button';
 import {  RouterModule } from '@angular/router';
 import { DrawComponent } from './draw/draw.component';  
 import { DropdownModule } from 'primeng/dropdown';
+import {TabViewModule} from 'primeng/tabview';
+import { VehiculoGeneralidadComponent } from './vehiculo-generalidad/vehiculo-generalidad.component';
+import { ToastModule } from 'primeng/toast';
+
 
 @NgModule({
   declarations: [
@@ -35,7 +43,8 @@ import { DropdownModule } from 'primeng/dropdown';
     MotoSvgComponent,
     UploadsDocumentoComponent,
     TableDocumentosComponent,
-    DrawComponent,  
+    DrawComponent,
+    VehiculoGeneralidadComponent,  
   ],
   exports:[
     IncrementadorComponent,
@@ -47,7 +56,7 @@ import { DropdownModule } from 'primeng/dropdown';
     UploadsDocumentoComponent,
     TableDocumentosComponent, 
   ],
-  imports: [
+  imports: [ 
     CommonModule,
     FormsModule,
     NgChartsModule,
@@ -61,7 +70,12 @@ import { DropdownModule } from 'primeng/dropdown';
     SelectButtonModule,
     ButtonModule,
     RouterModule,
-    DropdownModule
+    DropdownModule,
+    InputNumberModule,
+    TabViewModule,
+    SpeedDialModule,
+    ConfirmDialogModule,
+    ToastModule
   ]
 })
 export class ComponetsModule { }

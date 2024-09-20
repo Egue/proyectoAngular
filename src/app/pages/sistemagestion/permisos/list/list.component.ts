@@ -112,46 +112,24 @@ export class ListComponent implements OnInit {
     this.formPermiso.get('lugar_de_trabajo')?.setValue(this.formPermiso.get('lugar_de_trabajo')?.value.name); 
     if(this.formPermiso.valid)
     {  
-      
-      this.sistemaGestionService.savePermiso(this.formPermiso.value)
-        .subscribe((resp:any) => {
-          if(resp){ 
+       
+        this.sistemaGestionService.savePermiso(this.formPermiso.value).subscribe({
+          next:(resp:any) => {
             this.formPermiso.reset();
             this.modalEstado = true;
             this._messageService.add({severity:'success' , summary:'Permiso' , detail:'Creado con éxito'})
-             
-            //this.getListPermisos();
-            setTimeout(() => {
-              this.createEmpleadoPermiso(resp.response);
-            }, 2000);
-          }
-        } , error => {
-          this.modalEstado = true;
+            this.getListPermisos();
+          },
+          error:(error) => {
+            this.modalEstado = true;
           
-          this._messageService.add({severity:'error' , summary:'Error' , detail:this.errorhandlingService.error.error.response})
+            this._messageService.add({severity:'error' , summary:'Error' , detail:this.errorhandlingService.error.error.response});
+          }
         })
     }
   }
 
-  /**CREAR USUARIO COMO EMPLEADO_permiso retornado */
-  createEmpleadoPermiso(id:any)
-  {
-      if(id)
-      {
-        const data = {
-          id_permiso_trabajo : id,
-          id_user : this.authService.usuario.id,
-          id_empresa : this.authService.usuario.id_empresa
-        }
-        this.sistemaGestionService.savePermisoEmpleado(data).subscribe((resp:any) => {
-                    this._messageService.add({severity:'success' , summary:'Empleado' , detail:'Empleado adicionado'});
-                    this.getListPermisos();
-
-        } , error => {
-          this._messageService.add({severity:'error' , summary:'Error' , detail:this.errorhandlingService.error.error.response})
-        })
-      }
-  }
+  
 
 
   selectedTipo(event:any)
