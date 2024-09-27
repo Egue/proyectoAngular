@@ -17,9 +17,14 @@ import { ErrorHandlingService } from 'src/app/services/error-handling.service';
 })
 export class ListComponent implements OnInit {
 
+  public displayAuthorization:boolean = false;
 
+  public displayQuestions:boolean = false;
 
-
+  public selectedPermiso:any = {
+    user: "",
+    id_permiso : 0
+  };
   public value2:number = 50;
  
   public dialogFilter:boolean = true;
@@ -60,13 +65,18 @@ export class ListComponent implements OnInit {
       estado : ['' , Validators.required],
       fecha: ['' , Validators.required]
   })
+
+  //listPermisoAptitud
+  listPermisoAptitud:any[] =[];
+  listEmpleadoAptitud:any[] = [];
+
   constructor(public authService:AuthService , 
     private permisoService:PermisoService , 
     private fb:FormBuilder ,
     private sistemaGestionService:SistemaGestionService , 
     private _messageService:MessageService ,
     private errorhandlingService : ErrorHandlingService ,
-    private confirmationService:ConfirmationService) { }
+    private confirmationService:ConfirmationService ) { }
 
 
   ngOnInit(): void {
@@ -234,7 +244,7 @@ export class ListComponent implements OnInit {
       
 
         cerrarPermiso(permiso: any) {
-          console.log(permiso);
+          //console.log(permiso);
             this.confirmationService.confirm({
               message: 'Desea cerrar el permiso de trabajo?',
               header:'Eliminar Permiso' , 
@@ -251,9 +261,68 @@ export class ListComponent implements OnInit {
               this.permisoService.cerrarPermiso(id).subscribe(() => {
                 this.actualizar();
               } , () => {
-                console.log(this.errorhandlingService.error.error)
+                //console.log(this.errorhandlingService.error.error)
               })
           }
+
+
+    //Habilitar permiso
+
+    habilitar(permiso:any)
+    {
+      if(this.authService.usuario.role != "TECNICO_ST"){
+        
+        //display modal
+        this.displayAuthorization = true;
+        this.selectedPermiso.user = permiso.user;
+        this.selectedPermiso.id_permiso = permiso.id_permiso
+
+        this.permisoService.get_all_permiso_aptitud_by_permiso(permiso.id_permiso).subscribe({
+          next:(resp:any) => {
+           
+            this.listPermisoAptitud = resp.response
+          }
+        })
+        
+      }
+    }
+
+    view_search_empleado_aptitud(item:any){
+      this.displayQuestions = true;
+      this.permisoService.get_find_by_empleado_aptitud_by_id_permiso_aptitud(item.id_permiso_aptitud).subscribe({
+        next:(resp:any) =>{
+          
+          this.listEmpleadoAptitud = resp.response;
+        }
+      })
+    }
+
+    confirmation_permiso_aptitud(aptitud:any)
+    { 
+      //console.log(aptitud);
+
+      this.confirmationService.confirm({
+        message: 'Desea aprobar las preguntas de aptitud ?',
+        header:'Aprobar preguntas de Aptitud' , 
+        acceptLabel: 'Si' ,
+        accept: () => {
+             
+          
+          this.permisoService.updated_permiso_aptitud(aptitud.id_permiso_aptitud).subscribe({
+            next:(resp:any) => {
+              aptitud.estado = "APROVED";
+            }
+          });
+
+        }
+      })
+
+    }
+
+    update_status_permiso_aptitud(id_permiso_aptitud:any)
+    {
+        
+    }
 
 
 }

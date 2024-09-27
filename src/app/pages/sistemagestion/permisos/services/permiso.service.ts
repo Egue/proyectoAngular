@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -79,6 +79,52 @@ export class PermisoService {
   {
 
     return this.http.delete(`${url_base}seguridad/permiso/cerrado/${id}`);
+  }
+////////////////////////////////////////////////////////
+  permisoAptitud(data:any)
+  {
+    const params = new HttpParams()
+    .set("id_user" , data.id_user)
+    .set("id_permiso" , data.id_permiso);
+    return this.http.get(`${url_base}seguridad/preguntas/findbypermisoempleado` , {params:params}); 
+  }
+
+  create_list_aptitud(data:any)
+  {
+    return this.http.post(`${url_base}seguridad/preguntas/create`  , data );
+  }
+
+  /*empleadoAptitudInit(data:any)
+  {
+    const params = new HttpParams()
+                  .set("id_user" , data.id_user)
+                  .set("id_permiso" , data.id_permiso);
+    return this.http.get(`${url_base}seguridad/preguntas/findbypermisoandempleado` , {params:params});
+  }*/
+
+  updated_aptitud(data:any):Observable<any>{
+     
+    return this.http.put(`${url_base}seguridad/preguntas/empleadosaptitud` , data)
+  }
+
+  preguntas_validate(id_permiso_aptitud:number):Observable<any>
+  {
+    
+    return this.http.get(`${url_base}seguridad/preguntas/validate/${id_permiso_aptitud}`  );
+  }
+
+  get_all_permiso_aptitud_by_permiso(id_permiso:number):Observable<any>
+  {
+    return this.http.get(`${url_base}seguridad/preguntas/aptitudbypermiso/${id_permiso}`);
+  }
+
+  updated_permiso_aptitud(id_permiso_aptitud:any):Observable<any>
+  {
+    return this.http.get(`${url_base}seguridad/preguntas/aptitudupdate/${id_permiso_aptitud}`);
+  }
+
+  get_find_by_empleado_aptitud_by_id_permiso_aptitud(id_permiso_aptitud:number):Observable<any>{
+    return this.http.get(`${url_base}seguridad/preguntas/empleadosaptitud/${id_permiso_aptitud}`);
   }
  
 }

@@ -118,11 +118,14 @@ public infoPermiso:any;
         id_permiso: this._idPermiso,
         id_empresa: this._authService.usuario.id_empresa
     }
-    this._sistemaGestionService.generateTokenFirma(data).subscribe((resp:any) => {
-   
-        //mensage
+
+    this._sistemaGestionService.generateTokenFirma(data).subscribe({
+      next:(resp:any)=>{
+
+        this.item.step_1 = false;
+        this.item.step_2 = true;         
           this.messageService.add({severity:'success' ,summary:'Confirmación' , detail:'Correo enviado con éxito' });
-          /**intervalor 2 minutos */
+          
           this.intervalSusb = this.returnConteo().subscribe((valor) => {
             
              this.timeLeft--;
@@ -133,10 +136,32 @@ public infoPermiso:any;
               this.item.step_1 = true;
            }
           })
-          //
-    } , error => {
-      this.messageService.add({severity:'error', summary: 'Error', detail: this.errorHandlingService.error.error.response});
+      },
+      error:(error)=>{
+        //console.log(error);
+        //console.log(this.errorHandlingService.error);
+        if(this.errorHandlingService.error.status === 422)
+        {          
+             this.displayErrores(this.errorHandlingService.error.error.response);
+        }else{
+
+          this.messageService.add({severity:'error', summary: 'Error', detail: this.errorHandlingService.error.error.response});
+
+        }
+        
+      }
     })
+  }
+
+  displayErrores(data:any)
+  {
+    data.forEach((element:any) => {
+        this.messageService.add({
+          severity:'error',
+          summary:'Datos Pendientes',
+          detail: `${element.tipo} : ${element.value}`
+        })
+    });
   }
 
   validarToken()
@@ -220,8 +245,6 @@ public infoPermiso:any;
 
     beningFirmar(_t52: any) {
 
-      this.item.step_1 = false;
-      this.item.step_2 = true;
 
       this.generarToken();
       }

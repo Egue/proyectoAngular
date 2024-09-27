@@ -1,0 +1,67 @@
+<div class="row" *ngIf="display">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-subtitle">Condición Actual</h4>
+                 
+                    <!--<div class="col-md-12">
+                        <div class="d-flex justify-content-around">
+                            <span>
+                                {{item.nombre}}
+                            </span>
+                             
+                                <button pButton type="button" class="p-button-rounded p-button-sm"  icon="pi pi-ban" > </button>
+                                <button pButton type="button" class="p-button-rounded p-button-sm"  icon="pi pi-check-circle" ></button>
+                             
+                        </div>
+                                
+                            
+                                    <button pButton type="button" class="p-button-rounded p-button-sm" [ngClass]="{'p-button-danger':item.inspeccion === 'Malo'}" icon="pi pi-ban" (click)="buenoMalo(item,'Malo' , 'epp')"> </button>
+                                                    <button pButton type="button" class="p-button-rounded p-button-sm" [ngClass]="{'p-button-success':item.inspeccion === 'Bueno'}" icon="pi pi-check-circle" (click)="buenoMalo(item,'Bueno' , 'epp')"></button>
+                                 
+                             
+                    </div>-->
+                    <p-table #dtPreguntsd 
+                    [value]="listPreguntas"   
+                    responsiveLayout="stack">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Pregunta</th>
+                            <th>Respuesta</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-pregunta> 
+                        <tr>
+                            <td>{{pregunta.nombre}}</td>
+                            <td><button pButton type="button" class="p-button-rounded p-button-sm" [ngClass]="{'p-button-success':pregunta.respuesta === 'No'}" icon="pi pi-ban" label="No" (click)="respuesta(pregunta , 'No')"> </button>
+                                <button pButton type="button" class="p-button-rounded p-button-sm" [ngClass]="{'p-button-danger':pregunta.respuesta === 'Si'}" icon="pi pi-check-circle" label="Si" (click)="respuesta(pregunta , 'Si')" ></button></td>
+                        </tr>
+                    </ng-template>
+                    </p-table>
+                   
+                <div class="row mt-2">
+                    <div class="col-md-12 d-flex justify-content-end">
+                        <button pButton type="button" label="Continuar" (click)="next()" ></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="!display">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-subtitle">Validación de preguntas</h4>
+                <p-messages severity="info">
+                    <ng-template pTemplate> 
+                        <div class="ml-2">Las preguntas anteriormente contestadas deben ser validadas por el profesional de seguidad
+                            y salud en el trabajo
+                        </div>
+                    </ng-template>
+                </p-messages>
+            </div>
+        </div>
+    </div>
+</div>
+<p-toast></p-toast>

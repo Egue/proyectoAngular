@@ -74,6 +74,9 @@ export class PreloadInterceptor implements HttpInterceptor {
     }else if(error.status === 500)
     {
       this.errorHandlingService.handleError(error);
+    }else if(error.status === 422)
+    {
+      this.errorHandlingService.handleError(error);
     }
 
 
