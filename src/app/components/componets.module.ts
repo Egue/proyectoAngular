@@ -24,6 +24,7 @@ import {ButtonModule} from 'primeng/button';
 import {  RouterModule } from '@angular/router';
 import { DrawComponent } from './draw/draw.component';  
 import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { DropdownModule } from 'primeng/dropdown';
     SelectButtonModule,
     ButtonModule,
     RouterModule,
-    DropdownModule
+    DropdownModule,
+    InputNumberModule
   ]
 })
 export class ComponetsModule { }

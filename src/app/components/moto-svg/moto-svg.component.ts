@@ -1,6 +1,5 @@
-import { ThisReceiver } from '@angular/compiler';
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, ValidatorFn, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/auth/auth.service';
 import { PermisoVehiculoService } from 'src/app/pages/sistemagestion/permisos/services/permiso-vehiculo.service';
 import { VehiculoServiceService } from 'src/app/pages/sistemagestion/vehiculos/services/vehiculo-service.service'; 
@@ -42,7 +41,8 @@ public listConductor:any[] = [];
     permiso_id:['', Validators.required],
     vehiculo_id:['', Validators.required],
     tipo:['' , Validators.required],
-    conductor_id:['', Validators.required]
+    conductor_id:['', Validators.required],
+    kilometraje:[0, [Validators.required , this.greaterThanZeroValidator()]]
  })
 
  //disctin item
@@ -206,6 +206,11 @@ refresh() {
  this.searchPermisoVehiculo();
   }
    
-
+  greaterThanZeroValidator():ValidatorFn{
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const isValid = control.value > 0;
+      return isValid ? null : { greaterThanZero: { value: control.value } };
+    };
+  }
 
 }

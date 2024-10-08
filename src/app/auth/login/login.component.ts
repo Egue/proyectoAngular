@@ -46,8 +46,8 @@ export class LoginComponent {
             localStorage.removeItem('email');
           }
           this.router.navigateByUrl('/');
-    },  () => {
-
+    },  (error) => {
+      //console.log(this.errorHandlingService.error)
       this.messageService.add({severity:'warn' , summary:'Datos Errados' , detail:this.errorHandlingService.error.error.response})
 
     })

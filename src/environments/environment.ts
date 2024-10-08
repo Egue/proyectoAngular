@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  //base_url:'http://localhost:8081/public/'
-  base_url:'https://permisos.comunicamosmas.com/back/public/'
+  base_url:'http://localhost:8080/public/'
+  //base_url:'https://permisos.comunicamosmas.com/back/public/'
 };
 
 /*
