@@ -64,7 +64,7 @@
                             <td><span class="p-column-title"><strong>Avance</strong></span>
                                 <p-knob [(ngModel)]="permiso.avance" [readonly]="true" [size]="50"></p-knob></td>
                             <td><!--<span class="p-column-title"><strong>Acciones</strong></span>-->
-                                <button pButton pRipple icon="pi pi-list" [hidden]="permiso.estado!=1" [disabled]="validarLlenado(permiso)" class="p-button-rounded p-button-primary mr2" [routerLink]="['/dashboard/permisoTrabajo' , permiso.id_permiso! , 'permiso']" [loading]="loading"></button>
+                                <button pButton pRipple icon="pi pi-list" [hidden]="permiso.estado!=1" [disabled]="validarLlenado(permiso)" class="p-button-rounded p-button-primary mr2" [routerLink]="['/dashboard/permisoTrabajo' , permiso.id_permiso! , 'preguntas']" [loading]="loading"></button>
                                 <!--<button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"  ></button>-->
                                 <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" [hidden]="permiso.estado!=1 || authService.usuario.id != permiso.id_usuario" (click)="inactive(permiso)"></button>
                                 <button pButton pRipple icon="pi pi-file-pdf" class="p-button-rounded p-button-danger" [routerLink]="['/dashboard/generate-pdf' , permiso.id_permiso! , 'pdf']"></button>

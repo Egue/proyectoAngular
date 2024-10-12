@@ -19,10 +19,12 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import {FileUploadModule} from 'primeng/fileupload';
 import {ImageModule} from 'primeng/image';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import { PreguntasComponent } from './preguntas/preguntas.component';
 @NgModule({
   declarations: [
     ListComponent,
-    PermisoObservacionComponent
+    PermisoObservacionComponent,
+    PreguntasComponent
   ],
   imports: [
     CommonModule,
@@ -42,6 +44,7 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     InputTextareaModule,
     FileUploadModule,
     ImageModule,
+    InputTextModule,
     ConfirmDialogModule
 
   ]

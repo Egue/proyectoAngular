@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -80,5 +80,20 @@ export class PermisoService {
 
     return this.http.delete(`${url_base}seguridad/permiso/cerrado/${id}`);
   }
+
+  ///aptitud
+  permisoAptitud(data:any):Observable<any>{
+
+    const params = new HttpParams().set("id_user" , data.id_user).set("id_permiso" , data.id_permiso);
+
+    return this.http.get(`${url_base}seguridad/preguntas/findbypermisoempleado` , {params:params})
+  }
+
+  updated_permiso_aptitud(data:any)
+  {
+    return this.http.post(`${url_base}seguridad/preguntas/updateaptitud` , data);
+  }
+
+   
  
 }

@@ -1,0 +1,57 @@
+   [ 
+     {
+        "titulo":"ANTECEDENTES",
+        "preguntas":[
+        {"title":"Hipertension Arterial NO Controlado" , "respuesta":""},
+        {"title":"Daltanismo (Adecuada discriminación de colores)" , "respuesta":""},
+        {"title":"Diabetes o Hipoglucemia NO Controladas" , "respuesta":""},
+        {"title":"Claustrofobia" , "respuesta":""},
+        {"title":"Anosmia (Incapacidad  para percibir olores)" , "respuesta":""},
+        {"title":"Trastorno Cronico De La Piel" , "respuesta":""},
+        {"title":"Enfermedades Preexistentes" , "respuesta":""},
+        {"title":"Enfermedad Respiratoria (Asma, Bronquitis, Enfisema)" , "respuesta":""},
+        {"title":"Trastornos Psiquiátricos" , "respuesta":""},
+        {"title":"Anemia" , "respuesta":""},
+        {"title":"Fobia A Las Alturas" , "respuesta":""},
+        {"title":"Enfermedad Neurologica (Convulsiones, Vertigo, Epilepsia y/o ACV" , "respuesta":""},
+        {"title":"Trastorno De La Salud Relacionado Con Calor (Golpe, Sincope, Calambres)" , "respuesta":""},
+        {"title":"Otro" , "respuesta":""}
+         ]
+      },
+      {
+        "titulo":"CONDICIÓN ACTUAL",
+        "preguntas":[
+        {"title":"Trastorno Ostemuscular Activo" , "respuesta":""},
+        {"title":"Trastornos del Equilibrio, Mareo, Vértigo" , "respuesta":""},
+        {"title":"Trastorno del sueño" , "respuesta":""},
+        {"title":"Trastorno Auditivo" , "respuesta":""},
+        {"title":"Enfermedad Diarreica, infecciosa o febril aguda" , "respuesta":""},
+        {"title":"Consumo de Alcohol y/o Drogas Psicoactivas Hasta 24 Horas Antes" , "respuesta":""},
+        {"title":"Trastorno Visual" , "respuesta":""},
+        {"title":"Trastorno Respiratorio" , "respuesta":""},
+        {"title":"Vómito" , "respuesta":""},
+        {"title":"Comsumo de Medicamentos Que Afectan Organos de los Sentidos, Capacidad De Reacción, Vigilia o Función Neuromuscular" , "respuesta":""},
+        {"title":"Otro" , "respuesta":""}
+         ]
+      },
+      
+      {
+        "titulo":"CUESTIONARIO",
+        "preguntas":[
+        {"title":"¿En los últimos días ha presentado algún síntoma o signo de enfermedad cuál?" , "respuesta":"" , "Observacion":""},
+        {"title":"¿Cree usted tener alguna enfermedad que le impida realizar este trabajo? ¿por qué)" , "respuesta":"" , "Observacion":""},
+        {"title":"¿Ha realizado trabajos similares anteriormente?" , "respuesta":"" , "Observacion":""},
+        {"title":"¿Conoce usted el procedimiento los peligros y riesgos de la actividad que va a realizar?" , "respuesta":"" , "Observacion":""},
+        {"title":"¿Ha tenido algún incidente realizando trabajos similares?" , "respuesta":"" , "Observacion":""},
+        {"title":"¿Su certificación en alturas está vigente? Referencia la fecha." , "respuesta":"" , "Observacion":""},
+        {"title":"¿A qué horas fue su última comida?" ,  "Observacion":""},
+        {"title":"¿A qué horas empezó este turno?" ,   "Observacion":""},
+        {"title":"¿Ingirió alcohol en las últimas 24 horas?" , "respuesta":""},
+        {"title":"Presión arterial" ,  "Observacion":""},
+        {"title":"Frecuencia Cardiaca" ,  "Observacion":""},
+        {"title":"Temperatura corporal" ,  "Observacion":""},
+        {"title":"Nivel de Oxigeno en la sangre" ,  "Observacion":""}
+         ]
+      }
+    ]
+

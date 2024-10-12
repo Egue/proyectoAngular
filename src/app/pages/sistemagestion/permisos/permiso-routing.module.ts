@@ -5,6 +5,8 @@ import { PermisosComponent } from "./permisos.component";
 import { PermisoRoutingResolveService } from "./services/permiso-routing-resolve.service";
 import { PermisoObservacionComponent } from "./permiso-observacion/permiso-observacion.component";
 import { ObservacionRoutingResolveService } from "./services/observacion-routing-resolve.service";
+import { PreguntasComponent } from "./preguntas/preguntas.component";
+import { PreguntasResolverService } from "./services/preguntas-routing-resolve.service";
 
 
 const permisoRouter:Routes = [
@@ -20,6 +22,14 @@ const permisoRouter:Routes = [
             permiso: PermisoRoutingResolveService
         },
         data: {titulo:'Permiso Trabajo'}
+    },
+    {
+        path:':id/preguntas',
+        component:PreguntasComponent,
+        resolve:{
+            permiso:PreguntasResolverService
+        },
+        data:{titulo:'Preguntas'}
     },
     {
         path:':id/observacion',
