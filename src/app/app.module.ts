@@ -12,14 +12,14 @@ import { environment } from '../environments/environment';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PreloadService } from './components/preload/service/preload.service';
 import { PreloadInterceptor } from './preload.interceptor';
-import { PreloadModule } from './components/preload/preload.module'; 
+import { PreloadModule } from './components/preload/preload.module';  
  
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NopagefoundComponent, 
+    NopagefoundComponent,
     
   ],
   imports: [

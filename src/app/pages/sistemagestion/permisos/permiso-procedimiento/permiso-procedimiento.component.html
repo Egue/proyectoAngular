@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <button type="button" class="btn btn-danger m-r-10 m-b-10" (click)="back()"><i class="mdi mdi-arrow-left-bold"></i></button>
+            
+                <h6 class="card-subtitle">Usar <i class="mdi mdi-arrow-left-bold"></i> para regresar  , de click en cada item para agregar el Procedimiento, si  desea eliminar alguno de click en  el icono <i class="pi pi-times"></i></h6>
+                <div class="row">
+                    <div class="col-md-12">
+                        <span  *ngFor="let item of listProcedimientos" (click)="add(item)" style="cursor: pointer;">
+                            <p-tag value="{{item}}" 
+                            severity="listSelected[item] ? 'success':'info'"
+                            styleClass="mr-2 mt-2" 
+                            ></p-tag></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-subtitle">Procedimiento en el trabajo:</h4>
+                <div class="row">
+                    <div class="cold-md-12">
+                        <p-chip *ngFor="let item of listSelected" label="{{item}}" [removable]="true" (onRemove)="onRemove(item)"></p-chip>
+                    </div>
+                </div>
+                <div class="row mt-2" *ngIf="listSelected.length">
+                    <div class="col-md-12 d-flex flex-row-reverse">
+                        <p-button label="Guardar" icon="pi pi-save" iconPos="right" (click)=save() ></p-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-toast></p-toast>

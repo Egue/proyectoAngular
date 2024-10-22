@@ -122,49 +122,30 @@ export class PermisosComponent implements OnInit {
         {label:'Peligros' , icon:'pi pi-bolt' , url:'./assets/images/seguridad/peligro.png', status:'true', link:'/dashboard/permisoPeligros',idpermiso:this.permisosActivos.id_permiso , router:'add'},
         {label:'Preoperacional' , icon:'pi pi-bookmark-fill' , url:'./assets/images/seguridad/preoperacionl.png', status:'false', link:'/dashboard/elementos-epp' , idpermiso:this.permisosActivos.id_permiso ,router:'add'},
         {label:'Inspección' , icon:'pi pi-check-circle' , url:'./assets/images/seguridad/inspeccion.png',status:'false', link:'/dashboard/permisoInspeccion', idpermiso:this.permisosActivos.id_permiso , router:'add'},
-        {label:'firmar' , icon:'pi pi-pencil' , url:'./assets/images/seguridad/firma.png',status:'false', link:'/dashboard/firmas' , idpermiso:this.permisosActivos.id_permiso, router:'empleado'}
+        {label:'Procedimientos' , url:'./assets/images/seguridad/engineering.png', status:false , link:'/dashboard/permisoTrabajo' , idpermiso:this.permisosActivos.id_permiso, router : 'procedimiento'},
+        {label:'Firmar' , icon:'pi pi-pencil' , url:'./assets/images/seguridad/firma.png',status:'false', link:'/dashboard/firmas' , idpermiso:this.permisosActivos.id_permiso, router:'empleado'},
       ];
     }else{
       this.items = [
            {label:'Preoperacional' , icon:'pi pi-bookmark-fill' , url:'./assets/images/seguridad/preoperacionl.png', status:'false', link:'/dashboard/elementos-epp' , idpermiso:this.permisosActivos.id_permiso ,router:'add'},
+        {label:'Procedimientos' , url:'./assets/images/seguridad/engineering.png', status:false , link:'/dashboard/permisoTrabajo' , idpermiso:this.permisosActivos.id_permiso, router : 'procedimiento'},
            {label:'firmar' , icon:'pi pi-pencil' , url:'./assets/images/seguridad/firma.png',status:'false', link:'/dashboard/firmas' , idpermiso:this.permisosActivos.id_permiso, router:'empleado'}
           ];
     }
   }
-
  
-
-  //consultar si existe un permiso activo
+ 
   getListPermisoOpen()
   {
-    this.cargando = true; //un modal de true
-    //consulta por id de usuario
+    this.cargando = true;  
     this.sistemaGestionService.getListPermisoOpen(this.authService.usuario.id)
-              .subscribe((resp) => {
-                //asignamos respuesta a permisosActivos
+              .subscribe((resp) => { 
                   this.permisosActivos = resp;
-                  this.cargando = false;//quitamos el false
-                  /*if(this.permisosActivos.length > 0)
-                  { 
-                    console.log(this.permisosActivos);
-                    //this.getlistEmpleadoPermiso();
-                    //this.getListPermisoPeligro();
-                    this.lugarTrabajo =  this.permisosActivos[0].lugar_de_trabajo;
-                    this.sinPermisos = false;//desaárece el boton
-                  }else{
-                    //la respuesta es q no tiene permisos se activa boton
-                    this.sinPermisos = true;
-                  }*/
+                  this.cargando = false;
               })
   }
 
-
-  
-  
-  
-
-
-  //functiojn primeng
+ 
   next()
   {
     this.first = this.first + this.rows;

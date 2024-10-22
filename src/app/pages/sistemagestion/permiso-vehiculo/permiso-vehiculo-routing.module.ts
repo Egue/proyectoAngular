@@ -13,7 +13,7 @@ const pvehiculo:Routes = [
         resolve: {
             permiso: PermisoVehiculoRoutingResolveService,
         },
-        data:{titulo: 'Peligros'},
+        data:{titulo: 'Inspección Vehiculos'},
     },
     
 ];

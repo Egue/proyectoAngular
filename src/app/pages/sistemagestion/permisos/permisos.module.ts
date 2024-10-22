@@ -20,11 +20,15 @@ import {FileUploadModule} from 'primeng/fileupload';
 import {ImageModule} from 'primeng/image';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import { PreguntasComponent } from './preguntas/preguntas.component';
+import { PermisoProcedimientoComponent } from './permiso-procedimiento/permiso-procedimiento.component';
+import { TagModule } from 'primeng/tag';
+import { ChipModule } from 'primeng/chip';
 @NgModule({
   declarations: [
     ListComponent,
     PermisoObservacionComponent,
-    PreguntasComponent
+    PreguntasComponent,
+    PermisoProcedimientoComponent
   ],
   imports: [
     CommonModule,
@@ -45,7 +49,9 @@ import { PreguntasComponent } from './preguntas/preguntas.component';
     FileUploadModule,
     ImageModule,
     InputTextModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    TagModule,
+    ChipModule
 
   ]
 })

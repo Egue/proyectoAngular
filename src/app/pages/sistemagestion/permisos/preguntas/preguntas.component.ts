@@ -40,11 +40,11 @@ export class PreguntasComponent implements OnInit {
 
     this._permisoService.permisoAptitud(data).subscribe({
       next:(resp:any) => {
-      console.log(resp)
+      //console.log(resp)
       this.preguntas = resp.response;
     },
     error:(error) => {
-      console.log(error)
+      //console.log(error)
     }
   })
   }

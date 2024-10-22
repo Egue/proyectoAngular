@@ -94,6 +94,25 @@ export class PermisoService {
     return this.http.post(`${url_base}seguridad/preguntas/updateaptitud` , data);
   }
 
+  //procedimientos
+  search_procedimientos_generalidades()
+  {
+    return this.http.get(`${url_base}seguridad/procedimiento/list`);
+  }
+
+  save_procedimientos(prodecimientos:any)
+  {
+    return this.http.post(`${url_base}seguridad/procedimiento` , prodecimientos);
+  }
+
+  get_procedimientos_by_user_permiso(data:any)
+  {
+    const params = new HttpParams().set("id_user" , data.id_user).set("id_permiso" , data.id_permiso);
+
+    return this.http.get(`${url_base}seguridad/procedimiento` , {params:params});
+  }
+
+
    
  
 }
