@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Permiso } from 'src/app/models/permiso.model';
 import * as FileSaver from 'file-saver';
 import { MessageService } from 'primeng/api';
+import { PermisoService } from '../../permisos/services/permiso.service';
 
 @Component({
   selector: 'app-pdf-permido',
@@ -16,14 +17,19 @@ import { MessageService } from 'primeng/api';
 export class PdfPermidoComponent implements OnInit {
 
   private _id:any;
+
+  public listEmpleados:any[] =[];
  
-  constructor(private _sistemagestionService:SistemaGestionService , private route:ActivatedRoute , private messageService:MessageService) { 
+  constructor(private _sistemagestionService:SistemaGestionService , private route:ActivatedRoute , private messageService:MessageService ,
+    private _permisoService:PermisoService
+    ) { 
     
     this._id = route.snapshot.params['id'];
      
   }
 
   ngOnInit(): void { 
+    this.find_empleado_by_encuesta();
   }
 
   download(tipo:string)
@@ -80,5 +86,26 @@ export class PdfPermidoComponent implements OnInit {
     const now = new Date();
     const formattedDate = now.toISOString().replace(/[:.]/g, '-');
     return `${baseName}_${formattedDate}.pdf`;
+  }
+
+  find_empleado_by_encuesta()
+  {
+    this._permisoService.encuesta_find_by_permiso(this._id).subscribe({
+      next:(resp:any) => {
+        this.listEmpleados = resp.response;
+      }
+    })
+  }
+
+  certificadoAptitud(item:any)
+  {
+    this._permisoService.pdf_encuenta(item).subscribe({
+      next:(resp:Blob)=>{
+        this.saveAs("certificado_" , resp);
+      },
+      error:(error)=>{
+        this.error_pdf()
+      }
+    })
   }
 }

@@ -94,6 +94,18 @@ export class PermisoService {
     return this.http.post(`${url_base}seguridad/preguntas/updateaptitud` , data);
   }
 
+  encuesta_find_by_permiso(permiso:number){
+    const params = new HttpParams().set("id_permiso" , permiso);
+    return this.http.get(`${url_base}pdf/encuesta/list` , {params:params});
+  }
+
+  pdf_encuenta(data:any)
+  {
+    const params = new HttpParams().set("id_permiso" , data.id_permiso).set("id_permiso_aptitud" , data.id_permiso_aptitud);
+
+    return this.http.get(`${url_base}pdf/encuesta/pdf` , {params:params , responseType: 'blob'});
+  }
+
   //procedimientos
   search_procedimientos_generalidades()
   {

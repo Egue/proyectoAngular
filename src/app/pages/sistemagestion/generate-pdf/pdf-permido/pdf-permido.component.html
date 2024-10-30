@@ -19,8 +19,13 @@
                             <td>Inspección preoperacional de vehiculo</td>
                             <td><i class="pi pi-cloud-download cursor" (click)="download('preoperacional')"></i></td>
                         </tr>
+                        <tr *ngFor="let empleado of listEmpleados">
+                            <td>Encuesta Aptitud "{{empleado.user}}"</td>
+                            <td><i class="pi pi-cloud-download cursor" (click)="certificadoAptitud(empleado)"></i></td>
+                        </tr>
                     </tbody>
                 </table>
+                 
             </div>
         </div>
     </div>
