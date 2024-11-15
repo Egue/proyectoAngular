@@ -17,7 +17,7 @@ export class Usuario {
 
     get imagenUrl()
     {
-        const base = 'https://apps.internetinalambrico.com.co/Files/profile';
+        const base = 'https://permisos.comunicamosmas.com/Files/profile';
         return `${base}/${this.url_img}`;
     }
 }

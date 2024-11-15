@@ -210,7 +210,7 @@ export class FirmaJefesComponent implements OnInit {
         //console.log(resp.response);
         this.listFirmas = resp.response;
         this.listFirmas.forEach(element => {
-          element.url_img = `https://apps.internetinalambrico.com.co/Files/profile/${element.url_img}`
+          element.url_img = `https://permisos.comunicamosmas.com/Files/profile/${element.url_img}`
         })
         
       })

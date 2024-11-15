@@ -91,7 +91,7 @@ export class PermisoObservacionComponent implements OnInit {
 
   url(item:any):string
   {
-    return `https://internetinalambrico.com.co/apps/Files/permisos/${item.id_permiso}/${item.url_img}`
+    return `https://permisos.comunicamosmas.com/Files/permisos/${item.id_permiso}/${item.url_img}`
   }
 
   class(item:any):string
@@ -105,7 +105,7 @@ export class PermisoObservacionComponent implements OnInit {
 
   img(item:any):string
   {
-    return `https://apps.internetinalambrico.com.co/Files/profile/${item.photo}`
+    return `https://permisos.comunicamosmas.com/Files/profile/${item.photo}`
   }
 
  
