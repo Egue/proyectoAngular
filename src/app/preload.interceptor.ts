@@ -34,7 +34,7 @@ export class PreloadInterceptor implements HttpInterceptor {
     }
 
     const headers = new HttpHeaders({
-      'Authorization' : `Bearer ${this.token}`
+      'X-Auth-Token' : `${this.token}`
     })
 
     const reqClone =  request.clone({
