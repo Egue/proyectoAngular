@@ -34,7 +34,7 @@ export class PreloadInterceptor implements HttpInterceptor {
     }
 
     const headers = new HttpHeaders({
-      'Authorization' : `Bearer ${this.token}`
+      'X-Auth-Token' : `${this.token}`
     })
 
     const reqClone =  request.clone({
@@ -72,6 +72,9 @@ export class PreloadInterceptor implements HttpInterceptor {
     {
       this.errorHandlingService.handleError(error);
     }else if(error.status === 500)
+    {
+      this.errorHandlingService.handleError(error);
+    }else if(error.status === 422)
     {
       this.errorHandlingService.handleError(error);
     }

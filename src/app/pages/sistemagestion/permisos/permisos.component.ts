@@ -1,19 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import {TabViewModule} from 'primeng/tabview';
-import {ButtonModule} from 'primeng/button';
-import {CalendarModule} from 'primeng/calendar';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core'; 
+import { FormBuilder } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { SistemaGestionService } from 'src/app/services/sistema-gestion.service';
-import { AuthService } from 'src/app/auth/auth.service';
-import {PeligrosService} from 'src/app/services/peligros.service';
-
-import {FieldsetModule} from 'primeng/fieldset';
+import { AuthService } from 'src/app/auth/auth.service'; 
 import { SGEmpleado } from 'src/app/models/sgEmpleado.model';
 import Swal from 'sweetalert2';
-import { SGPermisoActivo } from 'src/app/models/sgPermisoActivo.model';
-import {ProgressBarModule} from 'primeng/progressbar';
-import { MenuItem } from 'primeng/api';
+import { SGPermisoActivo } from 'src/app/models/sgPermisoActivo.model'; 
 import { ActivatedRoute, Router } from '@angular/router';
 import { PermisoService } from './services/permiso.service';
 @Component({

@@ -28,4 +28,4 @@ export class PermisoRoutingResolveService implements Resolve<null>{
         }
         return of(null);
     }
-}
+} 

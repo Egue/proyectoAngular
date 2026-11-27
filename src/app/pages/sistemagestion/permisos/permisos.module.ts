@@ -13,16 +13,18 @@ import { ToolbarModule } from 'primeng/toolbar';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import {KnobModule} from 'primeng/knob';
 import { DialogModule } from 'primeng/dialog';
-import { PermisoObservacionComponent } from './permiso-observacion/permiso-observacion.component';
-import { InputTextModule } from 'primeng/inputtext';
+import { PermisoObservacionComponent } from './permiso-observacion/permiso-observacion.component'; 
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import {FileUploadModule} from 'primeng/fileupload';
 import {ImageModule} from 'primeng/image';
-import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmDialogModule} from 'primeng/confirmdialog'; 
+import { PermisoPreguntasComponent } from './permiso-preguntas/permiso-preguntas.component';
+import { TagModule } from 'primeng/tag';
 @NgModule({
   declarations: [
     ListComponent,
-    PermisoObservacionComponent
+    PermisoObservacionComponent,
+    PermisoPreguntasComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +44,8 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     InputTextareaModule,
     FileUploadModule,
     ImageModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    TagModule
 
   ]
 })

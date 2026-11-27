@@ -64,13 +64,16 @@
                             <td><span class="p-column-title"><strong>Avance</strong></span>
                                 <p-knob [(ngModel)]="permiso.avance" [readonly]="true" [size]="50"></p-knob></td>
                             <td><!--<span class="p-column-title"><strong>Acciones</strong></span>-->
-                                <button pButton pRipple icon="pi pi-list" [hidden]="permiso.estado!=1" [disabled]="validarLlenado(permiso)" class="p-button-rounded p-button-primary mr2" [routerLink]="['/dashboard/permisoTrabajo' , permiso.id_permiso! , 'permiso']" [loading]="loading"></button>
+                                <button pButton pRipple icon="pi pi-list" [hidden]="permiso.estado!=1" [disabled]="validarLlenado(permiso)" class="p-button-rounded p-button-primary mr2" [routerLink]="['/dashboard/permisoTrabajo' , permiso.id_permiso! , 'preguntas']" [loading]="loading"></button>
                                 <!--<button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"  ></button>-->
                                 <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" [hidden]="permiso.estado!=1 || authService.usuario.id != permiso.id_usuario" (click)="inactive(permiso)"></button>
                                 <button pButton pRipple icon="pi pi-file-pdf" class="p-button-rounded p-button-danger" [routerLink]="['/dashboard/generate-pdf' , permiso.id_permiso! , 'pdf']"></button>
                                 <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success" [routerLink]="['/dashboard/firmas' , permiso.id_permiso! , 'supervisor']" [hidden]="authService.usuario.role == 'TECNICO_ST' || permiso.estado != 1"></button>
                                 <button pButton pRipple icon="pi pi-book" class="p-button-rounded p-button-success" [routerLink]="['/dashboard/permisoTrabajo' , permiso.id_permiso! , 'observacion']" [hidden]="permiso.estado != 1" ></button>
-                                <button pButton pRipple icon="pi pi-times-circle" class="p-button-rounded p-button-danger" (click)="cerrarPermiso(permiso)" *ngif="permiso.estado != 2"></button>
+                                <button pButton pRipple icon="pi pi-times-circle" class="p-button-rounded p-button-danger" (click)="cerrarPermiso(permiso)" [hidden]="permiso.estado != 2"></button>
+                                <button pButton pRipple icon="pi pi-lock" class="p-button-rounded p-button-warning" (click)="habilitar(permiso)"></button>
+                                
+                                
                                 
                             </td>
                         </tr>
@@ -165,6 +168,56 @@
     </div>
 </div>
 </div>
+<!--
+    Button activate por el sr hss
+-->
+<p-dialog header="Permisos N° {{selectedPermiso.id_permiso}}" [(visible)]="displayAuthorization" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}">
+    <div class="row">
+        <div class="col-md-12">
+            <span>Creado Por: </span> {{selectedPermiso.user}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <p-table #permisoAptitud 
+            [value]="listPermisoAptitud"    
+            responsiveLayout="stack" >
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Empleado</th>
+                <th>Estado</th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-aptitud>
+            <tr>
+                <td><span class="p-column-title"><strong>Empleado</strong></span>{{aptitud.user}}</td>
+                <td><span class="p-column-title"><strong>Estado</strong></span>{{aptitud.estado}}</td>
+                <td >
+                    <button 
+                        pButton 
+                        pRipple 
+                        icon="pi pi-check-circle" 
+                        class="p-button-rounded p-button-success"
+                        [hidden]="aptitud.estado != 'PENDING'" 
+                        (click)="confirmation_permiso_aptitud(aptitud)"
+                        ></button>
+                    <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-info" (click)="view_search_empleado_aptitud(aptitud)" ></button>
+                </td>
+            </tr>
+        </ng-template>
+        </p-table>
+        </div>
+    </div>
 
 
+</p-dialog>
+<!--preguntas-->
+<p-dialog header="Preguntas" [(visible)]="displayQuestions" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}">
+    <div class="row">
+        <div class="col-md-12"> 
+            <p-tag *ngFor="let item of listEmpleadoAptitud" value="{{item.nombre}}" [severity]="item.respuesta === 'Si' ? 'danger' : 'info'"></p-tag>
+        </div>
+    </div>
+</p-dialog>
 <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
